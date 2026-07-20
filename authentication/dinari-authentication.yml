@@ -1,0 +1,23 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dinari-openapi-original.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyId
+  type: apiKey
+  in: header
+  parameter: X-API-Key-Id
+  description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+  sources:
+  - openapi/dinari-openapi-original.yml
+- name: ApiSecretKey
+  type: apiKey
+  in: header
+  parameter: X-API-Secret-Key
+  description: API Secret Key that is only shown once at API Key creation.
+  sources:
+  - openapi/dinari-openapi-original.yml
