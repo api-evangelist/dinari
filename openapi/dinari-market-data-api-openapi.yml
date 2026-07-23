@@ -1,0 +1,896 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts Market Data API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: Market Data
+  description: '**Dinari provides basic market data for `Stocks` and `Alloys` that are available to transact on.**
+
+
+    This data is provided on a best-effort basis and we recommend using a dedicated provider for more intensive market data needs.'
+paths:
+  /api/v2/market_data/alloys/:
+    get:
+      parameters:
+      - in: query
+        name: symbols
+        description: If set, this endpoint will return Alloys that match the symbols specified
+        schema:
+          type: array
+          items:
+            type: string
+        required: false
+        explode: true
+        style: form
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAlloyResponseV1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Alloys
+      description: Returns available `Alloys` with cursor-based pagination.
+      operationId: getAlloys
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/alloys/{alloy_id}/current_price:
+    parameters:
+    - in: path
+      name: alloy_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlloyPriceV1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Alloy current price
+      description: Get the current price for a specified `Alloy`.
+      operationId: getAlloyCurrentPrice
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/alloys/{alloy_id}/historical_prices/:
+    parameters:
+    - in: path
+      name: alloy_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: timespan
+        description: The timespan of the historical prices to query.
+        schema:
+          type: string
+          enum:
+          - DAY
+          - WEEK
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AlloyHistoricalPriceDataPointV1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Historical Alloy Prices
+      description: Get historical price data for a specified `Alloy`. Each index in the array represents a single tick in a price chart.
+      operationId: getAlloyPriceChart
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/:
+    get:
+      parameters:
+      - in: query
+        name: symbols
+        description: List of `Stock` symbols to query. If not provided, all `Stocks` are returned.
+        schema:
+          type: array
+          maxItems: 100
+          items:
+            type: string
+        required: false
+        explode: true
+        style: form
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStockResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Stocks
+      description: Get a list of `Stocks`.
+      operationId: getStocks
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/{stock_id}/current_price:
+    parameters:
+    - in: path
+      name: stock_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockPrice'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Stock current price
+      description: Get current price for a specified `Stock`.
+      operationId: getStockCurrentPrice
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/{stock_id}/current_quote:
+    parameters:
+    - in: path
+      name: stock_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockQuoteResponseV1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Stock Quote
+      description: Get quote for a specified `Stock`.
+      operationId: getStockCurrentQuotesRouteV1
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/{stock_id}/historical_prices/:
+    parameters:
+    - in: path
+      name: stock_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: timespan
+        description: The timespan of the historical prices to query.
+        schema:
+          $ref: '#/components/schemas/StockTickTimespan1'
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StocksHistoricalPriceDataPoint'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Historical Stock Prices
+      description: Get historical price data for a specified `Stock`. Each index in the array represents a single tick in a price chart.
+      operationId: getStockPriceChart
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/{stock_id}/news:
+    parameters:
+    - in: path
+      name: stock_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: limit
+        description: The number of articles to return.
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 25
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StockNewsArticleInfo'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get News Articles for Stock
+      description: "Get the most recent news articles relating to a `Stock`, including a summary of the article \n        and a link to the original source."
+      operationId: getStockNewsByStockId
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/market_hours/:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendedMarketHours'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Market Data
+      summary: Get Market Hours
+      description: Get the market hours for the current trading session and next open trading session.
+      operationId: getMarketHours
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    StockQuoteResponseV1:
+      type: object
+      properties:
+        _sv:
+          default: StockQuote:v1
+          enum:
+          - StockQuote:v1
+          description: Schema version
+        stock_id:
+          type: string
+          format: uuid
+          description: ID of the `Stock`
+        ask_price:
+          type: number
+          description: The ask price. 0 if there is no active ask.
+        ask_size:
+          type: number
+          description: The ask size in shares.
+        bid_price:
+          type: number
+          description: The bid price. 0 if there is no active bid.
+        bid_size:
+          type: number
+          description: The bid size in shares.
+        timestamp:
+          type: string
+          format: date-time
+          description: When the `StockQuote` was generated.
+      required:
+      - ask_price
+      - ask_size
+      - bid_price
+      - bid_size
+      - stock_id
+      - timestamp
+      description: Stock Quote
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    AlloyHistoricalPriceDataPointV1:
+      type: object
+      properties:
+        _sv:
+          default: AlloyHistoricalPriceDataPointV1:v1
+          enum:
+          - AlloyHistoricalPriceDataPointV1:v1
+          description: Schema version
+        timestamp:
+          type: integer
+          description: UNIX timestamp in seconds for the start of the aggregate window.
+        open:
+          type: number
+          description: Open price from the given time period.
+        close:
+          type: number
+          description: Close price from the given time period.
+        high:
+          type: number
+          description: High price from the given time period.
+        low:
+          type: number
+          description: Low price from the given time period.
+      required:
+      - close
+      - high
+      - low
+      - open
+      - timestamp
+      description: Datapoint of historical price data for an `Alloy`.
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    AlloyV1:
+      type: object
+      properties:
+        _sv:
+          default: Alloy:v1
+          enum:
+          - Alloy:v1
+          description: Schema version
+        id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier of the Alloy asset
+        name:
+          type: string
+          description: Name of the Alloy
+        symbol:
+          type: string
+          description: Symbol of the Alloy
+        is_tradable:
+          type: boolean
+          description: Indicates if tradable on Dinari platform
+      required:
+      - id
+      - is_tradable
+      - name
+      - symbol
+      description: Alloy details.
+    PaginatedAlloyResponseV1:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedAlloyResponse:v1
+          enum:
+          - PaginatedAlloyResponse:v1
+          description: Schema version
+        data:
+          type: array
+          description: List of Alloys
+          items:
+            $ref: '#/components/schemas/AlloyV1'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      description: Paginated response containing a list of Alloys.
+    StockTickTimespan1:
+      type: string
+      enum:
+      - DAY
+      - WEEK
+      - MONTH
+      - YEAR
+    StocksHistoricalPriceDataPoint:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: The UNIX timestamp in seconds for the start of the aggregate window.
+        open:
+          type: number
+          description: Open price from the given time period.
+        close:
+          type: number
+          description: Close price from the given time period.
+        high:
+          type: number
+          description: Highest price from the given time period.
+        low:
+          type: number
+          description: Lowest price from the given time period.
+      required:
+      - close
+      - high
+      - low
+      - open
+      - timestamp
+      description: Datapoint of historical price data for a `Stock`.
+    AlloyPriceV1:
+      type: object
+      properties:
+        _sv:
+          default: AlloyPrice:v1
+          enum:
+          - AlloyPrice:v1
+          description: Schema version
+        id:
+          type: string
+          format: uuid
+          description: ID of the `Alloy` asset.
+        price:
+          type: number
+          description: Current trade price.
+        timestamp:
+          type: string
+          format: date-time
+          description: When the price was generated.
+      required:
+      - id
+      - price
+      - timestamp
+      additionalProperties: false
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    StockPrice:
+      type: object
+      properties:
+        stock_id:
+          type: string
+          format: uuid
+          description: ID of the `Stock`
+        price:
+          type: number
+          description: The price (fair market value) of the asset at the given time period.
+        timestamp:
+          type: string
+          format: date-time
+          description: When the `StockPrice` was generated.
+        market_cap:
+          type:
+          - integer
+          - 'null'
+          description: The market capitalization of the `Stock` calculated at the most recent close price.
+        weighted_shares_outstanding:
+          type:
+          - integer
+          - 'null'
+          description: The number of shares outstanding in the given time period.
+        change:
+          type:
+          - number
+          - 'null'
+          description: The change in price from the previous close.
+        change_percent:
+          type:
+          - number
+          - 'null'
+          description: The percentage change in price from the previous close.
+        previous_close:
+          type:
+          - number
+          - 'null'
+          description: The close price for the `Stock` from the previous trading session.
+        close:
+          type:
+          - number
+          - 'null'
+          description: The close price from the given time period.
+        high:
+          type:
+          - number
+          - 'null'
+          description: The highest price from the given time period
+        low:
+          type:
+          - number
+          - 'null'
+          description: The lowest price from the given time period.
+        open:
+          type:
+          - number
+          - 'null'
+          description: The open price from the given time period.
+        volume:
+          type:
+          - number
+          - 'null'
+          description: The trading volume in shares from the given time period.
+      required:
+      - price
+      - stock_id
+      - timestamp
+      additionalProperties: false
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    StockNewsArticleInfo:
+      type: object
+      properties:
+        article_url:
+          type: string
+          description: URL of the news article
+        description:
+          type: string
+          description: Description of the news article
+        image_url:
+          type: string
+          description: URL of the image for the news article
+        published_dt:
+          type: string
+          format: date-time
+          description: Datetime when the article was published. ISO 8601 timestamp.
+        publisher:
+          type: string
+          description: The publisher of the news article
+        amp_url:
+          type:
+          - string
+          - 'null'
+          description: Mobile-friendly Accelerated Mobile Page (AMP) URL of the news article, if available
+      required:
+      - article_url
+      - description
+      - image_url
+      - published_dt
+      - publisher
+      description: A news article relating to a `Stock` which includes a summary of the article and a link to the original source.
+    ExtendedMarketHours:
+      type: object
+      properties:
+        is_market_open:
+          type: boolean
+          description: Whether or not the market is open
+        next_session_open_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the next session opens. ISO 8601 timestamp.
+        next_session_close_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the next session closes. ISO 8601 timestamp.
+        next_session_overnight_open_time_dt:
+          type: string
+          format: date-time
+          description: Time at which the next session overnight starts.
+        next_session_pre_market_open_time_dt:
+          type: string
+          format: date-time
+          description: Time at which the next session pre-market hours start.
+        next_session_after_hours_close_time_dt:
+          type: string
+          format: date-time
+          description: Time at which the next session after-hours end.
+        current_session_open_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Datetime at which the current session opened. `null` if the market is currently closed. ISO 8601 timestamp.
+        current_session_close_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Datetime at which the current session closes. `null` if the market is currently closed. ISO 8601 timestamp.
+        current_session_overnight_open_time_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Time at which the current session overnight starts.
+        current_session_pre_market_open_time_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Time at which the current session pre-market hours start.
+        current_session_after_hours_close_time_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Time at which the current session after-hours end.
+      required:
+      - is_market_open
+      - next_session_close_dt
+      - next_session_open_dt
+      additionalProperties: false
+    PaginatedStockResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedStockResponse:v1
+          enum:
+          - PaginatedStockResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of Stock
+          items:
+            $ref: '#/components/schemas/Stock'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    Stock:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `Stock`
+        name:
+          type: string
+          description: Company name
+        symbol:
+          type: string
+          description: Ticker symbol
+        is_fractionable:
+          type: boolean
+          description: Whether the `Stock` allows for fractional trading. If it is not fractionable, Dinari only supports limit orders for the `Stock`.
+        is_tradable:
+          type: boolean
+          description: Whether the `Stock` is available for trading.
+        tokens:
+          type: array
+          description: List of CAIP-10 formatted token addresses.
+          items:
+            type: string
+        composite_figi:
+          type:
+          - string
+          - 'null'
+          description: Composite FIGI ID. Refer to [this link](https://www.openfigi.com/about/figi) for more information.
+        cusip:
+          type:
+          - string
+          - 'null'
+          description: CUSIP ID. Refer to [this link](https://www.cusip.com/identifiers.html) for more information. A license agreement with CUSIP Global Services is required to receive this value.
+        cik:
+          type:
+          - string
+          - 'null'
+          description: SEC Central Index Key. Refer to [this link](https://www.sec.gov/submit-filings/filer-support-resources/how-do-i-guides/understand-utilize-edgar-ciks-passphrases-access-codes) for more information.
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: Name of `Stock` for application display. If defined, this supercedes the `name` field for displaying the name.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the company and their services.
+        logo_url:
+          type:
+          - string
+          - 'null'
+          description: URL of the company's logo. Supported formats are SVG and PNG.
+      required:
+      - id
+      - is_fractionable
+      - is_tradable
+      - name
+      - symbol
+      - tokens
+      description: Information about stock available for trading.
+  responses:
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.

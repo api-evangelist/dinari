@@ -1,0 +1,446 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts Corporate Actions API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: Corporate Actions
+  description: '**Corporate actions are events that affect the ownership of a `Stock`.**
+
+
+    Corporate actions include dividends and stock splits.
+
+    '
+paths:
+  /api/v2/market_data/stocks/splits:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStockSplitResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+      parameters:
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      tags:
+      - Corporate Actions
+      summary: Get Stock Splits
+      description: '
+
+        Get a list of stock splits for `Stocks` available for trade via Dinari.
+
+        The splits are ordered by the date they were created, with the most recent split first.
+
+
+        In an example 10-for-1 stock split, trading will be halted for the stock at the end of the `payable_date`, as
+
+        the split transitions from `PENDING` to `IN_PROGRESS`. This usually occurs over a weekend to minimize trading
+
+        disruptions. Each share of stock owned by a shareholder will then be converted into 10 shares, and the split
+
+        becomes `COMPLETE` as trading resumes on the `ex_date` with new split-adjusted prices.
+
+        '
+      operationId: getStockSplits
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/{stock_id}/splits:
+    parameters:
+    - in: path
+      name: stock_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStockSplitResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+      parameters:
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      tags:
+      - Corporate Actions
+      summary: Get Stock Splits for Stock
+      description: '
+
+        Get a list of stock splits for a specific `Stock`.
+
+        The splits are ordered by the date they were created, with the most recent split first.
+
+
+        In an example 10-for-1 stock split, trading will be halted for the stock at the end of the `payable_date`, as
+
+        the split transitions from `PENDING` to `IN_PROGRESS`. This usually occurs over a weekend to minimize trading
+
+        disruptions. Each share of stock owned by a shareholder will then be converted into 10 shares, and the split
+
+        becomes `COMPLETE` as trading resumes on the `ex_date` with new split-adjusted prices.
+
+        '
+      operationId: getStockSplitsById
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/market_data/stocks/{stock_id}/dividends:
+    parameters:
+    - in: path
+      name: stock_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StockDividendAnnouncementDetail'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Corporate Actions
+      summary: Get Stock Dividend Announcements
+      description: '
+
+        Get a list of announced stock dividend details for a specified `Stock`.
+
+
+        Note that this data applies only to actual stocks. Yield received for holding tokenized shares may differ from this.
+
+        '
+      operationId: getStockDividendsByStockId
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    PaginatedStockSplitResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedStockSplitResponse:v1
+          enum:
+          - PaginatedStockSplitResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of StockSplit
+          items:
+            $ref: '#/components/schemas/StockSplit'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    StockDividendAnnouncementDetail:
+      type: object
+      properties:
+        cash_amount:
+          type:
+          - number
+          - 'null'
+          description: Cash amount of the dividend per share owned.
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency in which the dividend is paid.
+        dividend_type:
+          type:
+          - string
+          - 'null'
+          description: "\nType of dividend. Dividends that have been paid and/or are expected to be paid \non consistent schedules are denoted as `CD`. Special Cash dividends that have been paid that are \ninfrequent or unusual, and/or can not be expected to occur in the future are denoted as `SC`.\n"
+        ex_dividend_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: '
+
+            Date on or after which a `Stock` is traded without the right to receive the next dividend payment.
+
+            If you purchase a `Stock` on or after the ex-dividend date, you will not receive the upcoming dividend.
+
+            In ISO 8601 format, YYYY-MM-DD.
+
+            '
+        pay_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date on which the dividend is paid out. In ISO 8601 format, YYYY-MM-DD.
+        record_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date that the shares must be held to receive the dividend; set by the company. In ISO 8601 format, YYYY-MM-DD.
+        ticker:
+          type:
+          - string
+          - 'null'
+          description: Ticker symbol of the `Stock`.
+      description: Information about a dividend announcement for a `Stock`.
+    StockSplit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `StockSplit`
+          example: 8e3ad59e-a4fa-48ab-9cc2-0a296aa670a6
+        stock_id:
+          type: string
+          format: uuid
+          description: ID of the `Stock` whose shares are being split.
+          example: 60cc8f91-21d0-4975-bb81-3d737fc2f923
+        split_from:
+          type: number
+          description: The number of shares before the split. In a 10-for-1 split, this would be 1.
+          example: '1'
+        split_to:
+          type: number
+          description: The number of shares after the split. In a 10-for-1 split, this would be 10.
+          example: '10'
+        record_date:
+          type: string
+          format: date
+          description: "\nRecord date of the split in Eastern Time Zone, for company to determine where to send \ntheir new shares. Mainly for record keeping by brokerages, who forward the shares to eventual owners. \nTypically is the first date in the process. In ISO 8601 format, YYYY-MM-DD.\n"
+          example: '2024-06-06'
+        payable_date:
+          type: string
+          format: date
+          description: "\nPayable date of the split in Eastern Time Zone. This is the date when company will send out the \nnew shares. Mainly for record keeping by brokerages, who forward the shares to eventual owners. \nTypically is the second date in the process. In ISO 8601 format, YYYY-MM-DD.\n"
+          example: '2024-06-07'
+        ex_date:
+          type: string
+          format: date
+          description: "\nEx-date of the split in Eastern Time Zone. First day the stock trades at post-split \nprices. Typically is last date in the process, and the main important date for investors.\nIn ISO 8601 format, YYYY-MM-DD.\n"
+          example: '2024-06-10'
+        status:
+          description: The status of Dinari's processing of the `StockSplit`. `Stocks` for which this status is `IN_PROGRESS` will not be available for trading.
+          $ref: '#/components/schemas/StockSplitStatus1'
+      required:
+      - ex_date
+      - id
+      - payable_date
+      - record_date
+      - split_from
+      - split_to
+      - status
+      - stock_id
+      description: Information about a stock split, including the `Stock` ID, the number of shares before and after the split, the record date, payable date, ex-date, and the status of the split.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    StockSplitStatus1:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - COMPLETE
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.

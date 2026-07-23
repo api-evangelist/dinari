@@ -1,0 +1,431 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts Entities API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: Entities
+  description: '**`Entities` represent a business or organization that uses the API, and their customers.**
+
+
+    Dinari Partners are represented as an organization `Entity` in the API, with their own accounts.
+
+    Individual customers of Partner `Entities` are also represented as `Entities` in the API, which are managed by the Partner `Entity`.'
+paths:
+  /api/v2/entities/:
+    get:
+      parameters:
+      - in: query
+        name: reference_id
+        description: Case sensitive unique reference ID for the `Entity`.
+        schema:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+        required: false
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEntityResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Entities
+      summary: Get Entities
+      description: Get a list of direct `Entities` your organization manages. These `Entities` represent individual customers of your organization.
+      operationId: getEntities
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEntityInput'
+      tags:
+      - Entities
+      summary: Create Entity
+      description: Create a new `Entity` to be managed by your organization. This `Entity` represents an individual customer of your organization.
+      operationId: createEntities
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/entities/me:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Entities
+      summary: Get Current Entity
+      description: Get the current authenticated `Entity`, which represents your organization.
+      operationId: getCurrentEntity
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/entities/{entity_id}:
+    parameters:
+    - in: path
+      name: entity_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Entities
+      summary: Get Entity by ID
+      description: Get a specific customer `Entity` of your organization by their ID.
+      operationId: getEntityById
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+    patch:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity1'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchEntityInput'
+      tags:
+      - Entities
+      summary: Update Entity
+      description: Update a specific customer `Entity` of your organization.
+      operationId: updateEntityById
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    EntityType:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    CreateEntityInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+          description: Name of the `Entity`.
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      required:
+      - name
+      description: Input parameters for creating an `Entity`.
+    PaginatedEntityResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedEntityResponse:v1
+          enum:
+          - PaginatedEntityResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of Entity
+          items:
+            $ref: '#/components/schemas/Entity'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    Entity1:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique ID of the `Entity`.
+        is_kyc_complete:
+          type: boolean
+          description: Indicates if `Entity` completed KYC.
+        entity_type:
+          enum:
+          - INDIVIDUAL
+          - ORGANIZATION
+          description: Type of `Entity`. `ORGANIZATION` for Dinari Partners and `INDIVIDUAL` for their individual customers.
+          $ref: '#/components/schemas/EntityType'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of `Entity`.
+        nationality:
+          type:
+          - string
+          - 'null'
+          description: Nationality or home country of the `Entity`.
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID that you can set for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      required:
+      - entity_type
+      - id
+      - is_kyc_complete
+      description: Information about an `Entity`, which can be either an individual or an organization.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    PatchEntityInput:
+      type: object
+      properties:
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      description: Input parameters for updating an `Entity`.
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique ID of the `Entity`.
+        is_kyc_complete:
+          type: boolean
+          description: Indicates if `Entity` completed KYC.
+        entity_type:
+          description: Type of `Entity`. `ORGANIZATION` for Dinari Partners and `INDIVIDUAL` for their individual customers.
+          $ref: '#/components/schemas/EntityType1'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of `Entity`.
+        nationality:
+          type:
+          - string
+          - 'null'
+          description: Nationality or home country of the `Entity`.
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID that you can set for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      required:
+      - entity_type
+      - id
+      - is_kyc_complete
+      description: Information about an `Entity`, which can be either an individual or an organization.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    EntityType1:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.

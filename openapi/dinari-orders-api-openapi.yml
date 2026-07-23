@@ -1,0 +1,1282 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts Orders API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: Orders
+  description: '**`Orders` represent the buying and selling of assets under an `Account`.**
+
+
+    For `Accounts` using self-custodied `Wallets`, `Orders` are created and fulfilled by making calls to Dinari''s smart contracts, or using the *Proxied Orders* methods.
+
+
+    For `Accounts` using managed `Wallets`, `Orders` are created and fulfilled by using the `Managed Orders` methods, which then create the corresponding transactions on the blockchain.
+
+    '
+paths:
+  /api/v2/orders/:
+    get:
+      parameters:
+      - in: query
+        name: chain_id
+        description: CAIP-2 formatted chain ID of the blockchain the `Order` was made on.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: order_transaction_hash
+        description: Transaction hash of the `Order`.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: order_fulfillment_transaction_hash
+        description: Fulfillment transaction hash of the `Order`.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: order_request_id
+        description: Order Request ID for the `Order`
+        schema:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        required: false
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEntityOrderResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Orders
+      summary: Get Orders for Entity
+      description: Get a list of all `Orders` under the `Entity`.<br>Optionally `Orders` can be transaction hash or fulfillment transaction hash.
+      operationId: getEntityOrders
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/orders:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: chain_id
+        description: CAIP-2 formatted chain ID of the blockchain the `Order` was made on.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: order_transaction_hash
+        description: Transaction hash of the `Order`.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: client_order_id
+        description: Customer-supplied identifier to search for `Order`s.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountOrderResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Orders
+      summary: Get Orders
+      description: Get a list of all `Orders` under the `Account`.<br>Optionally `Orders` can be filtered by chain ID, transaction hash, or client order ID.
+      operationId: getOrders
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/orders/{order_id}:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Orders
+      summary: Get Order by ID
+      description: Get a specific `Order` by its ID.
+      operationId: getOrderById
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/orders/{order_id}/cancel:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseOpenApiError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseOpenApiError'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseOpenApiError'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Orders
+      summary: Cancel Order
+      description: '
+
+        Cancel an `Order` by its ID. Note that this requires the `Order` ID, not the `OrderRequest` ID.
+
+        Once you submit a cancellation request, it cannot be undone. Be advised that orders with a
+
+        status of PENDING_FILL, PENDING_ESCROW, FILLED, REJECTED, or CANCELLED cannot be cancelled.
+
+
+        `Order` cancellation is not guaranteed nor is it immediate. The `Order` may still be executed
+
+        if the cancellation request is not received in time.
+
+
+        Check the status using the "Get Order by ID" endpoint to confirm whether the `Order` has been cancelled.
+
+        '
+      operationId: createOrderCancellation
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/orders/cancel:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchCancelOrderResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCancelOrderInput'
+      tags:
+      - Orders
+      summary: Cancel Orders
+      description: '
+
+        Cancel multiple `Orders` by their IDs in a single request. Note that this requires the `Order` IDs, not the `OrderRequest` IDs.
+
+        Once you submit a cancellation request, it cannot be undone. Be advised that orders with a
+
+        status of PENDING_FILL, PENDING_ESCROW, FILLED, REJECTED, or CANCELLED cannot be cancelled.
+
+
+        `Order` cancellation is not guaranteed nor is it immediate. The `Orders` may still be executed
+
+        if the cancellation request is not received in time.
+
+
+        The response will indicate which orders were successfully queued to cancel and which failed to queue.
+
+        Check the status using the "Get Order by ID" endpoint to confirm whether individual `Orders` have been cancelled.
+
+        '
+      operationId: createBatchOrderCancellation
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/order_fulfillments:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: order_ids
+        description: List of `Order` IDs to query `AccountOrderFulfillment` for.
+        schema:
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            format: uuid
+        required: false
+        explode: true
+        style: form
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountOrderFulfillmentResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Orders
+      summary: Query Order Fulfillments
+      description: Query `OrderFulfillments` under the `Account`.
+      operationId: getAccountAllOrderFulfillments
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/orders/{order_id}/fulfillments:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountOrderFulfillmentResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+      parameters:
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      tags:
+      - Orders
+      summary: Get Order Fulfillments
+      description: Get `OrderFulfillments` for a specific `Order`.
+      operationId: getAccountOrderFulfillments
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/order_fulfillments/{order_fulfillment_id}:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_fulfillment_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderFulfillment'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Orders
+      summary: Get Order Fulfillment by ID
+      description: Get a specific `OrderFulfillment` by its ID.
+      operationId: getAccountOrderFulfillmentById
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    OrderSide1:
+      type: string
+      enum:
+      - BUY
+      - SELL
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    OrderType:
+      type: string
+      enum:
+      - MARKET
+      - LIMIT
+    BrokerageOrderStatus1:
+      type: string
+      enum:
+      - PENDING_SUBMIT
+      - PENDING_CANCEL
+      - PENDING_ESCROW
+      - PENDING_FILL
+      - ESCROWED
+      - SUBMITTED
+      - CANCELLED
+      - PARTIALLY_FILLED
+      - FILLED
+      - REJECTED
+      - REQUIRING_CONTACT
+      - ERROR
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    PaginatedAccountOrderFulfillmentResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedAccountOrderFulfillmentResponse:v1
+          enum:
+          - PaginatedAccountOrderFulfillmentResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of AccountOrderFulfillment
+          items:
+            $ref: '#/components/schemas/AccountOrderFulfillment'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    PaginatedEntityOrderResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedEntityOrderResponse:v1
+          enum:
+          - PaginatedEntityOrderResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of EntityOrder
+          items:
+            $ref: '#/components/schemas/EntityOrder'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    OrderSide:
+      type: string
+      enum:
+      - BUY
+      - SELL
+    OrderTif1:
+      type: string
+      enum:
+      - DAY
+      - GTC
+      - IOC
+      - FOK
+    BrokerageOrderStatus:
+      type: string
+      enum:
+      - PENDING_SUBMIT
+      - PENDING_CANCEL
+      - PENDING_ESCROW
+      - PENDING_FILL
+      - ESCROWED
+      - SUBMITTED
+      - CANCELLED
+      - PARTIALLY_FILLED
+      - FILLED
+      - REJECTED
+      - REQUIRING_CONTACT
+      - ERROR
+    ChainId:
+      type: string
+      enum:
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
+    PaginatedAccountOrderResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedAccountOrderResponse:v1
+          enum:
+          - PaginatedAccountOrderResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of AccountOrder
+          items:
+            $ref: '#/components/schemas/AccountOrder'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `Order`.
+        status:
+          description: Status of the `Order`.
+          $ref: '#/components/schemas/BrokerageOrderStatus'
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          description: CAIP-2 formatted chain ID of the blockchain that the `Order` transaction was run on.
+          $ref: '#/components/schemas/ChainId'
+        order_contract_address:
+          type: string
+          format: eth_address
+          description: Smart contract address that `Order` was created from.
+        order_transaction_hash:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for the `Order` creation.
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType'
+        order_tif:
+          description: Time in force. Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif'
+        payment_token:
+          type: string
+          format: eth_address
+          description: The payment token (stablecoin) address.
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `Order` was created. ISO 8601 timestamp.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The `Stock` ID associated with the `Order`
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The `Alloy` ID associated with the `Order`
+        asset_token:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: The dShare asset token address.
+        asset_token_quantity:
+          type:
+          - number
+          - 'null'
+          description: Total amount of assets involved.
+        payment_token_quantity:
+          type:
+          - number
+          - 'null'
+          description: Total amount of payment involved.
+        limit_price:
+          type:
+          - number
+          - 'null'
+          description: For limit `Orders`, the price per asset, specified in the `Stock`'s native currency (USD for US equities and ETFs).
+        fee:
+          type:
+          - number
+          - 'null'
+          description: Fee amount associated with `Order`.
+        cancel_transaction_hash:
+          type:
+          - string
+          - 'null'
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for cancellation of `Order`, if the `Order` was cancelled.
+        order_request_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Order Request ID for the `Order`
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied unique identifier to map this `Order` to an order in the customer's systems.
+      required:
+      - chain_id
+      - created_dt
+      - id
+      - order_contract_address
+      - order_side
+      - order_tif
+      - order_transaction_hash
+      - order_type
+      - payment_token
+      - status
+      additionalProperties: false
+    EntityOrder:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `Order`.
+        status:
+          description: Status of the `Order`.
+          $ref: '#/components/schemas/BrokerageOrderStatus1'
+        chain_id:
+          type: string
+          description: CAIP-2 formatted chain ID of the blockchain that the `Order` transaction was run on.
+        order_contract_address:
+          type: string
+          format: eth_address
+          description: Smart contract address that `Order` was created from.
+        order_transaction_hash:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for the `Order` creation.
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide1'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType1'
+        order_tif:
+          description: Time in force. Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif1'
+        payment_token:
+          type: string
+          format: eth_address
+          description: The payment token (stablecoin) address.
+        stock_id:
+          type: string
+          format: uuid
+          description: The `Stock` ID associated with the `Order`
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `Order` was created. ISO 8601 timestamp.
+        asset_token:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: The dShare asset token address.
+        asset_token_quantity:
+          type:
+          - number
+          - 'null'
+          description: Total amount of assets involved.
+        payment_token_quantity:
+          type:
+          - number
+          - 'null'
+          description: Total amount of payment involved.
+        limit_price:
+          type:
+          - number
+          - 'null'
+          description: For limit `Orders`, the price per asset, specified in the `Stock`'s native currency (USD for US equities and ETFs).
+        fee:
+          type:
+          - number
+          - 'null'
+          description: Fee amount associated with `Order`.
+        cancel_transaction_hash:
+          type:
+          - string
+          - 'null'
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for cancellation of `Order`, if the `Order` was cancelled.
+        entity_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Entity ID of the Order
+        account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Account ID the order was made for.
+        order_request_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Order Request ID for the `Order`
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied unique identifier to map this `Order` to an order in the customer's systems.
+      required:
+      - chain_id
+      - created_dt
+      - id
+      - order_contract_address
+      - order_side
+      - order_tif
+      - order_transaction_hash
+      - order_type
+      - payment_token
+      - status
+      - stock_id
+      additionalProperties: false
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    BatchCancelOrderInput:
+      type: object
+      properties:
+        order_ids:
+          type: array
+          description: List of `Order` IDs to cancel
+          items:
+            type: string
+            format: uuid
+      required:
+      - order_ids
+      description: Input parameters for requesting `Order` cancellations from a list of `Order` IDs.
+    OrderFulfillment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `OrderFulfillment`.
+        order_id:
+          type: string
+          format: uuid
+          description: ID of the `Order` this `OrderFulfillment` is for.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          description: Blockchain that the transaction was run on.
+          $ref: '#/components/schemas/ChainId'
+        transaction_hash:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for this fulfillment.
+        transaction_dt:
+          type: string
+          format: date-time
+          description: Time when transaction occurred.
+        asset_token_filled:
+          type: number
+          description: Amount of dShare asset token filled for `BUY` orders.
+        payment_token_spent:
+          type: number
+          description: Amount of payment token spent for `BUY` orders.
+        asset_token_spent:
+          type: number
+          description: Amount of dShare asset token spent for `SELL` orders.
+        payment_token_filled:
+          type: number
+          description: Amount of payment token filled for `SELL` orders.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The `Stock` ID associated with the `Order`
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The `Alloy` ID associated with the `Order`
+        payment_token_fee:
+          type:
+          - number
+          - 'null'
+          description: Fee amount, in payment tokens.
+      required:
+      - asset_token_filled
+      - asset_token_spent
+      - chain_id
+      - id
+      - order_id
+      - payment_token_filled
+      - payment_token_spent
+      - transaction_dt
+      - transaction_hash
+      description: Information about a fulfillment of an `Order`. An order may be fulfilled in multiple transactions.
+    OrderType1:
+      type: string
+      enum:
+      - MARKET
+      - LIMIT
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    OrderTif:
+      type: string
+      enum:
+      - DAY
+      - GTC
+      - IOC
+      - FOK
+    BatchCancelOrderResponse:
+      type: object
+      properties:
+        cancel_queued_orders:
+          type: array
+          description: Orders that were queued to cancel.
+          items:
+            $ref: '#/components/schemas/Order'
+        failed_to_cancel_orders:
+          type: array
+          description: Orders that could not be queued to cancel.
+          items:
+            $ref: '#/components/schemas/Order'
+      required:
+      - cancel_queued_orders
+      - failed_to_cancel_orders
+      additionalProperties: false
+    AccountOrderFulfillment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `OrderFulfillment`.
+        order_id:
+          type: string
+          format: uuid
+          description: ID of the `Order` this `OrderFulfillment` is for.
+        chain_id:
+          type: string
+          description: Blockchain that the transaction was run on.
+        transaction_hash:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for this fulfillment.
+        transaction_dt:
+          type: string
+          format: date-time
+          description: Time when transaction occurred.
+        asset_token_filled:
+          type: number
+          description: Amount of dShare asset token filled for `BUY` orders.
+        payment_token_spent:
+          type: number
+          description: Amount of payment token spent for `BUY` orders.
+        asset_token_spent:
+          type: number
+          description: Amount of dShare asset token spent for `SELL` orders.
+        payment_token_filled:
+          type: number
+          description: Amount of payment token filled for `SELL` orders.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The `Stock` ID associated with the `Order`
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The `Alloy` ID associated with the `Order`
+        payment_token_fee:
+          type:
+          - number
+          - 'null'
+          description: Fee amount, in payment tokens.
+      required:
+      - asset_token_filled
+      - asset_token_spent
+      - chain_id
+      - id
+      - order_id
+      - payment_token_filled
+      - payment_token_spent
+      - transaction_dt
+      - transaction_hash
+      description: Information about a fulfillment of an `Order`. An order may be fulfilled in multiple transactions.
+    AccountOrder:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `Order`.
+        status:
+          description: Status of the `Order`.
+          $ref: '#/components/schemas/BrokerageOrderStatus1'
+        chain_id:
+          type: string
+          description: CAIP-2 formatted chain ID of the blockchain that the `Order` transaction was run on.
+        order_contract_address:
+          type: string
+          format: eth_address
+          description: Smart contract address that `Order` was created from.
+        order_transaction_hash:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for the `Order` creation.
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide1'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType1'
+        order_tif:
+          description: Time in force. Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif1'
+        payment_token:
+          type: string
+          format: eth_address
+          description: The payment token (stablecoin) address.
+        stock_id:
+          type: string
+          format: uuid
+          description: The `Stock` ID associated with the `Order`
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `Order` was created. ISO 8601 timestamp.
+        asset_token:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: The dShare asset token address.
+        asset_token_quantity:
+          type:
+          - number
+          - 'null'
+          description: Total amount of assets involved.
+        payment_token_quantity:
+          type:
+          - number
+          - 'null'
+          description: Total amount of payment involved.
+        limit_price:
+          type:
+          - number
+          - 'null'
+          description: For limit `Orders`, the price per asset, specified in the `Stock`'s native currency (USD for US equities and ETFs).
+        fee:
+          type:
+          - number
+          - 'null'
+          description: Fee amount associated with `Order`.
+        cancel_transaction_hash:
+          type:
+          - string
+          - 'null'
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Transaction hash for cancellation of `Order`, if the `Order` was cancelled.
+        order_request_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Order Request ID for the `Order`
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied unique identifier to map this `Order` to an order in the customer's systems.
+      required:
+      - chain_id
+      - created_dt
+      - id
+      - order_contract_address
+      - order_side
+      - order_tif
+      - order_transaction_hash
+      - order_type
+      - payment_token
+      - status
+      - stock_id
+      additionalProperties: false
+  responses:
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.

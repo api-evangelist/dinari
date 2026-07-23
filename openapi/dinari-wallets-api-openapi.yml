@@ -1,0 +1,405 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts Wallets API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: Wallets
+  description: '**`Wallets` represent the blockchain wallet that holds the assets of an `Account`.**
+
+
+    An `Account` may be connected to a single `Wallet`.
+
+
+    Individual `Entities` can connect their self-custodied `Wallets` by proving ownership of the `Wallet` address.
+
+    For Dinari Partners, a Dinari-managed `Wallet` can be created for the Partner `Entity` in the [Dinari Partners Portal](https://Partners.dinari.com/). This may be used in omnibus accounting for self-managing customers'' assets.'
+paths:
+  /api/v2/accounts/{account_id}/wallet:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Wallets
+      summary: Get Wallet
+      description: Get the wallet connected to the `Account`.
+      operationId: getWallet
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/wallet/external/nonce:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: wallet_address
+        description: Address of the `Wallet` to connect.
+        schema:
+          type: string
+          format: eth_address
+        required: true
+      - in: query
+        name: chain_id
+        description: CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets
+        schema:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          $ref: '#/components/schemas/WalletChainId'
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountWalletConnectionMessage'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Wallets
+      summary: Get Wallet Connection Nonce
+      description: Get a nonce and message to be signed in order to verify `Wallet` ownership.
+      operationId: getAccountWalletConnectionNonce
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/wallet/external:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountWalletConnectionInput'
+      tags:
+      - Wallets
+      summary: Connect Wallet to Account
+      description: Connect a `Wallet` to the `Account` after verifying the signature.
+      operationId: createAccountWalletConnection
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/wallet/internal:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountWalletInternalConnectionInput'
+      tags:
+      - Wallets
+      summary: Connect an internal Wallet to Account
+      description: Connect an internal `Wallet` to the `Account`.
+      operationId: createAccountWalletInternalConnection
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    AccountWalletConnectionMessage:
+      type: object
+      properties:
+        nonce:
+          type: string
+          description: Single-use identifier
+        message:
+          type: string
+          description: Message to be signed by the `Wallet`
+      required:
+      - message
+      - nonce
+      description: Connection message to sign to prove ownership of the `Wallet`.
+    Wallet:
+      type: object
+      properties:
+        address:
+          type: string
+          description: Address of the `Wallet`.
+        is_managed_wallet:
+          type: boolean
+          description: Indicates whether the `Wallet` is a Dinari-managed wallet.
+        is_aml_flagged:
+          type: boolean
+          description: Indicates whether the `Wallet` is flagged for AML violation.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+      required:
+      - address
+      - chain_id
+      - is_aml_flagged
+      - is_managed_wallet
+      description: Information about a blockchain `Wallet`.
+    CreateAccountWalletConnectionInput:
+      type: object
+      properties:
+        signature:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Signature payload from signing the connection message with the `Wallet`.
+        nonce:
+          type: string
+          format: uuid
+          description: Nonce contained within the connection message.
+        wallet_address:
+          type: string
+          format: eth_address
+          description: Address of the `Wallet`.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+      required:
+      - chain_id
+      - nonce
+      - signature
+      - wallet_address
+      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
+    CreateAccountWalletInternalConnectionInput:
+      type: object
+      properties:
+        wallet_address:
+          type: string
+          format: eth_address
+          description: Address of the `Wallet`.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+        is_shared:
+          type:
+          - boolean
+          - 'null'
+          description: Is the linked Wallet shared or not
+      required:
+      - chain_id
+      - wallet_address
+      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    WalletChainId:
+      type: string
+      enum:
+      - eip155:0
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.

@@ -1,0 +1,858 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts Order Requests API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: Order Requests
+  description: '**`Order Requests` represent requests for Dinari to create `Orders` on behalf of an `Account`.**
+
+
+    `Order Requests` are created when placing **proxied orders** or **managed orders**. See their respective descriptions for more details.
+
+    '
+paths:
+  /api/v2/accounts/{account_id}/order_requests:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: order_request_id
+        description: Order Request ID for the `OrderRequest`
+        schema:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        required: false
+      - in: query
+        name: order_id
+        description: Order ID for the `OrderRequest`
+        schema:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        required: false
+      - in: query
+        name: client_order_id
+        description: Customer-supplied ID to map this `OrderRequest` to an order in their own systems.
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: limit
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 20
+          minimum: 20
+          maximum: 100
+        required: false
+      - in: query
+        name: order
+        description: Sort order
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+        required: false
+      - in: query
+        name: next
+        description: Cursor for next page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      - in: query
+        name: previous
+        description: Cursor for previous page
+        schema:
+          type:
+          - string
+          - 'null'
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountOrderRequestResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Order Requests
+      summary: List Order Requests
+      description: Lists `OrderRequests`.<br>Optionally `OrderRequests` can be filtered by certain parameters.
+      operationId: getListOrderRequests
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/order_requests/{order_request_id}:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: order_request_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderRequest'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - Order Requests
+      summary: Get Order Request by ID
+      description: Get a specific `OrderRequest` by its ID.
+      operationId: getOrderRequestById
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/order_requests/eip155/permit:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EIP155OrderRequestPermit'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Eip155OrderRequestPermitInput'
+      tags:
+      - Order Requests
+      summary: Create EIP155 Order Request Permit
+      description: '
+
+        Generates a permit that can be signed and used to create an `OrderRequest` using Dinari''s EVM smart contracts.
+
+
+        This is a convenience method to prepare the transactions needed to create an `OrderRequest` using Dinari''s EVM smart contracts.
+
+        Once signed, the transactions can be sent to the EVM network to create the order.
+
+        Note that the fee quote is already included in the transactions, so no additional fee quote lookup is needed.
+
+
+        Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places.
+
+        '
+      operationId: createEIP155OrderRequestPermit
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/order_requests/eip155:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EIP155OrderRequest'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EIP155OrderRequestPermitTransaction'
+      tags:
+      - Order Requests
+      summary: Submit EIP155 Order Request
+      description: '
+
+        Submits a transaction for an EIP155 Order Request given the EIP155OrderRequest ID and Permit Signature.
+
+
+        An `EIP155OrderRequest` representing the proxied order is returned.
+
+        '
+      operationId: createEIP155OrderRequestPermitTransaction
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/accounts/{account_id}/order_requests/eip155/permit_transaction:
+    parameters:
+    - in: path
+      name: account_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EIP155Transaction'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EIP155OrderRequestPermitTransaction'
+      tags:
+      - Order Requests
+      summary: Create EIP155 Order Request Permit Transaction
+      description: '
+
+        Prepare a transaction to be placed on EVM. The returned structure contains the necessary
+
+        data to create an `EIP155Transaction` object.
+
+        '
+      operationId: createEip155PermitTransaction
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    OrderSide1:
+      type: string
+      enum:
+      - BUY
+      - SELL
+    Eip155OrderRequestPermitInput:
+      type: object
+      properties:
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          description: CAIP-2 chain ID of the blockchain where the `Order` will be placed.
+          $ref: '#/components/schemas/ChainId'
+        order_tif:
+          description: Time in force. Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif'
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType'
+        payment_token:
+          type: string
+          format: eth_address
+          description: Address of payment token. Required for Accounts outside of US jurisdiction. Accounts inside US jurisdiction must use USDC.
+        payment_token_quantity:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Amount of payment tokens involved. Required for market buy `Orders`.
+        asset_token_quantity:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Amount of dShare asset tokens involved. Required for limit `Order Requests` and market sell `Order Requests`. Must be a positive number with a precision of up to 4 decimal places for limit `Order Requests` or up to 6 decimal places for market sell `Order Requests`.
+        limit_price:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Price per asset in the asset's native currency. USD for US equities and ETFs. Required for limit `Orders`.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The ID of the `Stock` for which the `Order` is being placed.
+        token_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The ID of the `Token` for which the `Order` is being placed.
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The ID of the `Alloy` for which the `Order` is being placed.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied unique identifier to map this `Order` to an order in the customer's systems.
+        fee:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
+      required:
+      - chain_id
+      - order_side
+      - order_tif
+      - order_type
+      - payment_token
+      description: Input parameters for building a token permit involved in creating an `OrderRequest` using Dinari's EVM smart contracts.
+    OrderType:
+      type: string
+      enum:
+      - MARKET
+      - LIMIT
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    OrderSide:
+      type: string
+      enum:
+      - BUY
+      - SELL
+    OrderRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of `OrderRequest`. This is the primary identifier for the `/order_requests` routes.
+        account_id:
+          type: string
+          format: uuid
+          description: ID of `Account` placing the `OrderRequest`.
+        status:
+          description: 'Status of `OrderRequest`. Possible values:
+
+            - `QUOTED`: Order request created with fee quote provided, ready for processing
+
+            - `PENDING`: Order request is being prepared for submission
+
+            - `PENDING_BRIDGE`: Order is waiting for bridge transaction to complete
+
+            - `SUBMITTED`: Order has been successfully submitted to the order book
+
+            - `ERROR`: An error occurred during order processing
+
+            - `CANCELLED`: Order request was cancelled
+
+            - `EXPIRED`: Order request expired due to deadline passing
+
+            - `REJECTED`: Order request was rejected'
+          $ref: '#/components/schemas/OrderRequestStatus'
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `OrderRequest` was created. ISO 8601 timestamp.
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType'
+        order_tif:
+          description: Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif'
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of recipient `Account`.
+        order_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Order` created from the `OrderRequest`. This is the primary identifier for the `/orders` routes.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this `OrderRequest` to an order in their own systems.
+        cancel_message:
+          type:
+          - string
+          - 'null'
+          description: Reason for the order cancellation if the order status is CANCELLED
+        reject_message:
+          type:
+          - string
+          - 'null'
+          description: Reason for the order rejection if the order status is REJECTED
+      required:
+      - account_id
+      - created_dt
+      - id
+      - order_side
+      - order_tif
+      - order_type
+      - status
+      description: "\nA request to create an `Order`.\n\nAn `OrderRequest` is created when a user places an order through the Dinari API.\nThe `OrderRequest` is then fulfilled by creating an `Order` on-chain.\n\nThe `OrderRequest` is a record of the user's intent to place an order, while the `Order` is the actual transaction that occurs on the blockchain.\n    "
+    OrderTif1:
+      type: string
+      enum:
+      - DAY
+      - GTC
+      - IOC
+      - FOK
+    EIP155OrderRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of `EIP155OrderRequest`. This is the primary identifier for the `/order_requests` routes.
+        account_id:
+          type: string
+          format: uuid
+          description: ID of `Account` placing the `EIP155OrderRequest`.
+        status:
+          description: 'Status of `EIP155OrderRequest`. Possible values:
+
+            - `QUOTED`: Order request created with fee quote provided, ready for processing
+
+            - `PENDING`: Order request is being prepared for submission
+
+            - `PENDING_BRIDGE`: Order is waiting for bridge transaction to complete
+
+            - `SUBMITTED`: Order has been successfully submitted to the order book
+
+            - `ERROR`: An error occurred during order processing
+
+            - `CANCELLED`: Order request was cancelled
+
+            - `EXPIRED`: Order request expired due to deadline passing
+
+            - `REJECTED`: Order request was rejected'
+          $ref: '#/components/schemas/OrderRequestStatus'
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `EIP155OrderRequest` was created. ISO 8601 timestamp.
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType'
+        order_tif:
+          description: Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif'
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of recipient `Account`.
+        order_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Order` created from the `EIP155OrderRequest`. This is the primary identifier for the `/orders` routes.
+        cancel_message:
+          type:
+          - string
+          - 'null'
+          description: Reason for the order cancellation if the order status is CANCELLED
+        reject_message:
+          type:
+          - string
+          - 'null'
+          description: Reason for the order rejection if the order status is REJECTED
+      required:
+      - account_id
+      - created_dt
+      - id
+      - order_side
+      - order_tif
+      - order_type
+      - status
+      description: "\nA request to create an `Order`.\n\nAn `EIP155OrderRequest` is created when a user places an order through the Dinari API.\nThe `EIP155OrderRequest` is then fulfilled by creating an `Order` on-chain.\n\nThe `EIP155OrderRequest` is a record of the user's intent to place an order, while the `Order` is the actual transaction that occurs on the blockchain.\n    "
+    ChainId:
+      type: string
+      enum:
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
+    PaginatedAccountOrderRequestResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedAccountOrderRequestResponse:v1
+          enum:
+          - PaginatedAccountOrderRequestResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of AccountOrder
+          items:
+            $ref: '#/components/schemas/AccountOrderRequest'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    EIP155OrderRequestPermitTransaction:
+      type: object
+      properties:
+        order_request_id:
+          type: string
+          format: uuid
+          description: ID of the prepared proxied order to be submitted as a proxied order.
+        permit_signature:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Signature of the permit typed data, allowing Dinari to spend the payment token or dShare asset token on behalf of the owner.
+      required:
+      - order_request_id
+      - permit_signature
+      description: Input parameters for creating a proxied `EIP155OrderRequestPermitTransaction`.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    DshareProxiedOrderStatus:
+      type: string
+      enum:
+      - QUOTED
+      - PENDING
+      - PENDING_BRIDGE
+      - SUBMITTED
+      - ERROR
+      - CANCELLED
+      - EXPIRED
+      - REJECTED
+    OrderType1:
+      type: string
+      enum:
+      - MARKET
+      - LIMIT
+    EIP155Transaction:
+      type: object
+      properties:
+        contract_address:
+          type: string
+          format: eth_address
+          description: Smart contract address that the transaction should call.
+        data:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Hex-encoded function call.
+        abi:
+          description: '[JSON ABI](https://docs.soliditylang.org/en/v0.8.30/abi-spec.html#json) of the smart contract function encoded in the transaction. Provided for informational purposes.'
+          additionalProperties: true
+        args:
+          description: Arguments to the smart contract function encoded in the transaction. Provided for informational purposes.
+          additionalProperties: true
+        value:
+          type: string
+          format: bigint
+          description: Transaction value estimate in Wei.
+      required:
+      - abi
+      - args
+      - contract_address
+      - data
+      - value
+      additionalProperties: false
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    AccountOrderRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of `OrderRequest`. This is the primary identifier for the `/order_requests` routes.
+        account_id:
+          type: string
+          format: uuid
+          description: ID of `Account` placing the `OrderRequest`.
+        status:
+          description: 'Status of `OrderRequest`. Possible values:
+
+            - `QUOTED`: Order request created with fee quote provided, ready for processing
+
+            - `PENDING`: Order request is being prepared for submission
+
+            - `PENDING_BRIDGE`: Order is waiting for bridge transaction to complete
+
+            - `SUBMITTED`: Order has been successfully submitted to the order book
+
+            - `ERROR`: An error occurred during order processing
+
+            - `CANCELLED`: Order request was cancelled
+
+            - `EXPIRED`: Order request expired due to deadline passing
+
+            - `REJECTED`: Order request was rejected'
+          $ref: '#/components/schemas/DshareProxiedOrderStatus'
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `OrderRequest` was created. ISO 8601 timestamp.
+        order_side:
+          description: Indicates whether `Order` is a buy or sell.
+          $ref: '#/components/schemas/OrderSide1'
+        order_type:
+          description: Type of `Order`.
+          $ref: '#/components/schemas/OrderType1'
+        order_tif:
+          description: Indicates how long `Order` is valid for.
+          $ref: '#/components/schemas/OrderTif1'
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of recipient `Account`.
+        order_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Order` created from the `OrderRequest`. This is the primary identifier for the `/orders` routes.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this `OrderRequest` to an order in their own systems.
+        cancel_message:
+          type:
+          - string
+          - 'null'
+          description: Reason for the order cancellation if the order status is CANCELLED
+        reject_message:
+          type:
+          - string
+          - 'null'
+          description: Reason for the order rejection if the order status is REJECTED
+      required:
+      - account_id
+      - created_dt
+      - id
+      - order_side
+      - order_tif
+      - order_type
+      - status
+      description: "\nA request to create an `Order`.\n\nAn `OrderRequest` is created when a user places an order through the Dinari API.\nThe `OrderRequest` is then fulfilled by creating an `Order` on-chain.\n\nThe `OrderRequest` is a record of the user's intent to place an order, while the `Order` is the actual transaction that occurs on the blockchain.\n    "
+    OrderRequestStatus:
+      type: string
+      enum:
+      - QUOTED
+      - PENDING
+      - PENDING_BRIDGE
+      - SUBMITTED
+      - ERROR
+      - CANCELLED
+      - EXPIRED
+      - REJECTED
+    OrderTif:
+      type: string
+      enum:
+      - DAY
+      - GTC
+      - IOC
+      - FOK
+    EIP155OrderRequestPermit:
+      type: object
+      properties:
+        order_request_id:
+          type: string
+          format: uuid
+          description: ID representing the EIP155 `OrderRequest`
+        permit:
+          type: object
+          description: Token permit that is to be signed by smart contract submitter for authorizing token transfer for the `OrderRequest`
+          additionalProperties: {}
+      required:
+      - order_request_id
+      - permit
+      description: Token permit to be signed by the smart contract submitter.
+  responses:
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.

@@ -1,0 +1,1003 @@
+openapi: 3.1.0
+info:
+  description: '**Dinari API for enterprise usage.**
+
+
+    Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
+
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
+
+    '
+  contact:
+    email: hello@dinari.com
+  license:
+    name: Contact us
+  termsOfService: https://dinari.com/terms
+  title: Dinari Enterprise Accounts KYC API
+  version: v20260709-097f56a
+servers:
+- url: https://api-enterprise.sbt.dinari.com
+tags:
+- name: KYC
+  description: '**KYC (Know Your Customer) is a process of verifying the identity of customer `Entities`.**
+
+
+    KYC is required for all customer `Entities` that transact on Dinari''s platform.
+
+
+    Dinari provides a managed KYC process for its Partners, which provides a convenient KYC flow URL to present to the end customer.
+
+
+    For Dinari Partners that supply their own KYC data, the API provides a way to record a customer''s KYC information using the Partner''s KYC data. This requires an existing KYC agreement between Dinari and the Partner.
+
+    '
+paths:
+  /api/v2/entities/{entity_id}/kyc:
+    parameters:
+    - in: path
+      name: entity_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kyc'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - KYC
+      summary: Get KYC Data
+      description: '
+
+        Get most recent KYC data of the `Entity`.
+
+
+        If there are any completed KYC checks, data from the most recent one will be returned.
+
+        If there are no completed KYC checks, the most recent KYC check information, regardless of status, will be returned.
+
+        '
+      operationId: getEntityKyc
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kyc'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateKycInput'
+      tags:
+      - KYC
+      summary: Submit KYC Data
+      description: '
+
+        Submit KYC data directly, for partners that are provisioned to provide their own KYC data.
+
+
+        This feature is available for everyone in sandbox mode, and for specifically provisioned partners in production.
+
+        '
+      operationId: createEntityKyc
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/entities/{entity_id}/kyc/{kyc_id}/document:
+    parameters:
+    - in: path
+      name: entity_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: kyc_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KycDocument'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      tags:
+      - KYC
+      summary: Get KYC Documents
+      description: Get uploaded documents for a KYC check
+      operationId: getEntityKycDocument
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+    post:
+      parameters:
+      - in: query
+        name: document_type
+        description: Type of `KYCDocument` to be uploaded.
+        schema:
+          $ref: '#/components/schemas/KycDocumentType'
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KycDocument'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateKycDocumentFileInput'
+      tags:
+      - KYC
+      summary: Upload KYC Documents
+      description: '
+
+        Upload KYC-related documentation for partners that are provisioned to provide their own KYC data.
+
+        '
+      operationId: createEntityKycDocument
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+  /api/v2/entities/{entity_id}/kyc/url:
+    parameters:
+    - in: path
+      name: entity_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_ENTITY'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedKycEmbed'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateManagedKycInput'
+      tags:
+      - KYC
+      summary: Create Managed KYC Check
+      description: '
+
+        Create a Dinari-managed KYC Check and get a URL for your end customer to interact with.
+
+
+        The URL points to a web-based KYC interface that can be presented to the end customer for KYC verification.
+
+        Once the customer completes this KYC flow, the KYC check will be created and available in the KYC API.
+
+        '
+      operationId: createManagedEntityKycEmbed
+      security:
+      - ApiKeyId: []
+        ApiSecretKey: []
+components:
+  schemas:
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    UsEntityKycRiskDisclosureInfoV1:
+      type: object
+      properties:
+        is_control_person:
+          type: boolean
+          description: Whether the individual holds a controlling position in a publicly traded company, is a member of the board of directors, or has policy making abilities in a publicly traded company.
+        is_affiliated_exchange_or_finra:
+          type: boolean
+          description: Whether the individual is affiliated with any exchanges or FINRA.
+        is_politically_exposed:
+          type: boolean
+          description: Whether the individual is politically exposed.
+        immediate_family_exposed:
+          type: boolean
+          description: If the individual's immediate family member (sibling, husband/wife, child, parent) is either politically exposed or holds a control position.
+      required:
+      - immediate_family_exposed
+      - is_affiliated_exchange_or_finra
+      - is_control_person
+      - is_politically_exposed
+      description: "Risk information about the individual\n            <br/><br/>\n            Fields denote if the account owner falls under each category defined by FINRA rules. If any of the answers \n            is true (yes), additional verifications may be required before US account approval."
+    UsEntityKycUsImmigrationInfoV1:
+      type: object
+      properties:
+        is_permanent_resident:
+          type: boolean
+          description: Whether the individual is a US permanent resident (green card holder).
+        country_of_birth:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: Country where the individual was born.
+        visa_type:
+          description: Type of visa the individual holds. Required if not a permanent resident.
+          $ref: '#/components/schemas/UsVisaType'
+        visa_expiration_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Expiration date of the visa. Required if visa_type is provided.
+        departure_from_us_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date the individual is scheduled to leave the US. Required for B1 and B2 visas.
+      required:
+      - country_of_birth
+      - is_permanent_resident
+      description: US immigration information for this individual. Required if the individual is not a US citizen.
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    CreateManagedKycInput:
+      type: object
+      properties:
+        jurisdiction:
+          default: BASELINE
+          description: Jurisdiction for the KYC check. Defaults to BASELINE.
+          $ref: '#/components/schemas/Jurisdiction'
+      description: Input for creating a managed KYC check.
+    KycStatus:
+      type: string
+      enum:
+      - PASS
+      - FAIL
+      - PENDING
+      - INCOMPLETE
+      - NEEDS_REVIEW
+    CreateKycDocumentFileInput:
+      type: object
+      properties:
+        file:
+          description: File to be uploaded. Must be a valid image or PDF file (jpg, jpeg, png, pdf) less than 10MB in size.
+          type: string
+          format: binary
+      required:
+      - file
+      description: File input for uploading a `KYCDocument`.
+    BaselineKyc:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the KYC check.
+        status:
+          description: KYC check status.
+          $ref: '#/components/schemas/KycStatus'
+        checked_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Datetime when the KYC was last checked. ISO 8601 timestamp.
+        data:
+          description: KYC data if the check was successful. Available only if the KYC information was provided by the Partner.
+          anyOf:
+          - $ref: '#/components/schemas/BaselineKycCheckDataV0'
+          - type: 'null'
+        jurisdiction:
+          default: BASELINE
+          enum:
+          - BASELINE
+          description: Jurisdiction of the KYC check.
+          type: string
+      required:
+      - id
+      - status
+      description: KYC information for an `Entity` in the baseline jurisdiction.
+    UsEntityKycFinancialProfileInfoV1:
+      type: object
+      properties:
+        funding_sources:
+          type: array
+          minItems: 1
+          description: 'One or more of the following: employment_income, investments, inheritance, business_income, savings, family.'
+          items:
+            $ref: '#/components/schemas/FundingSource'
+        liquid_net_worth_min:
+          type: integer
+          minimum: 0
+          description: The lower bound of the user's liquid net worth (USD). Can be 0 if max is <=$20,000, but otherwise must be within an order of magnitude of the max value.
+        liquid_net_worth_max:
+          type: integer
+          minimum: 0
+          description: The upper bound of the user's liquid net worth (USD).
+      required:
+      - funding_sources
+      - liquid_net_worth_max
+      - liquid_net_worth_min
+      description: "Financial profile information for the individual\n            <br/><br/>\n            Examples of liquid net worth ranges:\n            <br/> - $0 - $20,000\n            <br/> - $20,000 - $50,000\n            <br/> - $50,000 - $100,000\n            <br/> - $100,000 - $500,000\n            <br/> - $500,000 - $1,000,000"
+    UsKycIdentityDataV1:
+      type: object
+      properties:
+        given_name:
+          type: string
+          minLength: 1
+          description: The first/given name of the user.
+        family_name:
+          type: string
+          minLength: 2
+          description: The last name (surname) of the user.
+        email_address:
+          type: string
+          description: Email address of the applicant.
+        phone_number:
+          type: string
+          pattern: ^\+\d{10,15}$
+          description: 'Phone number should include the country code, format: “+15555555555”'
+        street_address:
+          type: string
+          minLength: 2
+          description: Street address of the applicant.
+        city:
+          type: string
+          minLength: 2
+          description: City of the applicant.
+        country_of_tax_residence:
+          enum:
+          - US
+          description: Country of residency of the applicant. Must be 'US'.
+          type: string
+        postal_code:
+          type: string
+          minLength: 1
+          description: Postal code of the applicant.
+        date_of_birth:
+          type: string
+          format: date
+          description: Date of birth of the applicant.
+        tax_id:
+          type: string
+          pattern: ^\d{3}-\d{2}-\d{4}$
+          description: Social Security Number (SSN) or Tax Identification Number (TIN) of the applicant.
+        country_of_citizenship:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: Nationality of the applicant.
+        middle_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: The middle name of the user.
+        unit:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: The specific apartment number if applicable
+        state:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: State of the applicant. Required if the applicant resides in the US as a 2-letter abbreviation.
+      required:
+      - city
+      - country_of_citizenship
+      - country_of_tax_residence
+      - date_of_birth
+      - email_address
+      - family_name
+      - given_name
+      - phone_number
+      - postal_code
+      - street_address
+      - tax_id
+      description: Identity information for the individual
+    Jurisdiction:
+      type: string
+      enum:
+      - BASELINE
+      - US
+    CreateKycInput:
+      oneOf:
+      - $ref: '#/components/schemas/CreateBaselineKycInput'
+      - $ref: '#/components/schemas/CreateUsKycInput'
+      discriminator:
+        propertyName: jurisdiction
+        mapping:
+          BASELINE: '#/components/schemas/CreateBaselineKycInput'
+          US: '#/components/schemas/CreateUsKycInput'
+    UsEntityKycCitationInfoV1:
+      type: object
+      properties:
+        address_sources:
+          type: array
+          minItems: 1
+          description: List of sources for address verification
+          example:
+          - utility bill
+          items:
+            type: string
+        date_of_birth_sources:
+          type: array
+          minItems: 1
+          description: List of sources for date of birth verification
+          example:
+          - birth certificate
+          - government database lookup
+          items:
+            type: string
+        tax_id_sources:
+          type: array
+          minItems: 1
+          description: List of sources for tax ID verification
+          example:
+          - tax return
+          - government database lookup
+          items:
+            type: string
+      required:
+      - address_sources
+      - date_of_birth_sources
+      - tax_id_sources
+      description: Data source citations for a KYC check.
+    UsEntityKycEmploymentInfoV1:
+      type: object
+      properties:
+        employment_status:
+          description: 'One of the following: employed, unemployed, retired, or student.'
+          $ref: '#/components/schemas/EmploymentStatus'
+        employer_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: The name of the employer if the user is employed.
+        employer_address:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: The employer's address if the user is employed.
+        employment_position:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: The user's position if they are employed.
+      required:
+      - employment_status
+      description: Employment information for the individual
+    CreateUsKycInput:
+      type: object
+      properties:
+        data:
+          description: KYC data of the `Entity`.
+          $ref: '#/components/schemas/UsKycCheckDataV1'
+        provider_name:
+          type: string
+          minLength: 1
+          description: Name of the KYC provider that provided the KYC information.
+        jurisdiction:
+          default: US
+          enum:
+          - US
+          description: Jurisdiction of the KYC check.
+          type: string
+      required:
+      - data
+      - provider_name
+      description: Input parameters for providing KYC information for an `Entity` in the US jurisdiction.
+    ManagedKycEmbed:
+      type: object
+      properties:
+        embed_url:
+          type: string
+          description: URL of a managed KYC flow interface for the `Entity`.
+        expiration_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the KYC request will expired. ISO 8601 timestamp.
+      required:
+      - embed_url
+      - expiration_dt
+      description: URL for a managed KYC flow for an `Entity`.
+    EmploymentStatus:
+      type: string
+      enum:
+      - UNEMPLOYED
+      - EMPLOYED
+      - STUDENT
+      - RETIRED
+    KycDocument:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the document.
+        document_type:
+          description: Type of document.
+          $ref: '#/components/schemas/KycDocumentType'
+        filename:
+          type: string
+          description: Filename of document.
+        url:
+          type: string
+          description: Temporary URL to access the document. Expires in 1 hour.
+      required:
+      - document_type
+      - filename
+      - id
+      - url
+      description: A document associated with KYC for an `Entity`.
+    FundingSource:
+      type: string
+      enum:
+      - EMPLOYMENT_INCOME
+      - INVESTMENTS
+      - INHERITANCE
+      - BUSINESS_INCOME
+      - SAVINGS
+      - FAMILY
+    KycDocumentType:
+      type: string
+      enum:
+      - GOVERNMENT_ID
+      - SELFIE
+      - RESIDENCY
+      - UNKNOWN
+    UsVisaType:
+      type: string
+      enum:
+      - B1
+      - B2
+      - DACA
+      - E1
+      - E2
+      - E3
+      - F1
+      - G4
+      - H1B
+      - J1
+      - L1
+      - Other
+      - O1
+      - TN1
+    AlpacaCustomerAgreementInfoV1:
+      type: object
+      properties:
+        signed_at:
+          type: string
+          format: date-time
+          description: The timestamp the agreement was signed.
+        ip_address:
+          type: string
+          format: ip
+          description: The IP address from where the individual signed the agreement.
+      required:
+      - ip_address
+      - signed_at
+      description: "Information to affirm that the individual has read, agreed to, and signed Alpaca's customer \n            agreement, found here: https://files.alpaca.markets/disclosures/library/AcctAppMarginAndCustAgmt.pdf"
+    UsKycCheckDataV1:
+      type: object
+      properties:
+        identity:
+          $ref: '#/components/schemas/UsKycIdentityDataV1'
+        financial_profile:
+          $ref: '#/components/schemas/UsEntityKycFinancialProfileInfoV1'
+        employment:
+          $ref: '#/components/schemas/UsEntityKycEmploymentInfoV1'
+        risk_disclosure:
+          $ref: '#/components/schemas/UsEntityKycRiskDisclosureInfoV1'
+        trusted_contact:
+          $ref: '#/components/schemas/UsEntityTrustedContactInfoV1'
+        alpaca_customer_agreement:
+          $ref: '#/components/schemas/AlpacaCustomerAgreementInfoV1'
+        kyc_metadata:
+          $ref: '#/components/schemas/UsEntityKycMetadataV1'
+        data_citation:
+          $ref: '#/components/schemas/UsEntityKycCitationInfoV1'
+        aml_check:
+          $ref: '#/components/schemas/UsEntityAmlCheckInfoV1'
+        non_professional_trader_attestation:
+          $ref: '#/components/schemas/UsNonProfessionalTraderAttestationV1'
+        us_immigration_info:
+          default: null
+          anyOf:
+          - $ref: '#/components/schemas/UsEntityKycUsImmigrationInfoV1'
+          - type: 'null'
+      required:
+      - alpaca_customer_agreement
+      - aml_check
+      - data_citation
+      - employment
+      - financial_profile
+      - identity
+      - kyc_metadata
+      - non_professional_trader_attestation
+      - risk_disclosure
+      - trusted_contact
+      description: KYC data for an `Entity` in the US jurisdiction.
+    UsEntityKycMetadataV1:
+      type: object
+      properties:
+        ref_id:
+          type: string
+          minLength: 1
+          description: Your unique identifier for the KYC check.
+        check_initiated_at:
+          type: string
+          format: date-time
+          description: Start datetime of KYC check.
+        check_completed_at:
+          type: string
+          format: date-time
+          description: Completion datetime of KYC check.
+        ip_address:
+          type: string
+          format: ip
+          description: IP address of applicant at time of KYC check.
+      required:
+      - check_completed_at
+      - check_initiated_at
+      - ip_address
+      - ref_id
+      description: Metadata about the KYC check.
+    UsNonProfessionalTraderAttestationV1:
+      type: object
+      properties:
+        is_non_professional_trader:
+          type: boolean
+          description: Whether the individual attests to being a non-professional trader.
+        attestation_dt:
+          type: string
+          format: date-time
+          description: Datetime when the attestation was made.
+      required:
+      - attestation_dt
+      - is_non_professional_trader
+      description: The non-professional trader property is a self-attestation for US customers that can affect the metered realtime data fees. This field must be updated when if there is a change in the user's attestation. This field may also be modified by Dinari compliance team. For more information, please see the US Customers Integration Guide.
+    CreateBaselineKycInput:
+      type: object
+      properties:
+        data:
+          description: KYC data of the `Entity`.
+          $ref: '#/components/schemas/BaselineKycCheckDataV0'
+        provider_name:
+          type: string
+          minLength: 1
+          description: Name of the KYC provider that provided the KYC information.
+        jurisdiction:
+          default: BASELINE
+          enum:
+          - BASELINE
+          description: Jurisdiction of the KYC check.
+          type: string
+      required:
+      - data
+      - provider_name
+      description: Input parameters for providing KYC information for an `Entity` in the baseline jurisdiction.
+    BaselineKycCheckDataV0:
+      type: object
+      properties:
+        country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: Country of citizenship or home country of the organization. ISO 3166-1 alpha 2 country code.
+          example: SG
+        last_name:
+          type: string
+          minLength: 1
+          description: Last name of the person.
+          example: Doe
+        address_country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+          description: Country of residence. ISO 3166-1 alpha 2 country code.
+          example: SG
+        first_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: First name of the person.
+          example: John
+        middle_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: Middle name of the user
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email address.
+          example: johndoe@website.com
+        tax_id_number:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: ID number of the official tax document of the country the entity belongs to.
+          example: 12-3456789
+        birth_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Birth date of the individual. In ISO 8601 format, YYYY-MM-DD.
+          example: YYYY-MM-DD
+        address_street_1:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: Street address of address.
+          example: 123 Main St.
+        address_street_2:
+          type:
+          - string
+          - 'null'
+          description: Extension of address, usually apartment or suite number.
+          example: Apt. 123
+        address_city:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: City of address. Not all international addresses use this attribute.
+          example: San Francisco
+        address_subdivision:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: State or subdivision of address. In the US, this should be the unabbreviated name of the state. Not all international addresses use this attribute.
+          example: California
+        address_postal_code:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: Postal code of residence address. Not all international addresses use this attribute.
+          example: '94111'
+      required:
+      - address_country_code
+      - country_code
+      - last_name
+      description: KYC data for an `Entity` in the BASELINE jurisdiction.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    UsEntityAmlCheckInfoV1:
+      type: object
+      properties:
+        ref_id:
+          type: string
+          minLength: 1
+          description: Your unique identifier for the AML check.
+        check_created_at:
+          type: string
+          format: date-time
+          description: Datetime that this AML check was created.
+        is_politically_exposed_person_match:
+          type: boolean
+          description: Whether there was a match in the politically exposed person (PEP) check.
+        is_adverse_media_match:
+          type: boolean
+          description: Whether there was a match in the adverse media check.
+        is_sanctions_match:
+          type: boolean
+          description: Whether there was a match in the sanctions check.
+        is_monitored_lists_match:
+          type: boolean
+          description: Whether there was a match in the monitored lists check.
+        records:
+          type: array
+          description: If any of the checks have a match, provide details about the matches or hits found.
+          example:
+          - 'Name: John Doe, Alias: Jonathan Doe, Address: 123 Main St, Springfield, DOB: 01/01/1980, Type of Hit: PEP, Position: Mayor of Springfield, List: World-Check, URL: http://example.com/article'
+          - 'Name: John Doe, Address: 456 Elm St, Springfield, Type of Hit: Adverse Media, Summary: Involved in financial scandal, URL: http://example.com/article'
+          items:
+            type: string
+      required:
+      - check_created_at
+      - is_adverse_media_match
+      - is_monitored_lists_match
+      - is_politically_exposed_person_match
+      - is_sanctions_match
+      - records
+      - ref_id
+      description: AML check information for this individual. If any of the checks have a match, provide details about the matches or hits found. The individual will be marked as high risk and be subject to manual review.
+    Kyc:
+      oneOf:
+      - $ref: '#/components/schemas/BaselineKyc'
+      - $ref: '#/components/schemas/UsKyc'
+      discriminator:
+        propertyName: jurisdiction
+        mapping:
+          BASELINE: '#/components/schemas/BaselineKyc'
+          US: '#/components/schemas/UsKyc'
+    UsKyc:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the KYC check.
+        status:
+          description: KYC check status.
+          $ref: '#/components/schemas/KycStatus'
+        checked_dt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Datetime when the KYC was last checked. ISO 8601 timestamp.
+        data:
+          description: KYC data if the check was successful. Available only if the KYC information was provided by the Partner.
+          anyOf:
+          - $ref: '#/components/schemas/UsKycCheckDataV1'
+          - type: 'null'
+        jurisdiction:
+          default: US
+          enum:
+          - US
+          description: Jurisdiction of the KYC check.
+          type: string
+      required:
+      - id
+      - status
+      description: KYC information for an `Entity` in the US jurisdiction.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    UsEntityTrustedContactInfoV1:
+      type: object
+      properties:
+        given_name:
+          type: string
+          description: The given name of the trusted contact
+        family_name:
+          type: string
+          description: The family name of the trusted contact
+        email_address:
+          type:
+          - string
+          - 'null'
+          description: The email address of the trusted contact. At least one of email_address or phone_number is required.
+        phone_number:
+          type:
+          - string
+          - 'null'
+          pattern: ^\+\d{10,15}$
+          description: The phone number of the trusted contact. At least one of email_address or phone_number is required.
+      required:
+      - family_name
+      - given_name
+      description: "Information for a trusted contact person for the individual. More information: \n            <br/>\n            - <a href=\"https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-trusted-contact\" target=\"_blank\" rel=\"noopener noreferrer\">Investor.gov - Trusted Contact</a>\n            <br/>\n            - <a href=\"https://www.finra.org/investors/insights/trusted-contact\" target=\"_blank\" rel=\"noopener noreferrer\">FINRA - Trusted Contact</a>\n            "
+  responses:
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+  securitySchemes:
+    ApiKeyId:
+      type: apiKey
+      in: header
+      name: X-API-Key-Id
+      description: The API key ID provided on the [Partners Dashboard](https://partners.dinari.com).
+    ApiSecretKey:
+      type: apiKey
+      in: header
+      name: X-API-Secret-Key
+      description: API Secret Key that is only shown once at API Key creation.
