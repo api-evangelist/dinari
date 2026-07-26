@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dinari-openapi-original.yml
+workflows:
+  - file: dinari-onboard-and-trade.yml
+    workflowId: onboardAndTrade
+    title: Onboard a customer and place a dShare order
+    summary: Create an entity, run KYC, open an account, find a stock, and place a managed market buy.
+  - file: dinari-connect-wallet-and-fund.yml
+    workflowId: connectWalletAndFund
+    title: Connect a wallet and fund an account
+    summary: Fetch a wallet-connection nonce, connect the wallet, fund via the sandbox faucet, and read the portfolio.

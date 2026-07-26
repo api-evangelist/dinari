@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dinari-openapi-original.yml
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: openapi field is 3.1.0
+  - id: oauth2
+    conforms: false
+    evidence: security uses apiKey headers, not oauth2
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a custom BaseOpenApiError JSON envelope, not application/problem+json
+  - id: cursor-pagination
+    conforms: true
+    evidence: list endpoints support limit + page_token cursor pagination
+  - id: idempotency
+    conforms: false
+    evidence: no idempotency key header/parameter documented
+  - id: kyc-aml
+    conforms: true
+    evidence: dedicated KYC endpoints (createEntityKyc, createEntityKycDocument, managed KYC embed); KYB required for production
+  - id: eip-2612-permit
+    conforms: true
+    evidence: EIP-155 permit order-request endpoints (createEIP155OrderRequestPermit, createEip155PermitTransaction) for on-chain permit signatures
+compliance_program:
+  published_certifications: []
+  notes: >-
+    Dinari publishes smart-contract security audits (Sherlock 2023, Hacken 2023/2024,
+    Pashov 2024) and states financial-industry-standard encryption, but no named
+    enterprise compliance certifications (SOC 2 / ISO 27001 / PCI DSS) are published.
+    No `Compliance` pointer is emitted (no published certification program).
+  audits:
+    - {date: '2023-08-11', auditor: Sherlock, doc: https://assets.dinari.com/audits/Audit_Sherlock_230811.pdf}
+    - {date: '2023-12-12', auditor: Hacken, doc: https://assets.dinari.com/audits/Audit_Hacken_231212.pdf}
+    - {date: '2024-12-24', auditor: Pashov, doc: https://assets.dinari.com/audits/Audit_Pashov_241224.pdf}
+    - {date: '2024-12-30', auditor: Hacken, doc: https://assets.dinari.com/audits/Audit_Hacken_241230.pdf}

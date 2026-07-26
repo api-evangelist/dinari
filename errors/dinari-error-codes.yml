@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dinari-openapi-original.yml
+format: dinari-error-envelope
+note: >-
+  Dinari does not use RFC 9457 problem+json. Every error response uses a custom JSON
+  envelope (BaseOpenApiError) with required fields error_id, message, status, plus an
+  optional error object carrying additional context. error_id is a support reference id.
+envelope:
+  media_type: application/json
+  schema: BaseOpenApiError
+  fields:
+    - name: status
+      type: integer
+      description: HTTP status code
+    - name: message
+      type: string
+      description: Human-readable message
+    - name: error_id
+      type: string
+      description: Reference id for Dinari support
+    - name: error
+      description: Additional context and information (optional)
+problems:
+  - status: 400
+    title: Bad Request
+    description: Malformed request or invalid parameters.
+  - status: 404
+    title: Not Found
+    description: The referenced resource (entity, account, order, stock, wallet) does not exist.
+  - status: 409
+    title: Conflict
+    description: Request conflicts with current resource state (e.g. duplicate or conflicting operation).
+  - status: 422
+    title: Unprocessable Entity / Validation Error
+    description: >-
+      The most common error surface (returned by 41 of 61 operations). Request body or
+      query failed schema/business validation. Body carries the BaseOpenApiError envelope.
+  - status: 423
+    title: Locked
+    description: >-
+      Resource is locked and the operation cannot proceed at this time (returned by 4
+      operations, e.g. order/withdrawal state locks).

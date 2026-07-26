@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.dinari.com
+versioning:
+  scheme: dated-build tags + URL-path major version
+  current: v2
+  path: /api/v2
+  build_tag_example: v20260709-097f56a
+  docs: https://docs.dinari.com/changelog
+deprecation:
+  policy_url: https://docs.dinari.com/docs/deprecations
+  sunset_dates:
+    - item: Page-based pagination
+      sunset: '2026-05-29'
+      replacement: cursor-based pagination (set `limit`)
+      source: https://docs.dinari.com/changelog/v20260417-cdbbd85
+    - item: Blast blockchain support
+      sunset: '2026-04-20'
+      replacement: assets reissued on Arbitrum One
+      source: https://docs.dinari.com/docs/deprecations
+    - item: Kinto blockchain support
+      sunset: '2025-09-30'
+      replacement: contact support for reissuance
+      source: https://docs.dinari.com/docs/deprecations
+  notes: >-
+    Dinari publishes a dedicated deprecation-notices page covering both API behaviors
+    (pagination) and supported blockchains. No RFC 8594 Sunset/Deprecation response
+    headers are documented.
+status_page: https://status.dinari.com
+sla:
+  documented: false
+deprecated_operations: []

@@ -1,0 +1,196 @@
+# Dinari MCP server (candidate) — derived from OpenAPI operations
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/dinari-openapi-original.yml
+note: No official hosted Dinari MCP server was found (searched docs.dinari.com, npm @modelcontextprotocol,
+  MCP registries). This is a candidate tool list derived one-per-operation from the Dinari Enterprise
+  OpenAPI so an MCP server can be forged.
+server:
+  name: dinari
+  transport: http
+  url: null
+tools:
+- name: getAlloys
+  description: Get Alloys
+  source_operation: openapi/dinari-openapi-original.yml#getAlloys
+- name: getAlloyCurrentPrice
+  description: Get Alloy current price
+  source_operation: openapi/dinari-openapi-original.yml#getAlloyCurrentPrice
+- name: getAlloyPriceChart
+  description: Get Historical Alloy Prices
+  source_operation: openapi/dinari-openapi-original.yml#getAlloyPriceChart
+- name: getStocks
+  description: Get Stocks
+  source_operation: openapi/dinari-openapi-original.yml#getStocks
+- name: getStockCurrentPrice
+  description: Get Stock current price
+  source_operation: openapi/dinari-openapi-original.yml#getStockCurrentPrice
+- name: getStockCurrentQuotesRouteV1
+  description: Get Stock Quote
+  source_operation: openapi/dinari-openapi-original.yml#getStockCurrentQuotesRouteV1
+- name: getStockPriceChart
+  description: Get Historical Stock Prices
+  source_operation: openapi/dinari-openapi-original.yml#getStockPriceChart
+- name: getStockSplits
+  description: Get Stock Splits
+  source_operation: openapi/dinari-openapi-original.yml#getStockSplits
+- name: getStockSplitsById
+  description: Get Stock Splits for Stock
+  source_operation: openapi/dinari-openapi-original.yml#getStockSplitsById
+- name: getStockNewsByStockId
+  description: Get News Articles for Stock
+  source_operation: openapi/dinari-openapi-original.yml#getStockNewsByStockId
+- name: getStockDividendsByStockId
+  description: Get Stock Dividend Announcements
+  source_operation: openapi/dinari-openapi-original.yml#getStockDividendsByStockId
+- name: getMarketHours
+  description: Get Market Hours
+  source_operation: openapi/dinari-openapi-original.yml#getMarketHours
+- name: getEntities
+  description: Get Entities
+  source_operation: openapi/dinari-openapi-original.yml#getEntities
+- name: createEntities
+  description: Create Entity
+  source_operation: openapi/dinari-openapi-original.yml#createEntities
+- name: getCurrentEntity
+  description: Get Current Entity
+  source_operation: openapi/dinari-openapi-original.yml#getCurrentEntity
+- name: getEntityById
+  description: Get Entity by ID
+  source_operation: openapi/dinari-openapi-original.yml#getEntityById
+- name: updateEntityById
+  description: Update Entity
+  source_operation: openapi/dinari-openapi-original.yml#updateEntityById
+- name: getEntityAccounts
+  description: Get Accounts for Entity
+  source_operation: openapi/dinari-openapi-original.yml#getEntityAccounts
+- name: createEntityAccounts
+  description: Create Account for Entity
+  source_operation: openapi/dinari-openapi-original.yml#createEntityAccounts
+- name: getEntityKyc
+  description: Get KYC Data
+  source_operation: openapi/dinari-openapi-original.yml#getEntityKyc
+- name: createEntityKyc
+  description: Submit KYC Data
+  source_operation: openapi/dinari-openapi-original.yml#createEntityKyc
+- name: getEntityKycDocument
+  description: Get KYC Documents
+  source_operation: openapi/dinari-openapi-original.yml#getEntityKycDocument
+- name: createEntityKycDocument
+  description: Upload KYC Documents
+  source_operation: openapi/dinari-openapi-original.yml#createEntityKycDocument
+- name: createManagedEntityKycEmbed
+  description: Create Managed KYC Check
+  source_operation: openapi/dinari-openapi-original.yml#createManagedEntityKycEmbed
+- name: getEntityOrders
+  description: Get Orders for Entity
+  source_operation: openapi/dinari-openapi-original.yml#getEntityOrders
+- name: getAccount
+  description: Get Account by ID
+  source_operation: openapi/dinari-openapi-original.yml#getAccount
+- name: createAccountDeactivation
+  description: Deactivate Account
+  source_operation: openapi/dinari-openapi-original.yml#createAccountDeactivation
+- name: getAccountPortfolio
+  description: Get Portfolio
+  source_operation: openapi/dinari-openapi-original.yml#getAccountPortfolio
+- name: getAccountCash
+  description: Get Cash Balances
+  source_operation: openapi/dinari-openapi-original.yml#getAccountCash
+- name: getAccountInterestPayments
+  description: Get Interest Payments
+  source_operation: openapi/dinari-openapi-original.yml#getAccountInterestPayments
+- name: getAccountDividendPayments
+  description: Get Dividend Payments
+  source_operation: openapi/dinari-openapi-original.yml#getAccountDividendPayments
+- name: createAccountFaucet
+  description: Sandbox Faucet
+  source_operation: openapi/dinari-openapi-original.yml#createAccountFaucet
+- name: getBrokerageAccountActivities
+  description: Get Brokerage Account Activities
+  source_operation: openapi/dinari-openapi-original.yml#getBrokerageAccountActivities
+- name: getWallet
+  description: Get Wallet
+  source_operation: openapi/dinari-openapi-original.yml#getWallet
+- name: getAccountWalletConnectionNonce
+  description: Get Wallet Connection Nonce
+  source_operation: openapi/dinari-openapi-original.yml#getAccountWalletConnectionNonce
+- name: createAccountWalletConnection
+  description: Connect Wallet to Account
+  source_operation: openapi/dinari-openapi-original.yml#createAccountWalletConnection
+- name: createAccountWalletInternalConnection
+  description: Connect an internal Wallet to Account
+  source_operation: openapi/dinari-openapi-original.yml#createAccountWalletInternalConnection
+- name: getOrders
+  description: Get Orders
+  source_operation: openapi/dinari-openapi-original.yml#getOrders
+- name: getOrderById
+  description: Get Order by ID
+  source_operation: openapi/dinari-openapi-original.yml#getOrderById
+- name: createOrderCancellation
+  description: Cancel Order
+  source_operation: openapi/dinari-openapi-original.yml#createOrderCancellation
+- name: createBatchOrderCancellation
+  description: Cancel Orders
+  source_operation: openapi/dinari-openapi-original.yml#createBatchOrderCancellation
+- name: getListOrderRequests
+  description: List Order Requests
+  source_operation: openapi/dinari-openapi-original.yml#getListOrderRequests
+- name: getOrderRequestById
+  description: Get Order Request by ID
+  source_operation: openapi/dinari-openapi-original.yml#getOrderRequestById
+- name: createEIP155OrderRequestPermit
+  description: Create EIP155 Order Request Permit
+  source_operation: openapi/dinari-openapi-original.yml#createEIP155OrderRequestPermit
+- name: createEIP155OrderRequestPermitTransaction
+  description: Submit EIP155 Order Request
+  source_operation: openapi/dinari-openapi-original.yml#createEIP155OrderRequestPermitTransaction
+- name: createEip155PermitTransaction
+  description: Create EIP155 Order Request Permit Transaction
+  source_operation: openapi/dinari-openapi-original.yml#createEip155PermitTransaction
+- name: getAccountAllOrderFulfillments
+  description: Query Order Fulfillments
+  source_operation: openapi/dinari-openapi-original.yml#getAccountAllOrderFulfillments
+- name: getAccountOrderFulfillments
+  description: Get Order Fulfillments
+  source_operation: openapi/dinari-openapi-original.yml#getAccountOrderFulfillments
+- name: getAccountOrderFulfillmentById
+  description: Get Order Fulfillment by ID
+  source_operation: openapi/dinari-openapi-original.yml#getAccountOrderFulfillmentById
+- name: createMarketBuyManagedOrderRequest
+  description: Create Market Buy Managed Order Request
+  source_operation: openapi/dinari-openapi-original.yml#createMarketBuyManagedOrderRequest
+- name: createMarketSellManagedOrderRequest
+  description: Create Market Sell Managed Order Request
+  source_operation: openapi/dinari-openapi-original.yml#createMarketSellManagedOrderRequest
+- name: createLimitBuyManagedOrderRequest
+  description: Create Limit Buy Managed Order Request
+  source_operation: openapi/dinari-openapi-original.yml#createLimitBuyManagedOrderRequest
+- name: createLimitSellManagedOrderRequest
+  description: Create Limit Sell Managed Order Request
+  source_operation: openapi/dinari-openapi-original.yml#createLimitSellManagedOrderRequest
+- name: getTokenTransfers
+  description: Get TokenTransfers
+  source_operation: openapi/dinari-openapi-original.yml#getTokenTransfers
+- name: createTokenTransfers
+  description: Create TokenTransfer
+  source_operation: openapi/dinari-openapi-original.yml#createTokenTransfers
+- name: getTokenTransfer
+  description: Get TokenTransfer by ID
+  source_operation: openapi/dinari-openapi-original.yml#getTokenTransfer
+- name: getAccountWithdrawalRequests
+  description: Get Withdrawal Requests
+  source_operation: openapi/dinari-openapi-original.yml#getAccountWithdrawalRequests
+- name: createAccountWithdrawalRequests
+  description: Create Withdrawal Request
+  source_operation: openapi/dinari-openapi-original.yml#createAccountWithdrawalRequests
+- name: getAccountWithdrawalRequest
+  description: Get Withdrawal Request by ID
+  source_operation: openapi/dinari-openapi-original.yml#getAccountWithdrawalRequest
+- name: getAccountWithdrawals
+  description: Get Withdrawals
+  source_operation: openapi/dinari-openapi-original.yml#getAccountWithdrawals
+- name: getAccountWithdrawal
+  description: Get Withdrawal by ID
+  source_operation: openapi/dinari-openapi-original.yml#getAccountWithdrawal

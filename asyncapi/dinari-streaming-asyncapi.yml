@@ -1,0 +1,156 @@
+# method: generated
+# source: https://docs.dinari.com/docs/websockets
+# generated: 2026-07-18
+# NOTE: Generated from Dinari's documented WebSocket streaming surface (beta/DRAFT).
+# Dinari publishes no verbatim AsyncAPI document; this captures the documented channels,
+# commands, and event messages faithfully so the streaming surface is discoverable.
+asyncapi: 3.0.0
+info:
+  title: Dinari Streaming (WebSocket) API
+  version: beta
+  description: >-
+    Real-time market data and order updates over WebSocket. Clients authenticate with
+    their API key + secret, then subscribe to market data (Level 2 order book, DFN quotes)
+    and/or order data for their customers' accounts.
+  contact:
+    email: hello@dinari.com
+servers:
+  production:
+    host: ws.api.dinari.com
+    protocol: wss
+  sandbox:
+    host: ws.api.sandbox.dinari.com
+    protocol: wss
+    description: Coming soon.
+channels:
+  connection:
+    address: /
+    description: Single multiplexed WebSocket connection carrying commands and events.
+    messages:
+      authenticate:
+        $ref: '#/components/messages/authenticate'
+      marketDataSubscribe:
+        $ref: '#/components/messages/marketDataSubscribe'
+      orderDataSubscribe:
+        $ref: '#/components/messages/orderDataSubscribe'
+      l2Data:
+        $ref: '#/components/messages/l2Data'
+      dfnQuote:
+        $ref: '#/components/messages/dfnQuote'
+      orderData:
+        $ref: '#/components/messages/orderData'
+operations:
+  authenticate:
+    action: send
+    channel:
+      $ref: '#/channels/connection'
+    messages:
+      - $ref: '#/channels/connection/messages/authenticate'
+  subscribeMarketData:
+    action: send
+    channel:
+      $ref: '#/channels/connection'
+    messages:
+      - $ref: '#/channels/connection/messages/marketDataSubscribe'
+  subscribeOrderData:
+    action: send
+    channel:
+      $ref: '#/channels/connection'
+    messages:
+      - $ref: '#/channels/connection/messages/orderDataSubscribe'
+  receiveL2:
+    action: receive
+    channel:
+      $ref: '#/channels/connection'
+    messages:
+      - $ref: '#/channels/connection/messages/l2Data'
+  receiveQuote:
+    action: receive
+    channel:
+      $ref: '#/channels/connection'
+    messages:
+      - $ref: '#/channels/connection/messages/dfnQuote'
+  receiveOrderData:
+    action: receive
+    channel:
+      $ref: '#/channels/connection'
+    messages:
+      - $ref: '#/channels/connection/messages/orderData'
+components:
+  messages:
+    authenticate:
+      name: authenticate
+      title: Authenticate command
+      payload:
+        type: object
+        properties:
+          command: {type: string, const: authenticate}
+          data:
+            type: object
+            properties:
+              api_key: {type: string}
+              api_secret: {type: string}
+    marketDataSubscribe:
+      name: market_data_subscribe
+      title: Subscribe to market data
+      payload:
+        type: object
+        properties:
+          command: {type: string, const: market_data_subscribe}
+          data:
+            type: object
+            properties:
+              stock_dfn_l2: {type: array, items: {type: string}}
+              stock_dfn_quotes: {type: array, items: {type: string}}
+    orderDataSubscribe:
+      name: order_data_subscribe
+      title: Subscribe to order data
+      payload:
+        type: object
+        properties:
+          command: {type: string, const: order_data_subscribe}
+          data: {type: object}
+    l2Data:
+      name: market_data:l2_data
+      title: Level 2 order book update
+      payload:
+        type: object
+        properties:
+          event_type: {type: string, const: 'market_data:l2_data'}
+          data:
+            type: object
+            properties:
+              Symbol: {type: string}
+              MaxDepth: {type: integer}
+              Bids: {type: array}
+              Asks: {type: array}
+              Timestamp: {type: string, format: date-time}
+              SchemaVersion: {type: string}
+    dfnQuote:
+      name: market_data:dfn_quote
+      title: DFN top-of-book quote
+      payload:
+        type: object
+        properties:
+          event_type: {type: string, const: 'market_data:dfn_quote'}
+          data:
+            type: object
+            properties:
+              Symbol: {type: string}
+              BidPrice: {type: number}
+              BidSize: {type: number}
+              AskPrice: {type: number}
+              AskSize: {type: number}
+              TimeStamp: {type: string, format: date-time}
+    orderData:
+      name: order_data
+      title: Order status / fulfillment update
+      payload:
+        type: object
+        properties:
+          event_type: {type: string, const: order_data}
+          data:
+            type: object
+            properties:
+              entity_id: {type: string}
+              order_request: {type: object}

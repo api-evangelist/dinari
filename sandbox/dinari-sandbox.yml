@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.dinari.com/reference/environments
+environments:
+  - name: sandbox
+    base_url: https://api-enterprise.sandbox.dinari.com/api/v2
+    websocket: wss://ws.api.sandbox.dinari.com
+    websocket_status: coming-soon
+    notes: Test environment; use API keys generated in the sandbox environment.
+  - name: live
+    base_url: https://api-enterprise.sbt.dinari.com/api/v2
+    websocket: wss://ws.api.dinari.com
+key_separation:
+  model: environment-scoped API keys
+  notes: >-
+    API keys are generated per environment on the Partners Dashboard. Sandbox keys only
+    work against the sandbox base URL; production keys only against live. There is no
+    key-prefix convention (unlike Stripe's sk_test_/sk_live_) — the environment is
+    selected by base URL + key scope.
+test_tooling:
+  - name: Account faucet
+    operation: createAccountFaucet
+    path: POST /api/v2/accounts/{account_id}/faucet
+    description: >-
+      Mints test funds into a sandbox account so orders can be placed without real money.
+      Sandbox-only.
+  - name: Managed KYC embed
+    operation: createManagedEntityKycEmbed
+    description: Test the hosted/managed KYC flow in sandbox before going live.
+go_live_checklist:
+  source: https://docs.dinari.com/docs/deploy-to-production
+  steps:
+    - Complete KYB with Dinari
+    - Generate an API key in the production environment
+    - Point the SDK at the live base URL with the production key
+    - Point smart-contract usage at mainnet addresses
+note: >-
+  Dinari publishes no static test card / bank-account fixtures (it is not a card
+  acquirer); the sandbox is exercised via the faucet endpoint and sandbox-scoped keys.

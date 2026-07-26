@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Dinari Enterprise API
+  version: 1.0.0
+extends: openapi/dinari-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: dinari
+      x-apievangelist-category: tokenized-securities
+      x-apievangelist-artifacts:
+        authentication: authentication/dinari-authentication.yml
+        conventions: conventions/dinari-conventions.yml
+        errors: errors/dinari-error-codes.yml
+        lifecycle: lifecycle/dinari-lifecycle.yml
+        sandbox: sandbox/dinari-sandbox.yml
+        data_model: data-model/dinari-data-model.yml
+        streaming: asyncapi/dinari-streaming-asyncapi.yml
+  - target: $.servers
+    update:
+      x-apievangelist-environments:
+        sandbox: https://api-enterprise.sandbox.dinari.com/api/v2
+        live: https://api-enterprise.sbt.dinari.com/api/v2
+  - target: $.info
+    update:
+      x-apievangelist-agent-readiness:
+        auth: dual-header api key (X-API-Key-Id, X-API-Secret-Key)
+        idempotency: not-supported
+        pagination: cursor (limit + page_token)
+        error_envelope: BaseOpenApiError (status, message, error_id)

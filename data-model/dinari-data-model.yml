@@ -1,0 +1,67 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dinari-openapi-original.yml
+note: >-
+  Entity graph derived from the Dinari Enterprise OpenAPI paths and id-reference fields.
+  ids are UUIDv7. Entity is the top-level partner-customer; Accounts hang off Entities;
+  Orders/Wallets/Withdrawals/Transfers hang off Accounts. Stocks and Alloys are the
+  tradable market-data assets referenced by orders.
+entities:
+  - name: Entity
+    id_field: entity_id
+    description: A partner's customer (individual or organization) that undergoes KYC/KYB.
+    relationships:
+      - {type: has_many, target: Account, via: entity_id}
+      - {type: has_one, target: Kyc, via: entity_id}
+      - {type: has_many, target: KycDocument, via: entity_id}
+  - name: Account
+    id_field: account_id
+    description: A brokerage account belonging to an entity; holds cash, portfolio, and orders.
+    relationships:
+      - {type: belongs_to, target: Entity, via: entity_id}
+      - {type: has_one, target: Portfolio, via: account_id}
+      - {type: has_many, target: Order, via: account_id}
+      - {type: has_many, target: OrderRequest, via: account_id}
+      - {type: has_many, target: Wallet, via: account_id}
+      - {type: has_many, target: WithdrawalRequest, via: account_id}
+      - {type: has_many, target: TokenTransfer, via: account_id}
+      - {type: has_many, target: DividendPayment, via: account_id}
+      - {type: has_many, target: InterestPayment, via: account_id}
+  - name: OrderRequest
+    id_field: order_request_id
+    description: A requested buy/sell (market or limit, managed or EIP-155 permit) that resolves into an Order.
+    relationships:
+      - {type: belongs_to, target: Account, via: account_id}
+      - {type: has_one, target: Order, via: order_request_id}
+      - {type: references, target: Stock, via: stock_id}
+      - {type: references, target: Alloy, via: alloy_id}
+  - name: Order
+    id_field: order_id
+    description: An executed/executing order with fulfillments.
+    relationships:
+      - {type: belongs_to, target: Account, via: account_id}
+      - {type: has_many, target: OrderFulfillment, via: order_id}
+  - name: Wallet
+    id_field: wallet_id
+    description: A blockchain wallet connected to an account for on-chain dShare custody.
+    relationships:
+      - {type: belongs_to, target: Account, via: account_id}
+  - name: WithdrawalRequest
+    id_field: withdrawal_request_id
+    description: A request to withdraw funds/assets; resolves to a Withdrawal.
+    relationships:
+      - {type: belongs_to, target: Account, via: account_id}
+      - {type: has_one, target: Withdrawal, via: withdrawal_request_id}
+  - name: TokenTransfer
+    id_field: token_transfer_id
+    relationships:
+      - {type: belongs_to, target: Account, via: account_id}
+  - name: Stock
+    id_field: stock_id
+    description: A tradable equity/ETF exposed as a dShare, with price, quotes, splits, dividends, news.
+    relationships:
+      - {type: has_many, target: StockSplit, via: stock_id}
+      - {type: has_many, target: StockDividend, via: stock_id}
+  - name: Alloy
+    id_field: alloy_id
+    description: A multi-asset index token (e.g. S&P Digital Markets 50) tradable alongside stocks.

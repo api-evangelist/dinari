@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.dinari.com/changelog
+scheme: dated-build tags (vYYYYMMDD-<hash>)
+current: v20260709-097f56a
+entries:
+  - version: v20260709-097f56a
+    date: '2026-07-09'
+    breaking: false
+    highlights:
+      - "Changed: `jurisdiction` (US) can now be passed to POST /api/v2/entities/{entity_id}/kyc/url for managed US KYC workflows."
+  - version: v20260617-68ffb6a
+    date: '2026-06-17'
+    breaking: false
+    highlights:
+      - "Changed: `payment_token_address` can be specified on Market Buy / Limit Buy managed orders to opt out of default USD+ payment token."
+      - "Changed: Cancel API returns more meaningful status codes and error messages."
+      - "Changed: Latest SDKs serve responses using cursor-based pagination."
+      - "Added: SDK support for HyperEVM and Avalanche C-Chain orders."
+  - version: v20260417-cdbbd85
+    date: '2026-04-17'
+    breaking: true
+    highlights:
+      - "Introduced cursor-based pagination + object return across 14 list endpoints."
+      - "Page-based pagination deprecated; removal scheduled 2026-05-29. Preserved unless `limit` is set."
+  - version: v20260114-9a86c2e
+    date: '2026-01-14'
+    breaking: false
+    highlights:
+      - "Fixed: order processing and USD+ redemption issue."
+  - version: v20250323-9ce7614
+    date: '2025-03-23'
+    breaking: false
+    highlights:
+      - "Added: multi-asset support (Alloys) — order endpoints accept `alloy_id` alongside `stock_id`."
+      - "Changed: response models treat `stock_id`/`alloy_id` as optional for backward compatibility."

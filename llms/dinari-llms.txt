@@ -1,0 +1,114 @@
+# method: searched
+# source: https://docs.dinari.com/llms.txt
+# generated: 2026-07-18
+
+# Dinari Documentation
+
+> Documentation for Dinari
+
+## Guides
+- [Quickstart](https://docs.dinari.com/docs/quickstart.md)
+- [Entity Management](https://docs.dinari.com/docs/entity-management.md)
+- [Identity Verification (KYC)](https://docs.dinari.com/docs/managing-kyc.md)
+- [Managing Accounts](https://docs.dinari.com/docs/managing-accounts.md)
+- [Managing Wallets](https://docs.dinari.com/docs/managing-wallets.md)
+- [Funding Accounts through Wallets](https://docs.dinari.com/docs/funding-accounts-through-wallets.md)
+- [Placing Orders](https://docs.dinari.com/docs/placing-dshare-orders.md)
+- [Order Types & Behaviors](https://docs.dinari.com/docs/order-type.md): Market and limit order types across Dinari's order-placement APIs, including required fields, pricing logic, and order controls.
+- [Regional Requirements](https://docs.dinari.com/docs/regional-requirements.md)
+- [US Customers](https://docs.dinari.com/docs/us.md): Guide to offering dShares™ to US customers.
+- [Stock Data](https://docs.dinari.com/docs/stock-data.md)
+- [Pricing & Quotes](https://docs.dinari.com/docs/pricing-quotes.md)
+- [Corporate Actions](https://docs.dinari.com/docs/stock-data-corporate-actions.md)
+- [Websockets for Order Data (DRAFT)](https://docs.dinari.com/docs/websockets.md): Subscribe to real-time market data and order updates via websockets.
+- [Trading Hours](https://docs.dinari.com/docs/trading-hours.md): Information about Dinari trading hours and the differences in trading sessions.
+- [Deploy to production](https://docs.dinari.com/docs/deploy-to-production.md)
+- [Hosted Trading](https://docs.dinari.com/docs/hosted-trading.md): Dinari offers a hosted trading interface for compatible web and mobile interfaces.
+- [Fees](https://docs.dinari.com/docs/fees.md): Summary of dShare retail fees
+- [Restrictions](https://docs.dinari.com/docs/restrictions.md)
+- [What are dShares™?](https://docs.dinari.com/docs/what-is-dshare.md)
+- [Corporate Actions](https://docs.dinari.com/docs/corporate-actions.md)
+- [Dividends](https://docs.dinari.com/docs/dividends.md)
+- [Stock Splits](https://docs.dinari.com/docs/stock-splits.md)
+- [Blockchain](https://docs.dinari.com/docs/blockchain.md)
+- [Wrapping dShares™](https://docs.dinari.com/docs/wrapping.md): Learn how to wrap dShares into ERC-20 tokens on HyperEVM and transfer them to HyperCore.
+- [Hyperliquid](https://docs.dinari.com/docs/hyperliquid.md): Learn how dShares and wrapped dShares work across HyperEVM and HyperCore in the Hyperliquid ecosystem.
+- [dShare Bridging Guide](https://docs.dinari.com/docs/dshare-bridging-guide.md)
+- [Deprecation Notices](https://docs.dinari.com/docs/deprecations.md)
+- [Taxes & Reporting](https://docs.dinari.com/docs/taxes-reporting.md)
+- [Fees](https://docs.dinari.com/docs/dshare-fees.md)
+- [What is USD+?](https://docs.dinari.com/docs/what-is-usd.md)
+- [EVM](https://docs.dinari.com/docs/usdplus-evm.md)
+- [Integration Guide](https://docs.dinari.com/docs/usdplus-evm-integration-guide.md)
+- [Security](https://docs.dinari.com/docs/security.md)
+
+## API Reference
+- [⚠️ Environment](https://docs.dinari.com/reference/environments.md)
+- [Get Stocks](https://docs.dinari.com/reference/getstocks.md): Get a list of `Stocks`.
+- [Get Historical Stock Prices](https://docs.dinari.com/reference/getstockpricechart.md): Get historical price data for a specified `Stock`. Each index in the array represents a single tick in a price chart.
+- [Get Stock Splits](https://docs.dinari.com/reference/getstocksplits.md): Get a list of stock splits for `Stocks` available for trade via Dinari. The splits are ordered by the date they were created, with the most recent split first.  In an example 10-for-1 stock split, trading will be halted for the stock at the end of the `payable_date`, as the split transitions from `PENDING` to `IN_PROGRESS`. This usually occurs over a weekend to minimize trading disruptions. Each share of stock owned by a shareholder will then be converted into 10 shares, and the split becomes `COMPLETE` as trading resumes on the `ex_date` with new split-adjusted prices.
+- [Get Stock Splits for Stock](https://docs.dinari.com/reference/getstocksplitsbyid.md): Get a list of stock splits for a specific `Stock`. The splits are ordered by the date they were created, with the most recent split first.  In an example 10-for-1 stock split, trading will be halted for the stock at the end of the `payable_date`, as the split transitions from `PENDING` to `IN_PROGRESS`. This usually occurs over a weekend to minimize trading disruptions. Each share of stock owned by a shareholder will then be converted into 10 shares, and the split becomes `COMPLETE` as trading resumes on the `ex_date` with new split-adjusted prices.
+- [Get News Articles for Stock](https://docs.dinari.com/reference/getstocknewsbystockid.md): Get the most recent news articles relating to a `Stock`, including a summary of the article          and a link to the original source.
+- [Get Stock Dividend Announcements](https://docs.dinari.com/reference/getstockdividendsbystockid.md): Get a list of announced stock dividend details for a specified `Stock`.  Note that this data applies only to actual stocks. Yield received for holding tokenized shares may differ from this.
+- [Get Market Hours](https://docs.dinari.com/reference/getmarkethours.md): Get the market hours for the current trading session and next open trading session.
+- [Get Stock current price](https://docs.dinari.com/reference/getstockcurrentprice.md): Get current price for a specified `Stock`.
+- [Get Alloys](https://docs.dinari.com/reference/getalloys.md): Returns available `Alloys` with cursor-based pagination.
+- [Get Alloy current price](https://docs.dinari.com/reference/getalloycurrentprice.md): Get the current price for a specified `Alloy`.
+- [Get Historical Alloy Prices](https://docs.dinari.com/reference/getalloypricechart.md): Get historical price data for a specified `Alloy`. Each index in the array represents a single tick in a price chart.
+- [Get Stock Quote](https://docs.dinari.com/reference/getstockcurrentquotesroutev2.md): Get quote for a specified `Stock`.
+- [Get Entities](https://docs.dinari.com/reference/getentities.md): Get a list of direct `Entities` your organization manages. These `Entities` represent individual customers of your organization.
+- [Create Entity](https://docs.dinari.com/reference/createentities.md): Create a new `Entity` to be managed by your organization. This `Entity` represents an individual customer of your organization.
+- [Get Current Entity](https://docs.dinari.com/reference/getcurrententity.md): Get the current authenticated `Entity`, which represents your organization.
+- [Get Entity by ID](https://docs.dinari.com/reference/getentitybyid.md): Get a specific customer `Entity` of your organization by their ID.
+- [Update Entity](https://docs.dinari.com/reference/updateentitybyid.md): Update a specific customer `Entity` of your organization.
+- [Get KYC Data](https://docs.dinari.com/reference/getentitykyc.md): Get most recent KYC data of the `Entity`.  If there are any completed KYC checks, data from the most recent one will be returned. If there are no completed KYC checks, the most recent KYC check information, regardless of status, will be returned.
+- [Submit KYC Data](https://docs.dinari.com/reference/createentitykyc.md): Submit KYC data directly, for partners that are provisioned to provide their own KYC data.  This feature is available for everyone in sandbox mode, and for specifically provisioned partners in production.
+- [Get KYC Documents](https://docs.dinari.com/reference/getentitykycdocument.md): Get uploaded documents for a KYC check
+- [Upload KYC Documents](https://docs.dinari.com/reference/createentitykycdocument.md): Upload KYC-related documentation for partners that are provisioned to provide their own KYC data.
+- [Create Managed KYC Check](https://docs.dinari.com/reference/createmanagedentitykycembed.md): Create a Dinari-managed KYC Check and get a URL for your end customer to interact with.  The URL points to a web-based KYC interface that can be presented to the end customer for KYC verification. Once the customer completes this KYC flow, the KYC check will be created and available in the KYC API.
+- [Get Accounts for Entity](https://docs.dinari.com/reference/getentityaccounts.md): Get a list of all `Accounts` that belong to a specific `Entity`. This `Entity` represents your organization itself, or an individual customer of your organization.
+- [Create Account for Entity](https://docs.dinari.com/reference/createentityaccounts.md): Create a new `Account` for a specific `Entity`. This `Entity` represents your organization itself, or an individual customer of your organization.
+- [Get Account by ID](https://docs.dinari.com/reference/getaccount.md): Get a specific `Account` by its ID.
+- [Deactivate Account](https://docs.dinari.com/reference/createaccountdeactivation.md): Set the `Account` to be inactive. Inactive accounts cannot be used for trading.
+- [Get Portfolio](https://docs.dinari.com/reference/getaccountportfolio.md): Get the portfolio of the `Account`, excluding cash equivalents such as stablecoins.
+- [Get Cash Balances](https://docs.dinari.com/reference/getaccountcash.md): Get the cash balances of the `Account`, including stablecoins and other cash equivalents.
+- [Get Interest Payments](https://docs.dinari.com/reference/getaccountinterestpayments.md): Get interest payments made to the `Account` from yield-bearing cash holdings.  Currently, the only yield-bearing stablecoin accepted by Dinari is [USD+](https://usd.dinari.com/).
+- [Get Dividend Payments](https://docs.dinari.com/reference/getaccountdividendpayments.md): Get dividend payments made to the `Account` from dividend-bearing stock holdings.
+- [Sandbox Faucet](https://docs.dinari.com/reference/createaccountfaucet.md): Mints 1,000 mockUSD sandbox payment tokens to the `Wallet` connected to the `Account`.  This feature is only supported in sandbox mode.
+- [Get TokenTransfers](https://docs.dinari.com/reference/gettokentransfers.md): Get `TokenTransfer`s made from this `Account`.  A `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another. As such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.
+- [Create TokenTransfer](https://docs.dinari.com/reference/createtokentransfers.md): Creates a `TokenTransfer` from this `Account`.  A `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another. As such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.
+- [Get TokenTransfer by ID](https://docs.dinari.com/reference/gettokentransfer.md): Get a specific `TokenTransfer` made from this `Account` by its ID.  A `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another. As such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.
+- [Get Brokerage Account Activities](https://docs.dinari.com/reference/getbrokerageaccountactivities.md): Get a list of brokerage activities tied to the specified `Account`.  **⚠️ ALPHA: This endpoint is in early development and subject to breaking changes.**
+- [Get Wallet](https://docs.dinari.com/reference/getwallet.md): Get the wallet connected to the `Account`.
+- [Get Wallet Connection Nonce](https://docs.dinari.com/reference/getaccountwalletconnectionnonce.md): Get a nonce and message to be signed in order to verify `Wallet` ownership.
+- [Connect Wallet to Account](https://docs.dinari.com/reference/createaccountwalletconnection.md): Connect a `Wallet` to the `Account` after verifying the signature.
+- [Connect an internal Wallet to Account](https://docs.dinari.com/reference/createaccountwalletinternalconnection.md): Connect an internal `Wallet` to the `Account`.
+- [Get Orders](https://docs.dinari.com/reference/getorders.md): Get a list of all `Orders` under the `Account`.<br>Optionally `Orders` can be filtered by chain ID, transaction hash, or client order ID.
+- [Get Order by ID](https://docs.dinari.com/reference/getorderbyid.md): Get a specific `Order` by its ID.
+- [Query Order Fulfillments](https://docs.dinari.com/reference/getaccountallorderfulfillments.md): Query `OrderFulfillments` under the `Account`.
+- [Get Order Fulfillments](https://docs.dinari.com/reference/getaccountorderfulfillments.md): Get `OrderFulfillments` for a specific `Order`.
+- [Get Order Fulfillment by ID](https://docs.dinari.com/reference/getaccountorderfulfillmentbyid.md): Get a specific `OrderFulfillment` by its ID.
+- [Get Orders for Entity](https://docs.dinari.com/reference/getentityorders.md): Get a list of all `Orders` under the `Entity`.<br>Optionally `Orders` can be transaction hash or fulfillment transaction hash.
+- [Cancel Orders](https://docs.dinari.com/reference/createbatchordercancellation.md): Cancel multiple `Orders` by their IDs in a single request. Note that this requires the `Order` IDs, not the `OrderRequest` IDs. Once you submit a cancellation request, it cannot be undone. Be advised that orders with a status of PENDING_FILL, PENDING_ESCROW, FILLED, REJECTED, or CANCELLED cannot be cancelled.  `Order` cancellation is not guaranteed nor is it immediate. The `Orders` may still be executed if the cancellation request is not received in time.  The response will indicate which orders were successfully queued to cancel and which failed to queue. Check the status using the "Get Order by ID" endpoint to confirm whether individual `Orders` have been cancelled.
+- [List Order Requests](https://docs.dinari.com/reference/getlistorderrequests.md): Lists `OrderRequests`.<br>Optionally `OrderRequests` can be filtered by certain parameters.
+- [Get Order Request by ID](https://docs.dinari.com/reference/getorderrequestbyid.md): Get a specific `OrderRequest` by its ID.
+- [Cancel Order](https://docs.dinari.com/reference/createordercancellation.md): Cancel an `Order` by its ID. Note that this requires the `Order` ID, not the `OrderRequest` ID. Once you submit a cancellation request, it cannot be undone. Be advised that orders with a status of PENDING_FILL, PENDING_ESCROW, FILLED, REJECTED, or CANCELLED cannot be cancelled.  `Order` cancellation is not guaranteed nor is it immediate. The `Order` may still be executed if the cancellation request is not received in time.  Check the status using the "Get Order by ID" endpoint to confirm whether the `Order` has been cancelled.
+- [Create Market Buy Managed Order Request](https://docs.dinari.com/reference/createmarketbuymanagedorderrequest.md): Create a managed `OrderRequest` to place a market buy `Order`.  Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places  If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
+- [Create Market Sell Managed Order Request](https://docs.dinari.com/reference/createmarketsellmanagedorderrequest.md): Create a managed `OrderRequest` to place a market sell `Order`.  Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places  If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
+- [Create Limit Buy Managed Order Request](https://docs.dinari.com/reference/createlimitbuymanagedorderrequest.md): Create a managed `OrderRequest` to place a limit buy `Order`.  Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places  If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
+- [Create Limit Sell Managed Order Request](https://docs.dinari.com/reference/createlimitsellmanagedorderrequest.md): Create a managed `OrderRequest` to place a limit sell `Order`.  Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places  If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
+- [Get Withdrawal Requests](https://docs.dinari.com/reference/getaccountwithdrawalrequests.md): List `WithdrawalRequests` under the `Account`, sorted by most recent.
+- [Create Withdrawal Request](https://docs.dinari.com/reference/createaccountwithdrawalrequests.md): Request to withdraw USD+ payment tokens from a managed `Account` and send the equivalent amount of USDC to the specified recipient `Account`.  The recipient `Account` must belong to the same `Entity` as the managed `Account`.
+- [Get Withdrawal Request by ID](https://docs.dinari.com/reference/getaccountwithdrawalrequest.md): Get a specific `WithdrawalRequest` by its ID.
+- [Get Withdrawals](https://docs.dinari.com/reference/getaccountwithdrawals.md): Get a list of all `Withdrawals` under the `Account`, sorted by most recent.
+- [Get Withdrawal by ID](https://docs.dinari.com/reference/getaccountwithdrawal.md): Get a specific `Withdrawal` by its ID.
+- [Create EIP155 Order Request Permit](https://docs.dinari.com/reference/createeip155orderrequestpermit.md): Generates a permit that can be signed and used to create an `OrderRequest` using Dinari's EVM smart contracts.  This is a convenience method to prepare the transactions needed to create an `OrderRequest` using Dinari's EVM smart contracts. Once signed, the transactions can be sent to the EVM network to create the order. Note that the fee quote is already included in the transactions, so no additional fee quote lookup is needed.  Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places.
+- [Submit EIP155 Order Request](https://docs.dinari.com/reference/createeip155orderrequestpermittransaction.md): Submits a transaction for an EIP155 Order Request given the EIP155OrderRequest ID and Permit Signature.  An `EIP155OrderRequest` representing the proxied order is returned.
+- [Create EIP155 Order Request Permit Transaction](https://docs.dinari.com/reference/createeip155permittransaction.md): Prepare a transaction to be placed on EVM. The returned structure contains the necessary data to create an `EIP155Transaction` object.
+
+## Changelog
+- [v20260709-097f56a](https://docs.dinari.com/changelog/v20260709-097f56a.md)
+- [v20260617-68ffb6a](https://docs.dinari.com/changelog/v20260617-68ffb6a.md)
+- [v20260417-cdbbd85](https://docs.dinari.com/changelog/v20260417-cdbbd85.md)
+- [v20250323-9ce7614](https://docs.dinari.com/changelog/v20250323-9ce7614.md)
+- [v20260114-9a86c2e](https://docs.dinari.com/changelog/v20260114-9a86c2e.md)

@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/dinari-openapi-original.yml
+skills:
+  - file: dinari-onboard-entity.md
+    name: Onboard a Dinari entity (KYC) and open an account
+    api: openapi/dinari-openapi-original.yml
+    operations: [createEntities, createEntityKyc, createEntityKycDocument, createManagedEntityKycEmbed, createEntityAccounts, getEntityKyc]
+  - file: dinari-place-managed-order.md
+    name: Place a managed dShare order
+    api: openapi/dinari-openapi-original.yml
+    operations: [getStocks, getStockCurrentPrice, createMarketBuyManagedOrderRequest, createLimitBuyManagedOrderRequest, getOrderRequestById, getOrders, getAccountOrderFulfillments]
+  - file: dinari-connect-wallet-and-fund.md
+    name: Connect a wallet and fund a Dinari account
+    api: openapi/dinari-openapi-original.yml
+    operations: [getAccountWalletConnectionNonce, createAccountWalletConnection, createAccountWalletInternalConnection, createAccountFaucet, getAccountPortfolio, getAccountCash, getWallet]

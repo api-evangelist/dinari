@@ -1,0 +1,62 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.dinari.com
+spec: openapi/dinari-openapi-original.yml
+authentication:
+  style: dual-header-api-key
+  headers:
+    - X-API-Key-Id
+    - X-API-Secret-Key
+  docs: https://docs.dinari.com/docs/quickstart
+  notes: >-
+    Both the API Key ID and API Secret Key are issued from the Partners Dashboard
+    (partners.dinari.com) and must be sent on every request. The secret key is shown
+    once at creation. Keys are environment-scoped (sandbox vs live). See authentication/.
+idempotency:
+  supported: false
+  notes: >-
+    The Dinari Enterprise OpenAPI declares no idempotency key header or parameter, and
+    the docs document none. Order requests carry client-supplied identifiers but there is
+    no documented Idempotency-Key retry contract. No Idempotency pointer is emitted.
+pagination:
+  style: cursor-and-page
+  default: page-based (legacy)
+  cursor:
+    params: [limit, page_token]
+    trigger: >-
+      Setting `limit` on a list endpoint switches that endpoint to cursor-based
+      pagination and returns an object wrapper carrying the page and a next page_token.
+  legacy:
+    params: [page, page_size]
+    deprecation: >-
+      Page-based pagination is deprecated as of 2026-04-17 and page-based behavior is
+      slated for removal 2026-05-29. Preserved only while `limit` is unset.
+  docs: https://docs.dinari.com/changelog/v20260417-cdbbd85
+  affected_endpoints:
+    - GET /api/v2/market_data/stocks/
+    - GET /api/v2/entities/
+    - GET /api/v2/entities/{entity_id}/accounts
+    - GET /api/v2/orders/
+    - GET /api/v2/accounts/{account_id}/orders
+    - GET /api/v2/accounts/{account_id}/order_requests
+    - GET /api/v2/accounts/{account_id}/withdrawals
+error_envelope:
+  media_type: application/json
+  shape: "{ status, message, error_id, error? }"
+  ref: errors/dinari-error-codes.yml
+versioning:
+  scheme: date-hash tags (e.g. v20260709-097f56a); URL path major version /api/v2
+  current: /api/v2
+  ref: lifecycle/dinari-lifecycle.yml
+rate_limit_signaling:
+  documented: false
+  notes: No rate-limit headers or quota policy documented in the OpenAPI or docs surfaced.
+identifiers:
+  format: UUIDv7
+  notes: >-
+    Entity, account, order and order_request ids are UUIDv7 (time-ordered UUIDs), e.g.
+    0197422f-d3cb-7050-ae5f-e5b9473f067b.
+cross_links:
+  authentication: authentication/dinari-authentication.yml
+  errors: errors/dinari-error-codes.yml
+  lifecycle: lifecycle/dinari-lifecycle.yml

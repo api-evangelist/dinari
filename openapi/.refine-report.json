@@ -1,0 +1,32 @@
+{
+  "provider": "dinari",
+  "sources": [
+    "dinari-accounts-api-openapi.yml",
+    "dinari-corporate-actions-api-openapi.yml",
+    "dinari-entities-api-openapi.yml",
+    "dinari-kyc-api-openapi.yml",
+    "dinari-managed-orders-api-openapi.yml",
+    "dinari-market-data-api-openapi.yml",
+    "dinari-order-requests-api-openapi.yml",
+    "dinari-orders-api-openapi.yml",
+    "dinari-wallets-api-openapi.yml",
+    "dinari-withdrawals-api-openapi.yml"
+  ],
+  "outputs": [
+    "dinari-accounts-api-openapi.yml",
+    "dinari-corporate-actions-api-openapi.yml",
+    "dinari-entities-api-openapi.yml",
+    "dinari-kyc-api-openapi.yml",
+    "dinari-managed-orders-api-openapi.yml",
+    "dinari-market-data-api-openapi.yml",
+    "dinari-order-requests-api-openapi.yml",
+    "dinari-orders-api-openapi.yml",
+    "dinari-wallets-api-openapi.yml",
+    "dinari-withdrawals-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

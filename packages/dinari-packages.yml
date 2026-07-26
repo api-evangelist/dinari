@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/dinaricrypto
+packages:
+  - language: typescript
+    registry: npm
+    name: "@dinari/api-sdk"
+    version: 0.15.0
+    url: https://www.npmjs.com/package/@dinari/api-sdk
+    repo: https://github.com/dinaricrypto/dinari-api-sdk-typescript
+    install: npm install @dinari/api-sdk
+    official: true
+  - language: python
+    registry: pypi
+    name: dinari-api-sdk
+    version: 0.15.0
+    url: https://pypi.org/project/dinari-api-sdk/
+    repo: https://github.com/dinaricrypto/dinari-api-sdk-python
+    install: pip install dinari-api-sdk
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/dinaricrypto/dinari-api-sdk-go
+    url: https://pkg.go.dev/github.com/dinaricrypto/dinari-api-sdk-go
+    repo: https://github.com/dinaricrypto/dinari-api-sdk-go
+    install: go get github.com/dinaricrypto/dinari-api-sdk-go
+    official: true
+  - language: java
+    registry: maven-central
+    name: com.dinari.api:dinari-java
+    url: https://central.sonatype.com/artifact/com.dinari.api/dinari-java
+    repo: https://github.com/dinaricrypto/dinari-api-sdk-java
+    install: "implementation(\"com.dinari.api:dinari-java:0.15.0\")"
+    official: true
+  - language: php
+    registry: github
+    name: dinari-api-sdk-php
+    url: https://github.com/dinaricrypto/dinari-api-sdk-php
+    repo: https://github.com/dinaricrypto/dinari-api-sdk-php
+    official: true
+notes: >-
+  All SDKs are Stainless-generated from the Dinari Enterprise OpenAPI and published
+  under the dinaricrypto GitHub organization (Apache-2.0). PHP is published on GitHub
+  but not yet on Packagist.

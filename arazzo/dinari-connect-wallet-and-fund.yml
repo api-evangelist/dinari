@@ -1,0 +1,47 @@
+arazzo: 1.0.1
+info:
+  title: Connect a wallet and fund an account
+  version: 1.0.0
+  summary: Fetch a wallet-connection nonce, connect the wallet, fund the account via the sandbox faucet, and read the portfolio.
+sourceDescriptions:
+  - name: dinari
+    url: ../openapi/dinari-openapi-original.yml
+    type: openapi
+workflows:
+  - workflowId: connectWalletAndFund
+    summary: Wallet connection plus sandbox funding for an existing account.
+    inputs:
+      type: object
+      properties:
+        account_id: {type: string}
+    steps:
+      - stepId: getNonce
+        operationId: getAccountWalletConnectionNonce
+        parameters:
+          - name: account_id
+            in: path
+            value: $inputs.account_id
+        outputs:
+          nonce: $response.body#/nonce
+      - stepId: connectWallet
+        operationId: createAccountWalletConnection
+        parameters:
+          - name: account_id
+            in: path
+            value: $inputs.account_id
+      - stepId: fundAccount
+        operationId: createAccountFaucet
+        parameters:
+          - name: account_id
+            in: path
+            value: $inputs.account_id
+      - stepId: readPortfolio
+        operationId: getAccountPortfolio
+        parameters:
+          - name: account_id
+            in: path
+            value: $inputs.account_id
+        outputs:
+          portfolio: $response.body
+    outputs:
+      portfolio: $steps.readPortfolio.outputs.portfolio
