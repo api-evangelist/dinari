@@ -319,6 +319,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/dinari-streaming-asyncapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/dinari/overview
 - type: Website
   url: https://dinari.com
 - type: DeveloperPortal
