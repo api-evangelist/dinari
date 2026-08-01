@@ -1,0 +1,1081 @@
+{
+  "info": {
+    "_postman_id": "98859cc0-0033-4221-b5fc-cc3e45c49e94",
+    "name": "Dinari Enterprise Accounts Wallets API",
+    "description": "**Dinari API for enterprise usage.**\n\nDinari's dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.\nIntegrate Dinari's API and offer over a hundred stocks and ETFs to your customers.\n\n\nContact Support:\n Email: hello@dinari.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:30:44.000Z",
+    "updatedAt": "2026-07-28T01:30:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-98859cc0-0033-4221-b5fc-cc3e45c49e94"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "accounts",
+              "item": [
+                {
+                  "name": "{account_id}",
+                  "item": [
+                    {
+                      "name": "wallet",
+                      "item": [
+                        {
+                          "name": "external",
+                          "item": [
+                            {
+                              "name": "nonce",
+                              "item": [
+                                {
+                                  "name": "Get Wallet Connection Nonce",
+                                  "id": "413a90c7-aff3-4873-b8cf-83f7335c7051",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-API-Key-Id",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external/nonce?wallet_address=<string>&chain_id=eip155:98865",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "external",
+                                        "nonce"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) Address of the `Wallet` to connect.",
+                                          "key": "wallet_address",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "(Required) CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets",
+                                          "key": "chain_id",
+                                          "value": "eip155:98865"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "cbc43477-c8a6-45cc-ac13-03bf75cf1530",
+                                          "key": "account_id",
+                                          "value": "<uuid>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Get a nonce and message to be signed in order to verify `Wallet` ownership."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "4e2aba5e-1a92-43e5-8b66-040556574a79",
+                                      "name": "OK",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-API-Key-Id",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external/nonce?wallet_address=<string>&chain_id=eip155:98865",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v2",
+                                            "accounts",
+                                            ":account_id",
+                                            "wallet",
+                                            "external",
+                                            "nonce"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "(Required) Address of the `Wallet` to connect.",
+                                              "key": "wallet_address",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "(Required) CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets",
+                                              "key": "chain_id",
+                                              "value": "eip155:98865"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "account_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"nonce\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T01:30:44.000Z",
+                                      "updatedAt": "2026-07-28T01:30:44.000Z",
+                                      "uid": "35240-4e2aba5e-1a92-43e5-8b66-040556574a79"
+                                    },
+                                    {
+                                      "id": "318c9887-b5af-4b9c-b73d-95184433fcbd",
+                                      "name": "Unprocessable Entity",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-API-Key-Id",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external/nonce?wallet_address=<string>&chain_id=eip155:98865",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v2",
+                                            "accounts",
+                                            ":account_id",
+                                            "wallet",
+                                            "external",
+                                            "nonce"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "(Required) Address of the `Wallet` to connect.",
+                                              "key": "wallet_address",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "(Required) CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets",
+                                              "key": "chain_id",
+                                              "value": "eip155:98865"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "account_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                      "code": 422,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                      "createdAt": "2026-07-28T01:30:44.000Z",
+                                      "updatedAt": "2026-07-28T01:30:44.000Z",
+                                      "uid": "35240-318c9887-b5af-4b9c-b73d-95184433fcbd"
+                                    },
+                                    {
+                                      "id": "683c7f14-6348-4aa6-9dfb-a445422c6eb2",
+                                      "name": "Default error response",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-API-Key-Id",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external/nonce?wallet_address=<string>&chain_id=eip155:98865",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v2",
+                                            "accounts",
+                                            ":account_id",
+                                            "wallet",
+                                            "external",
+                                            "nonce"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "(Required) Address of the `Wallet` to connect.",
+                                              "key": "wallet_address",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "(Required) CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets",
+                                              "key": "chain_id",
+                                              "value": "eip155:98865"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "account_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                      "createdAt": "2026-07-28T01:30:44.000Z",
+                                      "updatedAt": "2026-07-28T01:30:44.000Z",
+                                      "uid": "35240-683c7f14-6348-4aa6-9dfb-a445422c6eb2"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-413a90c7-aff3-4873-b8cf-83f7335c7051"
+                                }
+                              ],
+                              "id": "72b01a32-5200-4ce3-8bfe-90d2e883a2a0",
+                              "createdAt": "2026-07-28T01:30:44.000Z",
+                              "updatedAt": "2026-07-28T01:30:44.000Z",
+                              "uid": "35240-72b01a32-5200-4ce3-8bfe-90d2e883a2a0"
+                            },
+                            {
+                              "name": "Connect Wallet to Account",
+                              "id": "5da72c65-623e-4b4d-bf88-d2601c893f87",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"chain_id\": \"eip155:98867\",\n  \"nonce\": \"<uuid>\",\n  \"signature\": \"0x909faE9e7e2\",\n  \"wallet_address\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "wallet",
+                                    "external"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "88dcc0b7-0212-4519-83d4-0709f8218aa6",
+                                      "key": "account_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Connect a `Wallet` to the `Account` after verifying the signature."
+                              },
+                              "response": [
+                                {
+                                  "id": "45c4b35d-dd03-42bc-8208-9f9db3ce7ce0",
+                                  "name": "Created",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"chain_id\": \"eip155:98867\",\n  \"nonce\": \"<uuid>\",\n  \"signature\": \"0x909faE9e7e2\",\n  \"wallet_address\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "external"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"address\": \"<string>\",\n  \"chain_id\": \"eip155:98865\",\n  \"is_aml_flagged\": \"<boolean>\",\n  \"is_managed_wallet\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-45c4b35d-dd03-42bc-8208-9f9db3ce7ce0"
+                                },
+                                {
+                                  "id": "f0392a78-90d3-4622-8dc2-dafcd0de8339",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"chain_id\": \"eip155:98867\",\n  \"nonce\": \"<uuid>\",\n  \"signature\": \"0x909faE9e7e2\",\n  \"wallet_address\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "external"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-f0392a78-90d3-4622-8dc2-dafcd0de8339"
+                                },
+                                {
+                                  "id": "3b7aa8d0-30df-4c60-b8df-3ac53869673f",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"chain_id\": \"eip155:98867\",\n  \"nonce\": \"<uuid>\",\n  \"signature\": \"0x909faE9e7e2\",\n  \"wallet_address\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/external",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "external"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-3b7aa8d0-30df-4c60-b8df-3ac53869673f"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:44.000Z",
+                              "updatedAt": "2026-07-28T01:30:44.000Z",
+                              "uid": "35240-5da72c65-623e-4b4d-bf88-d2601c893f87"
+                            }
+                          ],
+                          "id": "3e6b0b05-fc72-4b8b-a29d-0b4f2bb7d419",
+                          "createdAt": "2026-07-28T01:30:44.000Z",
+                          "updatedAt": "2026-07-28T01:30:44.000Z",
+                          "uid": "35240-3e6b0b05-fc72-4b8b-a29d-0b4f2bb7d419"
+                        },
+                        {
+                          "name": "internal",
+                          "item": [
+                            {
+                              "name": "Connect an internal Wallet to Account",
+                              "id": "95570df6-3027-4a0c-8df6-58be15af73f4",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"chain_id\": \"eip155:179202\",\n  \"wallet_address\": \"<string>\",\n  \"is_shared\": \"<boolean,null>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/internal",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "wallet",
+                                    "internal"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ac0c6831-fa1d-439f-813c-97c1756aa459",
+                                      "key": "account_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Connect an internal `Wallet` to the `Account`."
+                              },
+                              "response": [
+                                {
+                                  "id": "4567d11d-49af-48b2-bc8c-76b210794272",
+                                  "name": "Created",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"chain_id\": \"eip155:179202\",\n  \"wallet_address\": \"<string>\",\n  \"is_shared\": \"<boolean,null>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/internal",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "internal"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"address\": \"<string>\",\n  \"chain_id\": \"eip155:98865\",\n  \"is_aml_flagged\": \"<boolean>\",\n  \"is_managed_wallet\": \"<boolean>\"\n}",
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-4567d11d-49af-48b2-bc8c-76b210794272"
+                                },
+                                {
+                                  "id": "a26c62cb-5697-48c6-97fe-0808b3f8e393",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"chain_id\": \"eip155:179202\",\n  \"wallet_address\": \"<string>\",\n  \"is_shared\": \"<boolean,null>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/internal",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "internal"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-a26c62cb-5697-48c6-97fe-0808b3f8e393"
+                                },
+                                {
+                                  "id": "fb115692-09bf-4449-9e1b-e0e8a91ff016",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"chain_id\": \"eip155:179202\",\n  \"wallet_address\": \"<string>\",\n  \"is_shared\": \"<boolean,null>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet/internal",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "wallet",
+                                        "internal"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:44.000Z",
+                                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                                  "uid": "35240-fb115692-09bf-4449-9e1b-e0e8a91ff016"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:44.000Z",
+                              "updatedAt": "2026-07-28T01:30:44.000Z",
+                              "uid": "35240-95570df6-3027-4a0c-8df6-58be15af73f4"
+                            }
+                          ],
+                          "id": "6cbac68e-b38e-4627-bc06-6a8aa65e60dc",
+                          "createdAt": "2026-07-28T01:30:44.000Z",
+                          "updatedAt": "2026-07-28T01:30:44.000Z",
+                          "uid": "35240-6cbac68e-b38e-4627-bc06-6a8aa65e60dc"
+                        },
+                        {
+                          "name": "Get Wallet",
+                          "id": "4757f305-acad-467d-ada7-0a89e3c68690",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "wallet"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "bed8271b-c339-47b1-93d9-76a13925c22f",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the wallet connected to the `Account`."
+                          },
+                          "response": [
+                            {
+                              "id": "0c0dd364-a6e2-4cb4-b9f4-978d5565402e",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "wallet"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"address\": \"<string>\",\n  \"chain_id\": \"eip155:98865\",\n  \"is_aml_flagged\": \"<boolean>\",\n  \"is_managed_wallet\": \"<boolean>\"\n}",
+                              "createdAt": "2026-07-28T01:30:44.000Z",
+                              "updatedAt": "2026-07-28T01:30:44.000Z",
+                              "uid": "35240-0c0dd364-a6e2-4cb4-b9f4-978d5565402e"
+                            },
+                            {
+                              "id": "ce16e1e5-80c8-4757-8b3b-4ef4b5954f0a",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/wallet",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "wallet"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:44.000Z",
+                              "updatedAt": "2026-07-28T01:30:44.000Z",
+                              "uid": "35240-ce16e1e5-80c8-4757-8b3b-4ef4b5954f0a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:44.000Z",
+                          "updatedAt": "2026-07-28T01:30:44.000Z",
+                          "uid": "35240-4757f305-acad-467d-ada7-0a89e3c68690"
+                        }
+                      ],
+                      "id": "f114b650-d9f0-4f63-acd3-5da792832dc0",
+                      "createdAt": "2026-07-28T01:30:44.000Z",
+                      "updatedAt": "2026-07-28T01:30:44.000Z",
+                      "uid": "35240-f114b650-d9f0-4f63-acd3-5da792832dc0"
+                    }
+                  ],
+                  "id": "d18b74b7-aa18-43a9-8151-dc376de02fa3",
+                  "createdAt": "2026-07-28T01:30:44.000Z",
+                  "updatedAt": "2026-07-28T01:30:44.000Z",
+                  "uid": "35240-d18b74b7-aa18-43a9-8151-dc376de02fa3"
+                }
+              ],
+              "id": "a24bd2b7-9582-4e13-b1f1-13bbd39e5839",
+              "createdAt": "2026-07-28T01:30:44.000Z",
+              "updatedAt": "2026-07-28T01:30:44.000Z",
+              "uid": "35240-a24bd2b7-9582-4e13-b1f1-13bbd39e5839"
+            }
+          ],
+          "id": "2455c7b5-e0d6-4b2d-aec3-cd49c3be970d",
+          "createdAt": "2026-07-28T01:30:44.000Z",
+          "updatedAt": "2026-07-28T01:30:44.000Z",
+          "uid": "35240-2455c7b5-e0d6-4b2d-aec3-cd49c3be970d"
+        }
+      ],
+      "id": "f3b519f0-6e82-40ae-a503-cf32c3239004",
+      "createdAt": "2026-07-28T01:30:44.000Z",
+      "updatedAt": "2026-07-28T01:30:44.000Z",
+      "uid": "35240-f3b519f0-6e82-40ae-a503-cf32c3239004"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-enterprise.sbt.dinari.com"
+    }
+  ]
+}

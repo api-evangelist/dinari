@@ -1,0 +1,1352 @@
+{
+  "info": {
+    "_postman_id": "ae63f12b-2b71-4b14-a290-3ce408b5d5c1",
+    "name": "Dinari Enterprise Accounts Withdrawals API",
+    "description": "**Dinari API for enterprise usage.**\n\nDinari's dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.\nIntegrate Dinari's API and offer over a hundred stocks and ETFs to your customers.\n\n\nContact Support:\n Email: hello@dinari.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:30:45.000Z",
+    "updatedAt": "2026-07-28T01:30:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ae63f12b-2b71-4b14-a290-3ce408b5d5c1"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "accounts",
+              "item": [
+                {
+                  "name": "{account_id}",
+                  "item": [
+                    {
+                      "name": "withdrawal_requests",
+                      "item": [
+                        {
+                          "name": "{withdrawal_request_id}",
+                          "item": [
+                            {
+                              "name": "Get Withdrawal Request by ID",
+                              "id": "acca8aa9-d5e6-4ea4-b531-deda808c2561",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests/:withdrawal_request_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests",
+                                    ":withdrawal_request_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "6687f6c4-c202-4c99-b5f9-2325176b3601",
+                                      "key": "account_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "9f648973-f66d-4b84-91f4-59b17b4795da",
+                                      "key": "withdrawal_request_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get a specific `WithdrawalRequest` by its ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "e15ae655-0ccd-446e-8eca-8c2efe81d629",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests/:withdrawal_request_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "withdrawal_requests",
+                                        ":withdrawal_request_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        },
+                                        {
+                                          "key": "withdrawal_request_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"account_id\": \"<uuid>\",\n  \"created_dt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"payment_token_amount\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"status\": \"CANCELLED\",\n  \"updated_dt\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-07-28T01:30:45.000Z",
+                                  "updatedAt": "2026-07-28T01:30:45.000Z",
+                                  "uid": "35240-e15ae655-0ccd-446e-8eca-8c2efe81d629"
+                                },
+                                {
+                                  "id": "2f329e0d-a208-4f4a-8f04-560b730ac8b1",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests/:withdrawal_request_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "withdrawal_requests",
+                                        ":withdrawal_request_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        },
+                                        {
+                                          "key": "withdrawal_request_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:45.000Z",
+                                  "updatedAt": "2026-07-28T01:30:45.000Z",
+                                  "uid": "35240-2f329e0d-a208-4f4a-8f04-560b730ac8b1"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-acca8aa9-d5e6-4ea4-b531-deda808c2561"
+                            }
+                          ],
+                          "id": "2bff0526-0a7f-49de-a8ee-fc935de60698",
+                          "createdAt": "2026-07-28T01:30:45.000Z",
+                          "updatedAt": "2026-07-28T01:30:45.000Z",
+                          "uid": "35240-2bff0526-0a7f-49de-a8ee-fc935de60698"
+                        },
+                        {
+                          "name": "Get Withdrawal Requests",
+                          "id": "543ce466-6999-4db1-a4c1-a1db08a0a4dc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "withdrawal_requests"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "1251e977-367c-4d51-aa55-6e1cbfbd34bd",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "List `WithdrawalRequests` under the `Account`, sorted by most recent."
+                          },
+                          "response": [
+                            {
+                              "id": "3adbc131-499a-4f22-ae24-5af2bfd05698",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"account_id\": \"<uuid>\",\n      \"created_dt\": \"<dateTime>\",\n      \"id\": \"<uuid>\",\n      \"payment_token_amount\": \"<number>\",\n      \"recipient_account_id\": \"<uuid>\",\n      \"status\": \"ERROR\",\n      \"updated_dt\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<uuid>\",\n      \"created_dt\": \"<dateTime>\",\n      \"id\": \"<uuid>\",\n      \"payment_token_amount\": \"<number>\",\n      \"recipient_account_id\": \"<uuid>\",\n      \"status\": \"SUBMITTED\",\n      \"updated_dt\": \"<dateTime>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedWithdrawalRequestResponse:v1\"\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-3adbc131-499a-4f22-ae24-5af2bfd05698"
+                            },
+                            {
+                              "id": "ca30fe34-b265-42bc-8cbd-51fd9803b59e",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-ca30fe34-b265-42bc-8cbd-51fd9803b59e"
+                            },
+                            {
+                              "id": "13e8f147-80b5-4e2c-9627-9d05d08cee2b",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-13e8f147-80b5-4e2c-9627-9d05d08cee2b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:45.000Z",
+                          "updatedAt": "2026-07-28T01:30:45.000Z",
+                          "uid": "35240-543ce466-6999-4db1-a4c1-a1db08a0a4dc"
+                        },
+                        {
+                          "name": "Create Withdrawal Request",
+                          "id": "bb2b27a7-ce03-4d7f-b063-ddf225af456a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"payment_token_quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "withdrawal_requests"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "36f89515-a607-4226-a94c-12851e28cac5",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "\nRequest to withdraw USD+ payment tokens from a managed `Account` and send the equivalent amount of USDC to the specified recipient `Account`.\n\nThe recipient `Account` must belong to the same `Entity` as the managed `Account`.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "de2691e9-ef14-44c5-a2a6-ee430d8470fd",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payment_token_quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"account_id\": \"<uuid>\",\n  \"created_dt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"payment_token_amount\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"status\": \"CANCELLED\",\n  \"updated_dt\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-de2691e9-ef14-44c5-a2a6-ee430d8470fd"
+                            },
+                            {
+                              "id": "4f872d11-0c79-4bb0-b069-2faacc2cd6de",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payment_token_quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-4f872d11-0c79-4bb0-b069-2faacc2cd6de"
+                            },
+                            {
+                              "id": "c1bd9c3e-5054-4940-86c2-19e4786887a9",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"payment_token_quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawal_requests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawal_requests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-c1bd9c3e-5054-4940-86c2-19e4786887a9"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:45.000Z",
+                          "updatedAt": "2026-07-28T01:30:45.000Z",
+                          "uid": "35240-bb2b27a7-ce03-4d7f-b063-ddf225af456a"
+                        }
+                      ],
+                      "id": "45fe0aaa-8336-4d6f-8896-6dc3c536a499",
+                      "createdAt": "2026-07-28T01:30:45.000Z",
+                      "updatedAt": "2026-07-28T01:30:45.000Z",
+                      "uid": "35240-45fe0aaa-8336-4d6f-8896-6dc3c536a499"
+                    },
+                    {
+                      "name": "withdrawals",
+                      "item": [
+                        {
+                          "name": "{withdrawal_id}",
+                          "item": [
+                            {
+                              "name": "Get Withdrawal by ID",
+                              "id": "34655032-85f3-426e-b9c7-4b91309afbcf",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals/:withdrawal_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawals",
+                                    ":withdrawal_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "172e6ef9-17d0-40f1-a566-d0fcbb9000f2",
+                                      "key": "account_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "03cbd229-d163-4459-aac0-17b3b17cd767",
+                                      "key": "withdrawal_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get a specific `Withdrawal` by its ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "c9945ad9-e67f-4aa6-810c-8cdf2a4fb479",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals/:withdrawal_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "withdrawals",
+                                        ":withdrawal_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        },
+                                        {
+                                          "key": "withdrawal_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"account_id\": \"<uuid>\",\n  \"chain_id\": \"eip155:42161\",\n  \"id\": \"<uuid>\",\n  \"payment_token_address\": \"<string>\",\n  \"payment_token_amount\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"status\": \"PENDING_FILL\",\n  \"transaction_dt\": \"<dateTime>\",\n  \"transaction_hash\": \"0x09a44703\",\n  \"withdrawal_request_id\": \"<uuid>\"\n}",
+                                  "createdAt": "2026-07-28T01:30:45.000Z",
+                                  "updatedAt": "2026-07-28T01:30:45.000Z",
+                                  "uid": "35240-c9945ad9-e67f-4aa6-810c-8cdf2a4fb479"
+                                },
+                                {
+                                  "id": "83b6df68-e8a4-4972-a1a9-f2a7d853a942",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals/:withdrawal_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "withdrawals",
+                                        ":withdrawal_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        },
+                                        {
+                                          "key": "withdrawal_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:45.000Z",
+                                  "updatedAt": "2026-07-28T01:30:45.000Z",
+                                  "uid": "35240-83b6df68-e8a4-4972-a1a9-f2a7d853a942"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-34655032-85f3-426e-b9c7-4b91309afbcf"
+                            }
+                          ],
+                          "id": "e90aad93-ae6f-4709-b59a-6088050b8dd4",
+                          "createdAt": "2026-07-28T01:30:45.000Z",
+                          "updatedAt": "2026-07-28T01:30:45.000Z",
+                          "uid": "35240-e90aad93-ae6f-4709-b59a-6088050b8dd4"
+                        },
+                        {
+                          "name": "Get Withdrawals",
+                          "id": "57b814ea-e97b-40ed-805b-972e56593272",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals?withdrawal_request_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "withdrawals"
+                              ],
+                              "query": [
+                                {
+                                  "description": "ID of the `WithdrawalRequest` to find `Withdrawals` for.",
+                                  "key": "withdrawal_request_id",
+                                  "value": "<string,null-uuid>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e08f4b81-96d2-4cf2-93ef-fc886dac079f",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get a list of all `Withdrawals` under the `Account`, sorted by most recent."
+                          },
+                          "response": [
+                            {
+                              "id": "73866ed4-4131-43f5-83ee-fc13ed67d4da",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals?withdrawal_request_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawals"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "ID of the `WithdrawalRequest` to find `Withdrawals` for.",
+                                      "key": "withdrawal_request_id",
+                                      "value": "<string,null-uuid>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"account_id\": \"<uuid>\",\n      \"chain_id\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"payment_token_address\": \"<string>\",\n      \"payment_token_amount\": \"<number>\",\n      \"recipient_account_id\": \"<uuid>\",\n      \"status\": \"PENDING_FILL\",\n      \"transaction_dt\": \"<dateTime>\",\n      \"transaction_hash\": \"0xf1093FbD\",\n      \"withdrawal_request_id\": \"<uuid>\"\n    },\n    {\n      \"account_id\": \"<uuid>\",\n      \"chain_id\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"payment_token_address\": \"<string>\",\n      \"payment_token_amount\": \"<number>\",\n      \"recipient_account_id\": \"<uuid>\",\n      \"status\": \"PENDING_FILL\",\n      \"transaction_dt\": \"<dateTime>\",\n      \"transaction_hash\": \"0xE69ceB\",\n      \"withdrawal_request_id\": \"<uuid>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedWithdrawalResponse:v1\"\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-73866ed4-4131-43f5-83ee-fc13ed67d4da"
+                            },
+                            {
+                              "id": "1384361c-22fb-4c74-ab1e-3ca430a38b4f",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals?withdrawal_request_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawals"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "ID of the `WithdrawalRequest` to find `Withdrawals` for.",
+                                      "key": "withdrawal_request_id",
+                                      "value": "<string,null-uuid>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-1384361c-22fb-4c74-ab1e-3ca430a38b4f"
+                            },
+                            {
+                              "id": "5608b8d4-0cf6-4c2e-9818-f8b950209150",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/withdrawals?withdrawal_request_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "withdrawals"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "ID of the `WithdrawalRequest` to find `Withdrawals` for.",
+                                      "key": "withdrawal_request_id",
+                                      "value": "<string,null-uuid>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:45.000Z",
+                              "updatedAt": "2026-07-28T01:30:45.000Z",
+                              "uid": "35240-5608b8d4-0cf6-4c2e-9818-f8b950209150"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:45.000Z",
+                          "updatedAt": "2026-07-28T01:30:45.000Z",
+                          "uid": "35240-57b814ea-e97b-40ed-805b-972e56593272"
+                        }
+                      ],
+                      "id": "c8384a1c-111c-421b-b25f-0238e448b60c",
+                      "createdAt": "2026-07-28T01:30:45.000Z",
+                      "updatedAt": "2026-07-28T01:30:45.000Z",
+                      "uid": "35240-c8384a1c-111c-421b-b25f-0238e448b60c"
+                    }
+                  ],
+                  "id": "3dbf7a08-64e2-4afa-9003-742e7df4f3cd",
+                  "createdAt": "2026-07-28T01:30:45.000Z",
+                  "updatedAt": "2026-07-28T01:30:45.000Z",
+                  "uid": "35240-3dbf7a08-64e2-4afa-9003-742e7df4f3cd"
+                }
+              ],
+              "id": "13134e04-de6e-447f-ad78-ebe404e50b03",
+              "createdAt": "2026-07-28T01:30:45.000Z",
+              "updatedAt": "2026-07-28T01:30:45.000Z",
+              "uid": "35240-13134e04-de6e-447f-ad78-ebe404e50b03"
+            }
+          ],
+          "id": "925a14a4-2ba6-4183-b746-2cda75b421ae",
+          "createdAt": "2026-07-28T01:30:45.000Z",
+          "updatedAt": "2026-07-28T01:30:45.000Z",
+          "uid": "35240-925a14a4-2ba6-4183-b746-2cda75b421ae"
+        }
+      ],
+      "id": "4c62269b-10d4-4116-8100-2df53cb2ca8e",
+      "createdAt": "2026-07-28T01:30:45.000Z",
+      "updatedAt": "2026-07-28T01:30:45.000Z",
+      "uid": "35240-4c62269b-10d4-4116-8100-2df53cb2ca8e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-enterprise.sbt.dinari.com"
+    }
+  ]
+}

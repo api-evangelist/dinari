@@ -1,0 +1,2161 @@
+{
+  "info": {
+    "_postman_id": "237ecc65-a1ee-4b33-9048-89deaf73dd17",
+    "name": "Dinari Enterprise Accounts Market Data API",
+    "description": "**Dinari API for enterprise usage.**\n\nDinari's dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.\nIntegrate Dinari's API and offer over a hundred stocks and ETFs to your customers.\n\n\nContact Support:\n Email: hello@dinari.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:30:40.000Z",
+    "updatedAt": "2026-07-28T01:30:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-237ecc65-a1ee-4b33-9048-89deaf73dd17"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "market_data",
+              "item": [
+                {
+                  "name": "alloys",
+                  "item": [
+                    {
+                      "name": "{alloy_id}",
+                      "item": [
+                        {
+                          "name": "current_price",
+                          "item": [
+                            {
+                              "name": "Get Alloy current price",
+                              "id": "303aa54a-8a13-4999-89ce-5f63bbedd32b",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/current_price",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "market_data",
+                                    "alloys",
+                                    ":alloy_id",
+                                    "current_price"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "47dd94dc-6ca3-4867-84aa-8401fa9a463f",
+                                      "key": "alloy_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the current price for a specified `Alloy`."
+                              },
+                              "response": [
+                                {
+                                  "id": "1ea8defe-f031-45ca-80d6-9117e08476e5",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/current_price",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "alloys",
+                                        ":alloy_id",
+                                        "current_price"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "alloy_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<uuid>\",\n  \"price\": \"<number>\",\n  \"timestamp\": \"<dateTime>\",\n  \"_sv\": \"AlloyPrice:v1\"\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-1ea8defe-f031-45ca-80d6-9117e08476e5"
+                                },
+                                {
+                                  "id": "10048ab0-fdef-4cb6-bd98-f089b3caaa1c",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/current_price",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "alloys",
+                                        ":alloy_id",
+                                        "current_price"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "alloy_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-10048ab0-fdef-4cb6-bd98-f089b3caaa1c"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:41.000Z",
+                              "updatedAt": "2026-07-28T01:30:41.000Z",
+                              "uid": "35240-303aa54a-8a13-4999-89ce-5f63bbedd32b"
+                            }
+                          ],
+                          "id": "8b47ce9a-802b-4c55-804a-278b68a46bf3",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-8b47ce9a-802b-4c55-804a-278b68a46bf3"
+                        },
+                        {
+                          "name": "historical_prices",
+                          "item": [
+                            {
+                              "name": "Get Historical Alloy Prices",
+                              "id": "ede75a96-6168-4487-822a-86ba29ec483a",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/historical_prices/?timespan=WEEK",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "market_data",
+                                    "alloys",
+                                    ":alloy_id",
+                                    "historical_prices",
+                                    ""
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) The timespan of the historical prices to query.",
+                                      "key": "timespan",
+                                      "value": "WEEK"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ab251e5b-f7af-42a3-a3bf-934f594b1b0c",
+                                      "key": "alloy_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get historical price data for a specified `Alloy`. Each index in the array represents a single tick in a price chart."
+                              },
+                              "response": [
+                                {
+                                  "id": "9556fe23-b5d8-4b53-b8ab-797e142e26e6",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/historical_prices/?timespan=WEEK",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "alloys",
+                                        ":alloy_id",
+                                        "historical_prices",
+                                        ""
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) The timespan of the historical prices to query.",
+                                          "key": "timespan",
+                                          "value": "WEEK"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "alloy_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"close\": \"<number>\",\n    \"high\": \"<number>\",\n    \"low\": \"<number>\",\n    \"open\": \"<number>\",\n    \"timestamp\": \"<integer>\",\n    \"_sv\": \"AlloyHistoricalPriceDataPointV1:v1\"\n  },\n  {\n    \"close\": \"<number>\",\n    \"high\": \"<number>\",\n    \"low\": \"<number>\",\n    \"open\": \"<number>\",\n    \"timestamp\": \"<integer>\",\n    \"_sv\": \"AlloyHistoricalPriceDataPointV1:v1\"\n  }\n]",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-9556fe23-b5d8-4b53-b8ab-797e142e26e6"
+                                },
+                                {
+                                  "id": "f2f48f03-f4a3-460a-9cff-6592640b0e84",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/historical_prices/?timespan=WEEK",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "alloys",
+                                        ":alloy_id",
+                                        "historical_prices",
+                                        ""
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) The timespan of the historical prices to query.",
+                                          "key": "timespan",
+                                          "value": "WEEK"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "alloy_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-f2f48f03-f4a3-460a-9cff-6592640b0e84"
+                                },
+                                {
+                                  "id": "ec3094b3-fd7e-4fa9-8792-fe9f827faeb7",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/alloys/:alloy_id/historical_prices/?timespan=WEEK",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "alloys",
+                                        ":alloy_id",
+                                        "historical_prices",
+                                        ""
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) The timespan of the historical prices to query.",
+                                          "key": "timespan",
+                                          "value": "WEEK"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "alloy_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-ec3094b3-fd7e-4fa9-8792-fe9f827faeb7"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:41.000Z",
+                              "updatedAt": "2026-07-28T01:30:41.000Z",
+                              "uid": "35240-ede75a96-6168-4487-822a-86ba29ec483a"
+                            }
+                          ],
+                          "id": "fd466519-71fc-49de-b094-e35941f876f1",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-fd466519-71fc-49de-b094-e35941f876f1"
+                        }
+                      ],
+                      "id": "fc963009-b350-4ec1-8ac5-514286c1ad6d",
+                      "createdAt": "2026-07-28T01:30:41.000Z",
+                      "updatedAt": "2026-07-28T01:30:41.000Z",
+                      "uid": "35240-fc963009-b350-4ec1-8ac5-514286c1ad6d"
+                    },
+                    {
+                      "name": "Get Alloys",
+                      "id": "70fd0da2-a368-4d5d-8ed7-c3fc02bc3b76",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-API-Key-Id",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/market_data/alloys/?symbols=<string>&symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "market_data",
+                            "alloys",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "If set, this endpoint will return Alloys that match the symbols specified",
+                              "key": "symbols",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "If set, this endpoint will return Alloys that match the symbols specified",
+                              "key": "symbols",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of results to return",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Sort order",
+                              "key": "order",
+                              "value": "asc"
+                            },
+                            {
+                              "description": "Cursor for next page",
+                              "key": "next",
+                              "value": "<string,null>"
+                            },
+                            {
+                              "description": "Cursor for previous page",
+                              "key": "previous",
+                              "value": "<string,null>"
+                            }
+                          ]
+                        },
+                        "description": "Returns available `Alloys` with cursor-based pagination."
+                      },
+                      "response": [
+                        {
+                          "id": "44cabb3a-c792-4279-b742-64d55ab72d49",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/alloys/?symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "alloys",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "If set, this endpoint will return Alloys that match the symbols specified",
+                                  "key": "symbols",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string,null-uuid>\",\n      \"is_tradable\": \"<boolean>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"_sv\": \"Alloy:v1\"\n    },\n    {\n      \"id\": \"<string,null-uuid>\",\n      \"is_tradable\": \"<boolean>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"_sv\": \"Alloy:v1\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedAlloyResponse:v1\"\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-44cabb3a-c792-4279-b742-64d55ab72d49"
+                        },
+                        {
+                          "id": "6c7226ec-1c95-4240-a0fe-f6f1ca90cb8b",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/alloys/?symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "alloys",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "If set, this endpoint will return Alloys that match the symbols specified",
+                                  "key": "symbols",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-6c7226ec-1c95-4240-a0fe-f6f1ca90cb8b"
+                        },
+                        {
+                          "id": "ba073e4d-564f-4de3-a256-23c8c82021f8",
+                          "name": "Default error response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/alloys/?symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "alloys",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "If set, this endpoint will return Alloys that match the symbols specified",
+                                  "key": "symbols",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-ba073e4d-564f-4de3-a256-23c8c82021f8"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:30:41.000Z",
+                      "updatedAt": "2026-07-28T01:30:41.000Z",
+                      "uid": "35240-70fd0da2-a368-4d5d-8ed7-c3fc02bc3b76"
+                    }
+                  ],
+                  "id": "d67a53a1-84f5-4c37-92ed-c640a7b0f602",
+                  "createdAt": "2026-07-28T01:30:41.000Z",
+                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                  "uid": "35240-d67a53a1-84f5-4c37-92ed-c640a7b0f602"
+                },
+                {
+                  "name": "stocks",
+                  "item": [
+                    {
+                      "name": "{stock_id}",
+                      "item": [
+                        {
+                          "name": "current_price",
+                          "item": [
+                            {
+                              "name": "Get Stock current price",
+                              "id": "f6a3634b-a2bb-4ac7-9b66-2596c4036e5b",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/current_price",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "market_data",
+                                    "stocks",
+                                    ":stock_id",
+                                    "current_price"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "0c6eca1a-b4d8-4484-b90c-8445c0b874bd",
+                                      "key": "stock_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get current price for a specified `Stock`."
+                              },
+                              "response": [
+                                {
+                                  "id": "c9adf4ab-2733-4961-8849-36ebc750cb7e",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/current_price",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "current_price"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"price\": \"<number>\",\n  \"stock_id\": \"<uuid>\",\n  \"timestamp\": \"<dateTime>\",\n  \"market_cap\": \"<integer,null>\",\n  \"weighted_shares_outstanding\": \"<integer,null>\",\n  \"change\": \"<number,null>\",\n  \"change_percent\": \"<number,null>\",\n  \"previous_close\": \"<number,null>\",\n  \"close\": \"<number,null>\",\n  \"high\": \"<number,null>\",\n  \"low\": \"<number,null>\",\n  \"open\": \"<number,null>\",\n  \"volume\": \"<number,null>\"\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-c9adf4ab-2733-4961-8849-36ebc750cb7e"
+                                },
+                                {
+                                  "id": "c4eaf723-a6e9-49ac-a3ec-6c14d3bfaa77",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/current_price",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "current_price"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-c4eaf723-a6e9-49ac-a3ec-6c14d3bfaa77"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:41.000Z",
+                              "updatedAt": "2026-07-28T01:30:41.000Z",
+                              "uid": "35240-f6a3634b-a2bb-4ac7-9b66-2596c4036e5b"
+                            }
+                          ],
+                          "id": "1d599808-1438-44c9-861e-8fd1f9f1c381",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-1d599808-1438-44c9-861e-8fd1f9f1c381"
+                        },
+                        {
+                          "name": "current_quote",
+                          "item": [
+                            {
+                              "name": "Get Stock Quote",
+                              "id": "1d8013ee-7938-44d1-908b-496263f0ba7a",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/current_quote",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "market_data",
+                                    "stocks",
+                                    ":stock_id",
+                                    "current_quote"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b0d32867-aeed-4c6f-8efc-e0a68eb0ed50",
+                                      "key": "stock_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get quote for a specified `Stock`."
+                              },
+                              "response": [
+                                {
+                                  "id": "852abece-a6bc-4419-8d44-f90519e29912",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/current_quote",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "current_quote"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"ask_price\": \"<number>\",\n  \"ask_size\": \"<number>\",\n  \"bid_price\": \"<number>\",\n  \"bid_size\": \"<number>\",\n  \"stock_id\": \"<uuid>\",\n  \"timestamp\": \"<dateTime>\",\n  \"_sv\": \"StockQuote:v1\"\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-852abece-a6bc-4419-8d44-f90519e29912"
+                                },
+                                {
+                                  "id": "b87c4c93-1730-46c1-9544-db23fcf83354",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/current_quote",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "current_quote"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-b87c4c93-1730-46c1-9544-db23fcf83354"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:41.000Z",
+                              "updatedAt": "2026-07-28T01:30:41.000Z",
+                              "uid": "35240-1d8013ee-7938-44d1-908b-496263f0ba7a"
+                            }
+                          ],
+                          "id": "aa2f4668-b633-48a2-9eee-3737a27ce759",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-aa2f4668-b633-48a2-9eee-3737a27ce759"
+                        },
+                        {
+                          "name": "historical_prices",
+                          "item": [
+                            {
+                              "name": "Get Historical Stock Prices",
+                              "id": "fea393f1-c4ba-48f5-a28b-03adb2c55bca",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/historical_prices/?timespan=WEEK",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "market_data",
+                                    "stocks",
+                                    ":stock_id",
+                                    "historical_prices",
+                                    ""
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) The timespan of the historical prices to query.",
+                                      "key": "timespan",
+                                      "value": "WEEK"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "999aeb02-7db0-4ce4-b243-fca0984d93e0",
+                                      "key": "stock_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get historical price data for a specified `Stock`. Each index in the array represents a single tick in a price chart."
+                              },
+                              "response": [
+                                {
+                                  "id": "2e93afa4-94b5-41bc-9582-dd293f15a082",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/historical_prices/?timespan=WEEK",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "historical_prices",
+                                        ""
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) The timespan of the historical prices to query.",
+                                          "key": "timespan",
+                                          "value": "WEEK"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"close\": \"<number>\",\n    \"high\": \"<number>\",\n    \"low\": \"<number>\",\n    \"open\": \"<number>\",\n    \"timestamp\": \"<integer>\"\n  },\n  {\n    \"close\": \"<number>\",\n    \"high\": \"<number>\",\n    \"low\": \"<number>\",\n    \"open\": \"<number>\",\n    \"timestamp\": \"<integer>\"\n  }\n]",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-2e93afa4-94b5-41bc-9582-dd293f15a082"
+                                },
+                                {
+                                  "id": "1f62577c-8651-405e-8d27-e0a013f8eefa",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/historical_prices/?timespan=WEEK",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "historical_prices",
+                                        ""
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) The timespan of the historical prices to query.",
+                                          "key": "timespan",
+                                          "value": "WEEK"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-1f62577c-8651-405e-8d27-e0a013f8eefa"
+                                },
+                                {
+                                  "id": "d1add78c-4ec3-453a-a707-9429eb919663",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/historical_prices/?timespan=WEEK",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "historical_prices",
+                                        ""
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) The timespan of the historical prices to query.",
+                                          "key": "timespan",
+                                          "value": "WEEK"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-d1add78c-4ec3-453a-a707-9429eb919663"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:41.000Z",
+                              "updatedAt": "2026-07-28T01:30:41.000Z",
+                              "uid": "35240-fea393f1-c4ba-48f5-a28b-03adb2c55bca"
+                            }
+                          ],
+                          "id": "233f0fa9-dc69-4feb-9dab-b2e98a0ba952",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-233f0fa9-dc69-4feb-9dab-b2e98a0ba952"
+                        },
+                        {
+                          "name": "news",
+                          "item": [
+                            {
+                              "name": "Get News Articles for Stock",
+                              "id": "f756fd58-25de-4733-98b5-30f2ad29c8ad",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/news?limit=10",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "market_data",
+                                    "stocks",
+                                    ":stock_id",
+                                    "news"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of articles to return.",
+                                      "key": "limit",
+                                      "value": "10"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "19a83eba-1507-4182-bb6f-f307b80ed6b5",
+                                      "key": "stock_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the most recent news articles relating to a `Stock`, including a summary of the article \n        and a link to the original source."
+                              },
+                              "response": [
+                                {
+                                  "id": "dc0e082c-500e-4344-ab90-1ed38221edde",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/news?limit=10",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "news"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The number of articles to return.",
+                                          "key": "limit",
+                                          "value": "10"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"article_url\": \"<string>\",\n    \"description\": \"<string>\",\n    \"image_url\": \"<string>\",\n    \"published_dt\": \"<dateTime>\",\n    \"publisher\": \"<string>\",\n    \"amp_url\": \"<string,null>\"\n  },\n  {\n    \"article_url\": \"<string>\",\n    \"description\": \"<string>\",\n    \"image_url\": \"<string>\",\n    \"published_dt\": \"<dateTime>\",\n    \"publisher\": \"<string>\",\n    \"amp_url\": \"<string,null>\"\n  }\n]",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-dc0e082c-500e-4344-ab90-1ed38221edde"
+                                },
+                                {
+                                  "id": "ee79359f-9386-4c05-bbfa-0b92a40ea073",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/news?limit=10",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "news"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The number of articles to return.",
+                                          "key": "limit",
+                                          "value": "10"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-ee79359f-9386-4c05-bbfa-0b92a40ea073"
+                                },
+                                {
+                                  "id": "b1f6926b-485a-47e4-97cd-26e4005fc681",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/market_data/stocks/:stock_id/news?limit=10",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "market_data",
+                                        "stocks",
+                                        ":stock_id",
+                                        "news"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The number of articles to return.",
+                                          "key": "limit",
+                                          "value": "10"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "stock_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:41.000Z",
+                                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                                  "uid": "35240-b1f6926b-485a-47e4-97cd-26e4005fc681"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:41.000Z",
+                              "updatedAt": "2026-07-28T01:30:41.000Z",
+                              "uid": "35240-f756fd58-25de-4733-98b5-30f2ad29c8ad"
+                            }
+                          ],
+                          "id": "112facf2-69f8-41ee-9e12-c6a1c1627925",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-112facf2-69f8-41ee-9e12-c6a1c1627925"
+                        }
+                      ],
+                      "id": "d53561d5-9e4d-4ce5-bc29-122b4d2a6564",
+                      "createdAt": "2026-07-28T01:30:41.000Z",
+                      "updatedAt": "2026-07-28T01:30:41.000Z",
+                      "uid": "35240-d53561d5-9e4d-4ce5-bc29-122b4d2a6564"
+                    },
+                    {
+                      "name": "Get Stocks",
+                      "id": "39dfb2c7-f583-464e-a475-4bf5a701c791",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-API-Key-Id",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/market_data/stocks/?symbols=<string>&symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "market_data",
+                            "stocks",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "List of `Stock` symbols to query. If not provided, all `Stocks` are returned.",
+                              "key": "symbols",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "List of `Stock` symbols to query. If not provided, all `Stocks` are returned.",
+                              "key": "symbols",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of results to return",
+                              "key": "limit",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Sort order",
+                              "key": "order",
+                              "value": "asc"
+                            },
+                            {
+                              "description": "Cursor for next page",
+                              "key": "next",
+                              "value": "<string,null>"
+                            },
+                            {
+                              "description": "Cursor for previous page",
+                              "key": "previous",
+                              "value": "<string,null>"
+                            }
+                          ]
+                        },
+                        "description": "Get a list of `Stocks`."
+                      },
+                      "response": [
+                        {
+                          "id": "60df708f-43ce-4a1d-a46d-57ce8699c5df",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/stocks/?symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "stocks",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "List of `Stock` symbols to query. If not provided, all `Stocks` are returned.",
+                                  "key": "symbols",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"is_fractionable\": \"<boolean>\",\n      \"is_tradable\": \"<boolean>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"tokens\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"composite_figi\": \"<string,null>\",\n      \"cusip\": \"<string,null>\",\n      \"cik\": \"<string,null>\",\n      \"display_name\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"logo_url\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"is_fractionable\": \"<boolean>\",\n      \"is_tradable\": \"<boolean>\",\n      \"name\": \"<string>\",\n      \"symbol\": \"<string>\",\n      \"tokens\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"composite_figi\": \"<string,null>\",\n      \"cusip\": \"<string,null>\",\n      \"cik\": \"<string,null>\",\n      \"display_name\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"logo_url\": \"<string,null>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedStockResponse:v1\"\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-60df708f-43ce-4a1d-a46d-57ce8699c5df"
+                        },
+                        {
+                          "id": "4452dd56-416a-4f3f-98ea-bd94d459636b",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/stocks/?symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "stocks",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "List of `Stock` symbols to query. If not provided, all `Stocks` are returned.",
+                                  "key": "symbols",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-4452dd56-416a-4f3f-98ea-bd94d459636b"
+                        },
+                        {
+                          "id": "2bf9f7f5-9b84-465b-9e11-b695fb49aecd",
+                          "name": "Default error response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/stocks/?symbols=<string>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "stocks",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "List of `Stock` symbols to query. If not provided, all `Stocks` are returned.",
+                                  "key": "symbols",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-2bf9f7f5-9b84-465b-9e11-b695fb49aecd"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:30:41.000Z",
+                      "updatedAt": "2026-07-28T01:30:41.000Z",
+                      "uid": "35240-39dfb2c7-f583-464e-a475-4bf5a701c791"
+                    }
+                  ],
+                  "id": "42ea7ef2-29f2-49d0-8f43-6a8b9bdbc472",
+                  "createdAt": "2026-07-28T01:30:41.000Z",
+                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                  "uid": "35240-42ea7ef2-29f2-49d0-8f43-6a8b9bdbc472"
+                },
+                {
+                  "name": "market_hours",
+                  "item": [
+                    {
+                      "name": "Get Market Hours",
+                      "id": "8c051081-07b8-433a-b90f-3dcc125bb309",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-API-Key-Id",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/market_data/market_hours/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "market_data",
+                            "market_hours",
+                            ""
+                          ]
+                        },
+                        "description": "Get the market hours for the current trading session and next open trading session."
+                      },
+                      "response": [
+                        {
+                          "id": "4a12b34f-942f-40bb-9437-227df9c2c524",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/market_hours/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "market_hours",
+                                ""
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"is_market_open\": \"<boolean>\",\n  \"next_session_close_dt\": \"<dateTime>\",\n  \"next_session_open_dt\": \"<dateTime>\",\n  \"next_session_overnight_open_time_dt\": \"<dateTime>\",\n  \"next_session_pre_market_open_time_dt\": \"<dateTime>\",\n  \"next_session_after_hours_close_time_dt\": \"<dateTime>\",\n  \"current_session_open_dt\": \"<string,null-date-time>\",\n  \"current_session_close_dt\": \"<string,null-date-time>\",\n  \"current_session_overnight_open_time_dt\": \"<string,null-date-time>\",\n  \"current_session_pre_market_open_time_dt\": \"<string,null-date-time>\",\n  \"current_session_after_hours_close_time_dt\": \"<string,null-date-time>\"\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-4a12b34f-942f-40bb-9437-227df9c2c524"
+                        },
+                        {
+                          "id": "465c7d1c-5114-4629-8557-e42da5f8df0d",
+                          "name": "Default error response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/market_data/market_hours/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "market_data",
+                                "market_hours",
+                                ""
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:30:41.000Z",
+                          "updatedAt": "2026-07-28T01:30:41.000Z",
+                          "uid": "35240-465c7d1c-5114-4629-8557-e42da5f8df0d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:30:41.000Z",
+                      "updatedAt": "2026-07-28T01:30:41.000Z",
+                      "uid": "35240-8c051081-07b8-433a-b90f-3dcc125bb309"
+                    }
+                  ],
+                  "id": "a3105140-0eae-4f38-ad78-0183c30c5695",
+                  "createdAt": "2026-07-28T01:30:41.000Z",
+                  "updatedAt": "2026-07-28T01:30:41.000Z",
+                  "uid": "35240-a3105140-0eae-4f38-ad78-0183c30c5695"
+                }
+              ],
+              "id": "ea037c86-962f-4470-860e-c4342f38dfb0",
+              "createdAt": "2026-07-28T01:30:41.000Z",
+              "updatedAt": "2026-07-28T01:30:41.000Z",
+              "uid": "35240-ea037c86-962f-4470-860e-c4342f38dfb0"
+            }
+          ],
+          "id": "aa9207e0-c58a-4eaf-be54-cad87350aa63",
+          "createdAt": "2026-07-28T01:30:41.000Z",
+          "updatedAt": "2026-07-28T01:30:41.000Z",
+          "uid": "35240-aa9207e0-c58a-4eaf-be54-cad87350aa63"
+        }
+      ],
+      "id": "a600bc47-fbac-4ef8-895e-539b00482092",
+      "createdAt": "2026-07-28T01:30:41.000Z",
+      "updatedAt": "2026-07-28T01:30:41.000Z",
+      "uid": "35240-a600bc47-fbac-4ef8-895e-539b00482092"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-enterprise.sbt.dinari.com"
+    }
+  ]
+}

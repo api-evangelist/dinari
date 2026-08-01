@@ -1,0 +1,3491 @@
+{
+  "info": {
+    "_postman_id": "9556e943-1424-48b9-b344-ec06d242ecf4",
+    "name": "Dinari Enterprise Accounts API",
+    "description": "**Dinari API for enterprise usage.**\n\nDinari's dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.\nIntegrate Dinari's API and offer over a hundred stocks and ETFs to your customers.\n\n\nContact Support:\n Email: hello@dinari.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:30:35.000Z",
+    "updatedAt": "2026-07-28T01:30:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9556e943-1424-48b9-b344-ec06d242ecf4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "entities",
+              "item": [
+                {
+                  "name": "{entity_id}",
+                  "item": [
+                    {
+                      "name": "accounts",
+                      "item": [
+                        {
+                          "name": "Get Accounts for Entity",
+                          "id": "51b594e5-6886-4948-b160-a6e72a7976af",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "entities",
+                                ":entity_id",
+                                "accounts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "555d0d3e-8d73-4a6a-9df3-c04884d8655a",
+                                  "key": "entity_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get a list of all `Accounts` that belong to a specific `Entity`. This `Entity` represents your organization itself, or an individual customer of your organization."
+                          },
+                          "response": [
+                            {
+                              "id": "11d5dbcd-1dc1-4709-a9b4-385d58753876",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "entities",
+                                    ":entity_id",
+                                    "accounts"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "entity_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"created_dt\": \"<dateTime>\",\n      \"entity_id\": \"<uuid>\",\n      \"id\": \"<uuid>\",\n      \"is_active\": \"<boolean>\",\n      \"jurisdiction\": \"US\",\n      \"brokerage_account_id\": \"<string,null>\"\n    },\n    {\n      \"created_dt\": \"<dateTime>\",\n      \"entity_id\": \"<uuid>\",\n      \"id\": \"<uuid>\",\n      \"is_active\": \"<boolean>\",\n      \"jurisdiction\": \"US\",\n      \"brokerage_account_id\": \"<string,null>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedAccountResponse:v1\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-11d5dbcd-1dc1-4709-a9b4-385d58753876"
+                            },
+                            {
+                              "id": "9a61c1dc-af2c-45d1-b71c-4398d16be8f7",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "entities",
+                                    ":entity_id",
+                                    "accounts"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "entity_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-9a61c1dc-af2c-45d1-b71c-4398d16be8f7"
+                            },
+                            {
+                              "id": "db1f496d-c94f-4c12-87dc-dba17d441d8e",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "entities",
+                                    ":entity_id",
+                                    "accounts"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "entity_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-db1f496d-c94f-4c12-87dc-dba17d441d8e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-51b594e5-6886-4948-b160-a6e72a7976af"
+                        },
+                        {
+                          "name": "Create Account for Entity",
+                          "id": "7ff76cda-a260-4777-817a-e296e1bedc72",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"jurisdiction\": \"BASELINE\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "entities",
+                                ":entity_id",
+                                "accounts"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f0706a20-3263-466d-bf93-201ab7a7c795",
+                                  "key": "entity_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Create a new `Account` for a specific `Entity`. This `Entity` represents your organization itself, or an individual customer of your organization."
+                          },
+                          "response": [
+                            {
+                              "id": "623e632f-cff5-4301-b883-63f8dfda0e0b",
+                              "name": "Created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"jurisdiction\": \"BASELINE\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "entities",
+                                    ":entity_id",
+                                    "accounts"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "entity_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"created_dt\": \"<dateTime>\",\n  \"entity_id\": \"<uuid>\",\n  \"id\": \"<uuid>\",\n  \"is_active\": \"<boolean>\",\n  \"jurisdiction\": \"US\",\n  \"brokerage_account_id\": \"<string,null>\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-623e632f-cff5-4301-b883-63f8dfda0e0b"
+                            },
+                            {
+                              "id": "3f5e9379-1d2d-43df-8f5f-dc61b6702852",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"jurisdiction\": \"BASELINE\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "entities",
+                                    ":entity_id",
+                                    "accounts"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "entity_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-3f5e9379-1d2d-43df-8f5f-dc61b6702852"
+                            },
+                            {
+                              "id": "7ea4e8fd-a901-4f41-b5d2-f3b748ca02cb",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"jurisdiction\": \"BASELINE\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/entities/:entity_id/accounts",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "entities",
+                                    ":entity_id",
+                                    "accounts"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "entity_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-7ea4e8fd-a901-4f41-b5d2-f3b748ca02cb"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-7ff76cda-a260-4777-817a-e296e1bedc72"
+                        }
+                      ],
+                      "id": "5b522232-7419-466b-8113-2e461ba5cef7",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-5b522232-7419-466b-8113-2e461ba5cef7"
+                    }
+                  ],
+                  "id": "d0f603a2-082b-426b-b618-7ab6531b9f85",
+                  "createdAt": "2026-07-28T01:30:35.000Z",
+                  "updatedAt": "2026-07-28T01:30:35.000Z",
+                  "uid": "35240-d0f603a2-082b-426b-b618-7ab6531b9f85"
+                }
+              ],
+              "id": "09a20d55-7072-4e27-8aeb-4d34fdacf691",
+              "createdAt": "2026-07-28T01:30:35.000Z",
+              "updatedAt": "2026-07-28T01:30:35.000Z",
+              "uid": "35240-09a20d55-7072-4e27-8aeb-4d34fdacf691"
+            },
+            {
+              "name": "accounts",
+              "item": [
+                {
+                  "name": "{account_id}",
+                  "item": [
+                    {
+                      "name": "deactivate",
+                      "item": [
+                        {
+                          "name": "Deactivate Account",
+                          "id": "0e9dc585-38a7-4a82-b32d-346a1251b07a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/deactivate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "deactivate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "13cbdd7d-b021-4c95-beb0-458896e0eadd",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Set the `Account` to be inactive. Inactive accounts cannot be used for trading."
+                          },
+                          "response": [
+                            {
+                              "id": "9b3af531-ca71-40fb-abc8-7b028c3793a4",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "deactivate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"created_dt\": \"<dateTime>\",\n  \"entity_id\": \"<uuid>\",\n  \"id\": \"<uuid>\",\n  \"is_active\": \"<boolean>\",\n  \"jurisdiction\": \"US\",\n  \"brokerage_account_id\": \"<string,null>\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-9b3af531-ca71-40fb-abc8-7b028c3793a4"
+                            },
+                            {
+                              "id": "85cf9451-3e0b-404e-8af0-854fa8fd8210",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/deactivate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "deactivate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-85cf9451-3e0b-404e-8af0-854fa8fd8210"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-0e9dc585-38a7-4a82-b32d-346a1251b07a"
+                        }
+                      ],
+                      "id": "4abe81aa-35a3-4ec0-b1fb-b8e236014e2a",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-4abe81aa-35a3-4ec0-b1fb-b8e236014e2a"
+                    },
+                    {
+                      "name": "portfolio",
+                      "item": [
+                        {
+                          "name": "Get Portfolio",
+                          "id": "7d5033e3-581e-4b82-9ac6-2e7b26eaec3f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/portfolio?page=<integer,null>&page_size=<integer,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "portfolio"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The page number.",
+                                  "key": "page",
+                                  "value": "<integer,null>"
+                                },
+                                {
+                                  "description": "The number of stocks to return per page, maximum number is 200.",
+                                  "key": "page_size",
+                                  "value": "<integer,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "294836c4-86e5-401c-9885-68fb453d2b66",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the portfolio of the `Account`, excluding cash equivalents such as stablecoins."
+                          },
+                          "response": [
+                            {
+                              "id": "6dce732a-9a2b-422c-a9cb-e11802604e7b",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/portfolio?page=<integer,null>&page_size=<integer,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "portfolio"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number.",
+                                      "key": "page",
+                                      "value": "<integer,null>"
+                                    },
+                                    {
+                                      "description": "The number of stocks to return per page, maximum number is 200.",
+                                      "key": "page_size",
+                                      "value": "<integer,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"assets\": [\n    {\n      \"amount\": \"<number>\",\n      \"chain_id\": \"eip155:98867\",\n      \"stock_id\": \"<uuid>\",\n      \"symbol\": \"<string>\",\n      \"token_address\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"chain_id\": \"eip155:421614\",\n      \"stock_id\": \"<uuid>\",\n      \"symbol\": \"<string>\",\n      \"token_address\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-6dce732a-9a2b-422c-a9cb-e11802604e7b"
+                            },
+                            {
+                              "id": "6b5bc7e7-895b-4ba9-8982-bb9a792a95a2",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/portfolio?page=<integer,null>&page_size=<integer,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "portfolio"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number.",
+                                      "key": "page",
+                                      "value": "<integer,null>"
+                                    },
+                                    {
+                                      "description": "The number of stocks to return per page, maximum number is 200.",
+                                      "key": "page_size",
+                                      "value": "<integer,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-6b5bc7e7-895b-4ba9-8982-bb9a792a95a2"
+                            },
+                            {
+                              "id": "037f4911-c243-4615-b027-160d4c351af7",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/portfolio?page=<integer,null>&page_size=<integer,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "portfolio"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The page number.",
+                                      "key": "page",
+                                      "value": "<integer,null>"
+                                    },
+                                    {
+                                      "description": "The number of stocks to return per page, maximum number is 200.",
+                                      "key": "page_size",
+                                      "value": "<integer,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-037f4911-c243-4615-b027-160d4c351af7"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-7d5033e3-581e-4b82-9ac6-2e7b26eaec3f"
+                        }
+                      ],
+                      "id": "ca71b76f-30c1-4473-9bed-9e520b105d52",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-ca71b76f-30c1-4473-9bed-9e520b105d52"
+                    },
+                    {
+                      "name": "cash",
+                      "item": [
+                        {
+                          "name": "Get Cash Balances",
+                          "id": "40d9d179-16b0-40bd-b4c4-d691bc54071f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/cash",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "cash"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d36e3975-6bf4-4cc3-a9d5-7eacdb6863d3",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get the cash balances of the `Account`, including stablecoins and other cash equivalents."
+                          },
+                          "response": [
+                            {
+                              "id": "b1343eba-d47d-4f63-828d-23ea3fce614e",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/cash",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "cash"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"amount\": \"<number>\",\n    \"chain_id\": \"eip155:1\",\n    \"symbol\": \"<string>\",\n    \"token_address\": \"<string>\"\n  },\n  {\n    \"amount\": \"<number>\",\n    \"chain_id\": \"eip155:84532\",\n    \"symbol\": \"<string>\",\n    \"token_address\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-b1343eba-d47d-4f63-828d-23ea3fce614e"
+                            },
+                            {
+                              "id": "08d3f8ee-cf2c-4a3d-ac0b-b30631bfac35",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/cash",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "cash"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-08d3f8ee-cf2c-4a3d-ac0b-b30631bfac35"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-40d9d179-16b0-40bd-b4c4-d691bc54071f"
+                        }
+                      ],
+                      "id": "70e9c187-b9f7-4a67-8296-db8a5996c2ed",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-70e9c187-b9f7-4a67-8296-db8a5996c2ed"
+                    },
+                    {
+                      "name": "interest_payments",
+                      "item": [
+                        {
+                          "name": "Get Interest Payments",
+                          "id": "181f0428-256d-4ad0-97ba-1b70bf3515ac",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/interest_payments?start_date=<date>&end_date=<date>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "interest_payments"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                  "key": "start_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                  "key": "end_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "12180df4-3114-4bd8-8ec5-957016be90b9",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "\nGet interest payments made to the `Account` from yield-bearing cash holdings.\n\nCurrently, the only yield-bearing stablecoin accepted by Dinari is [USD+](https://usd.dinari.com/).\n"
+                          },
+                          "response": [
+                            {
+                              "id": "97783387-5019-4b35-b29f-b664ee47bf39",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/interest_payments?start_date=<date>&end_date=<date>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "interest_payments"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "start_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "end_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"payment_date\": \"<date>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"payment_date\": \"<date>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedInterestPaymentResponse:v1\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-97783387-5019-4b35-b29f-b664ee47bf39"
+                            },
+                            {
+                              "id": "8273567d-ef7f-459f-8de0-b3dba018c7a0",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/interest_payments?start_date=<date>&end_date=<date>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "interest_payments"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "start_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "end_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-8273567d-ef7f-459f-8de0-b3dba018c7a0"
+                            },
+                            {
+                              "id": "b7a4477c-14c7-4a9a-9b00-60523ee344f4",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/interest_payments?start_date=<date>&end_date=<date>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "interest_payments"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "start_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "end_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-b7a4477c-14c7-4a9a-9b00-60523ee344f4"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-181f0428-256d-4ad0-97ba-1b70bf3515ac"
+                        }
+                      ],
+                      "id": "099f6d51-02dd-4804-a83f-3d7b6a0e893b",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-099f6d51-02dd-4804-a83f-3d7b6a0e893b"
+                    },
+                    {
+                      "name": "dividend_payments",
+                      "item": [
+                        {
+                          "name": "Get Dividend Payments",
+                          "id": "89847dde-bdf9-483c-9ed0-f53f1cfbd2a6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/dividend_payments?start_date=<date>&end_date=<date>&stock_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "dividend_payments"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                  "key": "start_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                  "key": "end_date",
+                                  "value": "<date>"
+                                },
+                                {
+                                  "description": "Optional ID of the `Stock` to filter by",
+                                  "key": "stock_id",
+                                  "value": "<string,null-uuid>"
+                                },
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "d6cbe6b9-e735-400a-b8bc-3fee1d7204c0",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Get dividend payments made to the `Account` from dividend-bearing stock holdings."
+                          },
+                          "response": [
+                            {
+                              "id": "c84d805d-fee4-4330-bb80-7e059e2ecdfe",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/dividend_payments?start_date=<date>&end_date=<date>&stock_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "dividend_payments"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "start_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "end_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "Optional ID of the `Stock` to filter by",
+                                      "key": "stock_id",
+                                      "value": "<string,null-uuid>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"payment_date\": \"<date>\",\n      \"stock_id\": \"<uuid>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"payment_date\": \"<date>\",\n      \"stock_id\": \"<uuid>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedDividendPaymentResponse:v1\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-c84d805d-fee4-4330-bb80-7e059e2ecdfe"
+                            },
+                            {
+                              "id": "08329609-970b-45e7-bdfc-b24ed04d2e2b",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/dividend_payments?start_date=<date>&end_date=<date>&stock_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "dividend_payments"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "start_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "end_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "Optional ID of the `Stock` to filter by",
+                                      "key": "stock_id",
+                                      "value": "<string,null-uuid>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-08329609-970b-45e7-bdfc-b24ed04d2e2b"
+                            },
+                            {
+                              "id": "4ce1beee-fcde-4747-83ca-507c080fea91",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/dividend_payments?start_date=<date>&end_date=<date>&stock_id=<string,null-uuid>&limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "dividend_payments"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "start_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "(Required) End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.",
+                                      "key": "end_date",
+                                      "value": "<date>"
+                                    },
+                                    {
+                                      "description": "Optional ID of the `Stock` to filter by",
+                                      "key": "stock_id",
+                                      "value": "<string,null-uuid>"
+                                    },
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-4ce1beee-fcde-4747-83ca-507c080fea91"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-89847dde-bdf9-483c-9ed0-f53f1cfbd2a6"
+                        }
+                      ],
+                      "id": "00dacb26-3496-4a4b-a11a-3d5aa153fb87",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-00dacb26-3496-4a4b-a11a-3d5aa153fb87"
+                    },
+                    {
+                      "name": "faucet",
+                      "item": [
+                        {
+                          "name": "Sandbox Faucet",
+                          "id": "b493cb04-1050-4de8-a746-b16feb5f303e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"chain_id\": \"eip155:8453\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/faucet",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "faucet"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "dd005590-c1f0-4f52-a77c-27b423dd08be",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "\nMints 1,000 mockUSD sandbox payment tokens to the `Wallet` connected to the `Account`.\n\nThis feature is only supported in sandbox mode.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "fa274a48-4463-4129-89c3-8d0943b08aa1",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"chain_id\": \"eip155:8453\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/faucet",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "faucet"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-fa274a48-4463-4129-89c3-8d0943b08aa1"
+                            },
+                            {
+                              "id": "f9c816a4-4b98-4ee9-ac0e-8165ac24aacf",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"chain_id\": \"eip155:8453\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/faucet",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "faucet"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-f9c816a4-4b98-4ee9-ac0e-8165ac24aacf"
+                            },
+                            {
+                              "id": "95b23e3b-233a-49ee-8416-a8aa129184ac",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"chain_id\": \"eip155:8453\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/faucet",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "faucet"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-95b23e3b-233a-49ee-8416-a8aa129184ac"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-b493cb04-1050-4de8-a746-b16feb5f303e"
+                        }
+                      ],
+                      "id": "afd72c19-5a04-4f82-bdb5-0cc8b9c63187",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-afd72c19-5a04-4f82-bdb5-0cc8b9c63187"
+                    },
+                    {
+                      "name": "activities",
+                      "item": [
+                        {
+                          "name": "brokerage",
+                          "item": [
+                            {
+                              "name": "Get Brokerage Account Activities",
+                              "id": "66d16ced-74f3-42ff-be90-e6db6e5f4fdb",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/activities/brokerage?page_size=<integer,null>&page_token=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "activities",
+                                    "brokerage"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The maximum number of entries to return in the response. Defaults to 100.",
+                                      "key": "page_size",
+                                      "value": "<integer,null>"
+                                    },
+                                    {
+                                      "description": "Pagination token. Set to the `id` field of the last Activity returned in the previous page to get the next page of results.",
+                                      "key": "page_token",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "1377bda1-7d13-4b1d-8d73-88921f41ba3d",
+                                      "key": "account_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "\nGet a list of brokerage activities tied to the specified `Account`.\n\n**\u26a0\ufe0f ALPHA: This endpoint is in early development and subject to breaking changes.**\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "0a7d13c0-1a97-454c-bcf6-c859fbe5a67d",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/activities/brokerage?page_size=<integer,null>&page_token=<string,null>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "activities",
+                                        "brokerage"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The maximum number of entries to return in the response. Defaults to 100.",
+                                          "key": "page_size",
+                                          "value": "<integer,null>"
+                                        },
+                                        {
+                                          "description": "Pagination token. Set to the `id` field of the last Activity returned in the previous page to get the next page of results.",
+                                          "key": "page_token",
+                                          "value": "<string,null>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T01:30:36.000Z",
+                                  "updatedAt": "2026-07-28T01:30:36.000Z",
+                                  "uid": "35240-0a7d13c0-1a97-454c-bcf6-c859fbe5a67d"
+                                },
+                                {
+                                  "id": "551a1950-94a2-4e71-b966-6a714df215fe",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/activities/brokerage?page_size=<integer,null>&page_token=<string,null>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "activities",
+                                        "brokerage"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The maximum number of entries to return in the response. Defaults to 100.",
+                                          "key": "page_size",
+                                          "value": "<integer,null>"
+                                        },
+                                        {
+                                          "description": "Pagination token. Set to the `id` field of the last Activity returned in the previous page to get the next page of results.",
+                                          "key": "page_token",
+                                          "value": "<string,null>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                                  "createdAt": "2026-07-28T01:30:36.000Z",
+                                  "updatedAt": "2026-07-28T01:30:36.000Z",
+                                  "uid": "35240-551a1950-94a2-4e71-b966-6a714df215fe"
+                                },
+                                {
+                                  "id": "2820b4e1-7c27-48ec-ad62-d447fddd929a",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/activities/brokerage?page_size=<integer,null>&page_token=<string,null>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "activities",
+                                        "brokerage"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The maximum number of entries to return in the response. Defaults to 100.",
+                                          "key": "page_size",
+                                          "value": "<integer,null>"
+                                        },
+                                        {
+                                          "description": "Pagination token. Set to the `id` field of the last Activity returned in the previous page to get the next page of results.",
+                                          "key": "page_token",
+                                          "value": "<string,null>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:36.000Z",
+                                  "updatedAt": "2026-07-28T01:30:36.000Z",
+                                  "uid": "35240-2820b4e1-7c27-48ec-ad62-d447fddd929a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:35.000Z",
+                              "updatedAt": "2026-07-28T01:30:35.000Z",
+                              "uid": "35240-66d16ced-74f3-42ff-be90-e6db6e5f4fdb"
+                            }
+                          ],
+                          "id": "1223c395-5d17-4ddc-ac18-179116771fbc",
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-1223c395-5d17-4ddc-ac18-179116771fbc"
+                        }
+                      ],
+                      "id": "a9a23ac0-5154-4a10-a088-7f766764425e",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-a9a23ac0-5154-4a10-a088-7f766764425e"
+                    },
+                    {
+                      "name": "token_transfers",
+                      "item": [
+                        {
+                          "name": "{transfer_id}",
+                          "item": [
+                            {
+                              "name": "Get TokenTransfer by ID",
+                              "id": "e2f15f64-53cd-43fe-87c2-714cec315c85",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-API-Key-Id",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers/:transfer_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers",
+                                    ":transfer_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "569aea14-d2d6-4b81-8549-a80c2298af04",
+                                      "key": "account_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "562a8469-842e-4bad-87c4-b21c07ac590f",
+                                      "key": "transfer_id",
+                                      "value": "<uuid>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "\nGet a specific `TokenTransfer` made from this `Account` by its ID.\n\nA `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another.\nAs such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.\n"
+                              },
+                              "response": [
+                                {
+                                  "id": "d9c9df16-6513-4dca-b000-e93cc4e65ee6",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers/:transfer_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "token_transfers",
+                                        ":transfer_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        },
+                                        {
+                                          "key": "transfer_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"chain_id\": \"eip155:43114\",\n  \"created_dt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"sender_account_id\": \"<uuid>\",\n  \"status\": \"PENDING\",\n  \"token_address\": \"<string>\",\n  \"updated_dt\": \"<dateTime>\",\n  \"transaction_hash\": \"0x0F0cf\"\n}",
+                                  "createdAt": "2026-07-28T01:30:36.000Z",
+                                  "updatedAt": "2026-07-28T01:30:36.000Z",
+                                  "uid": "35240-d9c9df16-6513-4dca-b000-e93cc4e65ee6"
+                                },
+                                {
+                                  "id": "45ad33c8-dfa2-4293-a398-6a7066a698f4",
+                                  "name": "Default error response",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-API-Key-Id",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers/:transfer_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "accounts",
+                                        ":account_id",
+                                        "token_transfers",
+                                        ":transfer_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "account_id"
+                                        },
+                                        {
+                                          "key": "transfer_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Internal Server Error",
+                                  "code": 500,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:30:36.000Z",
+                                  "updatedAt": "2026-07-28T01:30:36.000Z",
+                                  "uid": "35240-45ad33c8-dfa2-4293-a398-6a7066a698f4"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:30:35.000Z",
+                              "updatedAt": "2026-07-28T01:30:35.000Z",
+                              "uid": "35240-e2f15f64-53cd-43fe-87c2-714cec315c85"
+                            }
+                          ],
+                          "id": "a826d970-213c-459a-9d49-a7a2b1b7eae6",
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-a826d970-213c-459a-9d49-a7a2b1b7eae6"
+                        },
+                        {
+                          "name": "Get TokenTransfers",
+                          "id": "ea42e8f7-0c3d-43d2-be61-ba418867d48e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "token_transfers"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Number of results to return",
+                                  "key": "limit",
+                                  "value": "20"
+                                },
+                                {
+                                  "description": "Sort order",
+                                  "key": "order",
+                                  "value": "asc"
+                                },
+                                {
+                                  "description": "Cursor for next page",
+                                  "key": "next",
+                                  "value": "<string,null>"
+                                },
+                                {
+                                  "description": "Cursor for previous page",
+                                  "key": "previous",
+                                  "value": "<string,null>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3b3c6024-89b4-4b5f-b963-74b6b5f49386",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "\nGet `TokenTransfer`s made from this `Account`.\n\nA `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another.\nAs such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "57f8d434-5c44-4b1d-8d24-0d3c5341e053",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"chain_id\": \"eip155:42161\",\n      \"created_dt\": \"<dateTime>\",\n      \"id\": \"<uuid>\",\n      \"quantity\": \"<number>\",\n      \"recipient_account_id\": \"<uuid>\",\n      \"sender_account_id\": \"<uuid>\",\n      \"status\": \"FAILED\",\n      \"token_address\": \"<string>\",\n      \"updated_dt\": \"<dateTime>\",\n      \"transaction_hash\": \"0x91c7\"\n    },\n    {\n      \"chain_id\": \"eip155:179205\",\n      \"created_dt\": \"<dateTime>\",\n      \"id\": \"<uuid>\",\n      \"quantity\": \"<number>\",\n      \"recipient_account_id\": \"<uuid>\",\n      \"sender_account_id\": \"<uuid>\",\n      \"status\": \"COMPLETE\",\n      \"token_address\": \"<string>\",\n      \"updated_dt\": \"<dateTime>\",\n      \"transaction_hash\": \"0xdAd2b\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"_sv\": \"PaginatedTokenTransferResponse:v1\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-57f8d434-5c44-4b1d-8d24-0d3c5341e053"
+                            },
+                            {
+                              "id": "53919f6d-d399-4d69-a579-ae3974d71040",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-53919f6d-d399-4d69-a579-ae3974d71040"
+                            },
+                            {
+                              "id": "d307ac04-d24d-4820-8ae7-ac308b80db15",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers?limit=20&order=asc&next=<string,null>&previous=<string,null>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Number of results to return",
+                                      "key": "limit",
+                                      "value": "20"
+                                    },
+                                    {
+                                      "description": "Sort order",
+                                      "key": "order",
+                                      "value": "asc"
+                                    },
+                                    {
+                                      "description": "Cursor for next page",
+                                      "key": "next",
+                                      "value": "<string,null>"
+                                    },
+                                    {
+                                      "description": "Cursor for previous page",
+                                      "key": "previous",
+                                      "value": "<string,null>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-d307ac04-d24d-4820-8ae7-ac308b80db15"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-ea42e8f7-0c3d-43d2-be61-ba418867d48e"
+                        },
+                        {
+                          "name": "Create TokenTransfer",
+                          "id": "8ace6afb-6151-42f7-ac1f-7a4bce89de40",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-API-Key-Id",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"token_address\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id",
+                                "token_transfers"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "cee91fad-a87d-457a-944b-de9b6201d565",
+                                  "key": "account_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "\nCreates a `TokenTransfer` from this `Account`.\n\nA `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another.\nAs such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "26e62b78-8f9e-41c3-bbdb-babbfdcfd362",
+                              "name": "Created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"token_address\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"chain_id\": \"eip155:43114\",\n  \"created_dt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"sender_account_id\": \"<uuid>\",\n  \"status\": \"PENDING\",\n  \"token_address\": \"<string>\",\n  \"updated_dt\": \"<dateTime>\",\n  \"transaction_hash\": \"0x0F0cf\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-26e62b78-8f9e-41c3-bbdb-babbfdcfd362"
+                            },
+                            {
+                              "id": "44a548fe-ba40-4b90-9352-59e1100fe982",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"token_address\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      },\n      {\n        \"field_error\": \"<string>\",\n        \"field_name\": \"<string>\"\n      }\n    ],\n    \"body_error\": \"<string,null>\"\n  },\n  \"error_id\": \"<string>\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-44a548fe-ba40-4b90-9352-59e1100fe982"
+                            },
+                            {
+                              "id": "0268b285-859c-416c-b9eb-9b1536b403fe",
+                              "name": "Default error response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-API-Key-Id",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"quantity\": \"<number>\",\n  \"recipient_account_id\": \"<uuid>\",\n  \"token_address\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/accounts/:account_id/token_transfers",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "accounts",
+                                    ":account_id",
+                                    "token_transfers"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "account_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:30:36.000Z",
+                              "updatedAt": "2026-07-28T01:30:36.000Z",
+                              "uid": "35240-0268b285-859c-416c-b9eb-9b1536b403fe"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:30:35.000Z",
+                          "updatedAt": "2026-07-28T01:30:35.000Z",
+                          "uid": "35240-8ace6afb-6151-42f7-ac1f-7a4bce89de40"
+                        }
+                      ],
+                      "id": "2733f1b6-4911-447f-89dc-faa3843e32d0",
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-2733f1b6-4911-447f-89dc-faa3843e32d0"
+                    },
+                    {
+                      "name": "Get Account by ID",
+                      "id": "fa1ff8e9-fd54-49dd-93d6-83c32c80a3ff",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-API-Key-Id",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/accounts/:account_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "accounts",
+                            ":account_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "747b2b18-1fa8-4387-9bf7-333547fa2310",
+                              "key": "account_id",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get a specific `Account` by its ID."
+                      },
+                      "response": [
+                        {
+                          "id": "c28d0c74-409e-498e-a921-5dba07484ec3",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_dt\": \"<dateTime>\",\n  \"entity_id\": \"<uuid>\",\n  \"id\": \"<uuid>\",\n  \"is_active\": \"<boolean>\",\n  \"jurisdiction\": \"US\",\n  \"brokerage_account_id\": \"<string,null>\"\n}",
+                          "createdAt": "2026-07-28T01:30:36.000Z",
+                          "updatedAt": "2026-07-28T01:30:36.000Z",
+                          "uid": "35240-c28d0c74-409e-498e-a921-5dba07484ec3"
+                        },
+                        {
+                          "id": "0f9593ff-d189-4309-a670-dccd279f2e6b",
+                          "name": "Default error response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-API-Key-Id",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/accounts/:account_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "accounts",
+                                ":account_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error_id\": \"<string>\",\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"error\": {\n    \"description\": \"Additional context and information\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:30:36.000Z",
+                          "updatedAt": "2026-07-28T01:30:36.000Z",
+                          "uid": "35240-0f9593ff-d189-4309-a670-dccd279f2e6b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:30:35.000Z",
+                      "updatedAt": "2026-07-28T01:30:35.000Z",
+                      "uid": "35240-fa1ff8e9-fd54-49dd-93d6-83c32c80a3ff"
+                    }
+                  ],
+                  "id": "e892f648-219a-4192-94d7-0e31673d0198",
+                  "createdAt": "2026-07-28T01:30:35.000Z",
+                  "updatedAt": "2026-07-28T01:30:35.000Z",
+                  "uid": "35240-e892f648-219a-4192-94d7-0e31673d0198"
+                }
+              ],
+              "id": "68ce1b85-c819-4b1c-a576-cdbdc8c32c77",
+              "createdAt": "2026-07-28T01:30:35.000Z",
+              "updatedAt": "2026-07-28T01:30:35.000Z",
+              "uid": "35240-68ce1b85-c819-4b1c-a576-cdbdc8c32c77"
+            }
+          ],
+          "id": "c37957b2-d31f-48eb-bfc3-0c91729120d6",
+          "createdAt": "2026-07-28T01:30:35.000Z",
+          "updatedAt": "2026-07-28T01:30:35.000Z",
+          "uid": "35240-c37957b2-d31f-48eb-bfc3-0c91729120d6"
+        }
+      ],
+      "id": "f4bb09ae-7033-4cb8-9232-4d98223b4236",
+      "createdAt": "2026-07-28T01:30:35.000Z",
+      "updatedAt": "2026-07-28T01:30:35.000Z",
+      "uid": "35240-f4bb09ae-7033-4cb8-9232-4d98223b4236"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-enterprise.sbt.dinari.com"
+    }
+  ]
+}
