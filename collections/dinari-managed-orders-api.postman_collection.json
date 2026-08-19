@@ -1,0 +1,1364 @@
+{
+  "item": [
+    {
+      "id": "4b6a411d-1f7b-45e3-8793-e0acea6c9584",
+      "name": "Managed Orders",
+      "description": {
+        "content": "**Managed `Orders` represent the buying and selling of assets using a Dinari-managed `Wallet`.**\n\nSimilar to Proxied `Orders`, placing a managed `Order` creates an `OrderRequest` which is then submitted on chain by Dinari. Once the request is submitted on chain, the corresponding `Order` is created.\nUnlike Proxied `Orders`, managed `Orders` are available only for `Accounts` using Dinari-managed `Wallets`.\n\nNote that **fees are not included** in the `Order` amount. For buy orders, a fee will be added when placing the order. For sell orders, the fee will be deducted from the proceeds of the sale.\nCall the *Get Order Request Fee Quote* route for an estimate of the fee amount.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f140081-9b18-40e3-9181-a1e7bb4fbfe3",
+          "name": "Create Market Buy Managed Order Request",
+          "request": {
+            "name": "Create Market Buy Managed Order Request",
+            "description": {
+              "content": "\nCreate a managed `OrderRequest` to place a market buy `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "accounts",
+                ":account_id",
+                "order_requests",
+                "market_buy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_amount\": \"<number>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3595a60f-423f-4596-8078-3af83fa51c28",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_amount\": \"<number>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"d9cf7c7e-8037-0dd0-8081-588a7c34f276\",\n  \"created_dt\": \"1997-11-17T02:19:21.775Z\",\n  \"id\": \"d3665de3-e7e1-1ff3-a356-9937064b205b\",\n  \"order_side\": \"BUY\",\n  \"order_tif\": \"IOC\",\n  \"order_type\": \"MARKET\",\n  \"status\": \"EXPIRED\",\n  \"recipient_account_id\": \"03b87007-6514-2e74-fe2b-2730d9c190df\",\n  \"order_id\": \"ab5fe86f-81bb-8d49-3deb-aa5783f1e3a3\",\n  \"client_order_id\": \"string\",\n  \"cancel_message\": \"string\",\n  \"reject_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26e1d42d-7caf-4d39-a216-286ac20ac7e8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_amount\": \"<number>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      },\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      }\n    ],\n    \"body_error\": \"string\"\n  },\n  \"error_id\": \"string\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a210b1a-c30e-4971-b020-c985e675c7ca",
+              "name": "Locked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_amount\": \"<number>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cce94de-c5d6-441e-983b-6bb579c23a50",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_amount\": \"<number>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ba2b0dd-da60-437d-addd-a0a1d2914a9d",
+          "name": "Create Market Sell Managed Order Request",
+          "request": {
+            "name": "Create Market Sell Managed Order Request",
+            "description": {
+              "content": "\nCreate a managed `OrderRequest` to place a market sell `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "accounts",
+                ":account_id",
+                "order_requests",
+                "market_sell"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58018b4f-3c6c-4a53-a495-c1e4a4a506a6",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"d9cf7c7e-8037-0dd0-8081-588a7c34f276\",\n  \"created_dt\": \"1997-11-17T02:19:21.775Z\",\n  \"id\": \"d3665de3-e7e1-1ff3-a356-9937064b205b\",\n  \"order_side\": \"BUY\",\n  \"order_tif\": \"IOC\",\n  \"order_type\": \"MARKET\",\n  \"status\": \"EXPIRED\",\n  \"recipient_account_id\": \"03b87007-6514-2e74-fe2b-2730d9c190df\",\n  \"order_id\": \"ab5fe86f-81bb-8d49-3deb-aa5783f1e3a3\",\n  \"client_order_id\": \"string\",\n  \"cancel_message\": \"string\",\n  \"reject_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f31fa11-9d33-48ef-aa06-4bdde81b647f",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      },\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      }\n    ],\n    \"body_error\": \"string\"\n  },\n  \"error_id\": \"string\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c27de25a-5b84-42d2-8784-82e5645c214e",
+              "name": "Locked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54ac765a-69a7-4d54-a638-6f466e48cbf3",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "market_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79b15b7e-0527-4c82-906f-2982284ac31d",
+          "name": "Create Limit Buy Managed Order Request",
+          "request": {
+            "name": "Create Limit Buy Managed Order Request",
+            "description": {
+              "content": "\nCreate a managed `OrderRequest` to place a limit buy `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "accounts",
+                ":account_id",
+                "order_requests",
+                "limit_buy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"fee\": \"<number,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc53c582-8f8d-4cc2-a0c8-a094da1ca448",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"d9cf7c7e-8037-0dd0-8081-588a7c34f276\",\n  \"created_dt\": \"1997-11-17T02:19:21.775Z\",\n  \"id\": \"d3665de3-e7e1-1ff3-a356-9937064b205b\",\n  \"order_side\": \"BUY\",\n  \"order_tif\": \"IOC\",\n  \"order_type\": \"MARKET\",\n  \"status\": \"EXPIRED\",\n  \"recipient_account_id\": \"03b87007-6514-2e74-fe2b-2730d9c190df\",\n  \"order_id\": \"ab5fe86f-81bb-8d49-3deb-aa5783f1e3a3\",\n  \"client_order_id\": \"string\",\n  \"cancel_message\": \"string\",\n  \"reject_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5950dc5-f125-4e6f-9fec-09e1e9824897",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      },\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      }\n    ],\n    \"body_error\": \"string\"\n  },\n  \"error_id\": \"string\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21f91ac5-a9ba-4f3e-bf76-a5840586cef8",
+              "name": "Locked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "554746f4-3ed4-4710-9623-cecb95667783",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"client_order_id\": \"<string,null>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70476ab4-0d4c-4040-ba0d-07d4161653cf",
+          "name": "Create Limit Sell Managed Order Request",
+          "request": {
+            "name": "Create Limit Sell Managed Order Request",
+            "description": {
+              "content": "\nCreate a managed `OrderRequest` to place a limit sell `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "accounts",
+                ":account_id",
+                "order_requests",
+                "limit_sell"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f13fcb5-5287-4d4d-8cf0-89eac4950798",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"d9cf7c7e-8037-0dd0-8081-588a7c34f276\",\n  \"created_dt\": \"1997-11-17T02:19:21.775Z\",\n  \"id\": \"d3665de3-e7e1-1ff3-a356-9937064b205b\",\n  \"order_side\": \"BUY\",\n  \"order_tif\": \"IOC\",\n  \"order_type\": \"MARKET\",\n  \"status\": \"EXPIRED\",\n  \"recipient_account_id\": \"03b87007-6514-2e74-fe2b-2730d9c190df\",\n  \"order_id\": \"ab5fe86f-81bb-8d49-3deb-aa5783f1e3a3\",\n  \"client_order_id\": \"string\",\n  \"cancel_message\": \"string\",\n  \"reject_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d833ef9-afe5-4628-bb1f-2e6121f2e000",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      },\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      }\n    ],\n    \"body_error\": \"string\"\n  },\n  \"error_id\": \"string\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcd5871b-c402-4247-ad15-9af116fa59f2",
+              "name": "Locked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Locked (WebDAV) (RFC 4918)",
+              "code": 423,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7278407-3655-4450-9c2d-bf156c705f91",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "accounts",
+                    ":account_id",
+                    "order_requests",
+                    "limit_sell"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_quantity\": \"<number>\",\n  \"limit_price\": \"<number>\",\n  \"stock_id\": \"<string,null-uuid>\",\n  \"alloy_id\": \"<string,null-uuid>\",\n  \"recipient_account_id\": \"<string,null-uuid>\",\n  \"payment_token_address\": \"<string,null-eth_address>\",\n  \"client_order_id\": \"<string,null>\",\n  \"fee\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 9483,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-enterprise.sbt.dinari.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a1d0d4dc-ce1f-447a-8668-68bcd5d48a8c",
+    "name": "Dinari Enterprise Accounts Managed Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "**Dinari API for enterprise usage.**\n\nDinari's dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.\nIntegrate Dinari's API and offer over a hundred stocks and ETFs to your customers.\n\n\nContact Support:\n Email: hello@dinari.com",
+      "type": "text/plain"
+    }
+  }
+}

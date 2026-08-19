@@ -1,0 +1,788 @@
+{
+  "item": [
+    {
+      "id": "9464699c-b0e8-446b-8d3e-555f9aefc21b",
+      "name": "Corporate Actions",
+      "description": {
+        "content": "**Corporate actions are events that affect the ownership of a `Stock`.**\n\nCorporate actions include dividends and stock splits.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05811b7f-fffd-4977-b5b7-f5c8817bd378",
+          "name": "Get Stock Splits",
+          "request": {
+            "name": "Get Stock Splits",
+            "description": {
+              "content": "\nGet a list of stock splits for `Stocks` available for trade via Dinari.\nThe splits are ordered by the date they were created, with the most recent split first.\n\nIn an example 10-for-1 stock split, trading will be halted for the stock at the end of the `payable_date`, as\nthe split transitions from `PENDING` to `IN_PROGRESS`. This usually occurs over a weekend to minimize trading\ndisruptions. Each share of stock owned by a shareholder will then be converted into 10 shares, and the split\nbecomes `COMPLETE` as trading resumes on the `ex_date` with new split-adjusted prices.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "market_data",
+                "stocks",
+                "splits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string,null>",
+                  "description": "Cursor for next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string,null>",
+                  "description": "Cursor for previous page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9236a417-f6ac-4379-9e71-42a4be514ea1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"ex_date\": \"2024-06-10\",\n      \"id\": \"8e3ad59e-a4fa-48ab-9cc2-0a296aa670a6\",\n      \"payable_date\": \"2024-06-07\",\n      \"record_date\": \"2024-06-06\",\n      \"split_from\": 7696.724928915956,\n      \"split_to\": 9854.854519172743,\n      \"status\": \"COMPLETE\",\n      \"stock_id\": \"60cc8f91-21d0-4975-bb81-3d737fc2f923\"\n    },\n    {\n      \"ex_date\": \"2024-06-10\",\n      \"id\": \"8e3ad59e-a4fa-48ab-9cc2-0a296aa670a6\",\n      \"payable_date\": \"2024-06-07\",\n      \"record_date\": \"2024-06-06\",\n      \"split_from\": 5517.370564161508,\n      \"split_to\": 3067.3960689771607,\n      \"status\": \"PENDING\",\n      \"stock_id\": \"60cc8f91-21d0-4975-bb81-3d737fc2f923\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"string\",\n    \"next\": \"string\"\n  },\n  \"_sv\": \"PaginatedStockSplitResponse:v1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b34426b-2539-4da6-ac78-8b5b7d9cf14a",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      },\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      }\n    ],\n    \"body_error\": \"string\"\n  },\n  \"error_id\": \"string\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d502d230-9345-4884-875e-fac8adafefb9",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 5693,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e72def7-8ca2-495e-9c61-d7050d9ad495",
+          "name": "Get Stock Splits for Stock",
+          "request": {
+            "name": "Get Stock Splits for Stock",
+            "description": {
+              "content": "\nGet a list of stock splits for a specific `Stock`.\nThe splits are ordered by the date they were created, with the most recent split first.\n\nIn an example 10-for-1 stock split, trading will be halted for the stock at the end of the `payable_date`, as\nthe split transitions from `PENDING` to `IN_PROGRESS`. This usually occurs over a weekend to minimize trading\ndisruptions. Each share of stock owned by a shareholder will then be converted into 10 shares, and the split\nbecomes `COMPLETE` as trading resumes on the `ex_date` with new split-adjusted prices.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "market_data",
+                "stocks",
+                ":stock_id",
+                "splits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string,null>",
+                  "description": "Cursor for next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "previous",
+                  "value": "<string,null>",
+                  "description": "Cursor for previous page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "stock_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "20954484-19b2-49af-a3be-ffe164891a57",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    ":stock_id",
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "stock_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"ex_date\": \"2024-06-10\",\n      \"id\": \"8e3ad59e-a4fa-48ab-9cc2-0a296aa670a6\",\n      \"payable_date\": \"2024-06-07\",\n      \"record_date\": \"2024-06-06\",\n      \"split_from\": 7696.724928915956,\n      \"split_to\": 9854.854519172743,\n      \"status\": \"COMPLETE\",\n      \"stock_id\": \"60cc8f91-21d0-4975-bb81-3d737fc2f923\"\n    },\n    {\n      \"ex_date\": \"2024-06-10\",\n      \"id\": \"8e3ad59e-a4fa-48ab-9cc2-0a296aa670a6\",\n      \"payable_date\": \"2024-06-07\",\n      \"record_date\": \"2024-06-06\",\n      \"split_from\": 5517.370564161508,\n      \"split_to\": 3067.3960689771607,\n      \"status\": \"PENDING\",\n      \"stock_id\": \"60cc8f91-21d0-4975-bb81-3d737fc2f923\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"previous\": \"string\",\n    \"next\": \"string\"\n  },\n  \"_sv\": \"PaginatedStockSplitResponse:v1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1070c805-6e0d-4bdc-bfbf-08b8ed9af4ab",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    ":stock_id",
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "stock_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"field_errors\": [\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      },\n      {\n        \"field_error\": \"string\",\n        \"field_name\": \"string\"\n      }\n    ],\n    \"body_error\": \"string\"\n  },\n  \"error_id\": \"string\",\n  \"status\": 422,\n  \"message\": \"Unprocessable Entity\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e2c587d-98cd-45d1-9177-609f5820f7f9",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    ":stock_id",
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "next",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "key": "previous",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "stock_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 5693,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eefd1c3f-eeba-45ff-9e4f-e589300ab618",
+          "name": "Get Stock Dividend Announcements",
+          "request": {
+            "name": "Get Stock Dividend Announcements",
+            "description": {
+              "content": "\nGet a list of announced stock dividend details for a specified `Stock`.\n\nNote that this data applies only to actual stocks. Yield received for holding tokenized shares may differ from this.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "market_data",
+                "stocks",
+                ":stock_id",
+                "dividends"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "stock_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key-Id"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e179407c-981e-40ef-98be-09526e97c917",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    ":stock_id",
+                    "dividends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "stock_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"cash_amount\": 9133.12272581804,\n    \"currency\": \"string\",\n    \"dividend_type\": \"string\",\n    \"ex_dividend_date\": \"2011-08-25\",\n    \"pay_date\": \"2009-04-06\",\n    \"record_date\": \"1958-07-25\",\n    \"ticker\": \"string\"\n  },\n  {\n    \"cash_amount\": 7688.720896642829,\n    \"currency\": \"string\",\n    \"dividend_type\": \"string\",\n    \"ex_dividend_date\": \"1971-10-20\",\n    \"pay_date\": \"1950-12-19\",\n    \"record_date\": \"1994-03-29\",\n    \"ticker\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b1c5b8b-73c4-4994-b800-b61817fec661",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "market_data",
+                    "stocks",
+                    ":stock_id",
+                    "dividends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "stock_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key-Id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_id\": \"string\",\n  \"message\": \"string\",\n  \"status\": 5693,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-enterprise.sbt.dinari.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cfcc4de2-28d4-4a65-b96f-b121f41ce1ad",
+    "name": "Dinari Enterprise Accounts Corporate Actions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "**Dinari API for enterprise usage.**\n\nDinari's dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.\nIntegrate Dinari's API and offer over a hundred stocks and ETFs to your customers.\n\n\nContact Support:\n Email: hello@dinari.com",
+      "type": "text/plain"
+    }
+  }
+}

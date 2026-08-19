@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dinari Enterprise Accounts Wallets API",
+    "version": "v20260709-097f56a"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/wallet",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the wallet connected to the `Account`."
+        },
+        {
+          "info": {
+            "name": "Get Wallet Connection Nonce",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/wallet/external/nonce",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wallet_address",
+                "value": "",
+                "type": "query",
+                "description": "Address of the `Wallet` to connect."
+              },
+              {
+                "name": "chain_id",
+                "value": "",
+                "type": "query",
+                "description": "CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a nonce and message to be signed in order to verify `Wallet` ownership."
+        },
+        {
+          "info": {
+            "name": "Connect Wallet to Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/wallet/external",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Connect a `Wallet` to the `Account` after verifying the signature."
+        },
+        {
+          "info": {
+            "name": "Connect an internal Wallet to Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/wallet/internal",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Connect an internal `Wallet` to the `Account`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

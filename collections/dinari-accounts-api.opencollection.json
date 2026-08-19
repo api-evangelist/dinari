@@ -1,0 +1,497 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dinari Enterprise Accounts API",
+    "version": "v20260709-097f56a"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Accounts for Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/accounts",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all `Accounts` that belong to a specific `Entity`. This `Entity` represents your organization itself, or an individual customer of your organization."
+        },
+        {
+          "info": {
+            "name": "Create Account for Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/accounts",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new `Account` for a specific `Entity`. This `Entity` represents your organization itself, or an individual customer of your organization."
+        },
+        {
+          "info": {
+            "name": "Get Account by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific `Account` by its ID."
+        },
+        {
+          "info": {
+            "name": "Deactivate Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/deactivate",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set the `Account` to be inactive. Inactive accounts cannot be used for trading."
+        },
+        {
+          "info": {
+            "name": "Get Portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/portfolio",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of stocks to return per page, maximum number is 200."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the portfolio of the `Account`, excluding cash equivalents such as stablecoins."
+        },
+        {
+          "info": {
+            "name": "Get Cash Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/cash",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the cash balances of the `Account`, including stablecoins and other cash equivalents."
+        },
+        {
+          "info": {
+            "name": "Get Interest Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/interest_payments",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nGet interest payments made to the `Account` from yield-bearing cash holdings.\n\nCurrently, the only yield-bearing stablecoin accepted by Dinari is [USD+](https://usd.dinari.com/).\n"
+        },
+        {
+          "info": {
+            "name": "Get Dividend Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/dividend_payments",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date, inclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date, exclusive, in US Eastern time zone. ISO 8601 format, YYYY-MM-DD."
+              },
+              {
+                "name": "stock_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional ID of the `Stock` to filter by"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get dividend payments made to the `Account` from dividend-bearing stock holdings."
+        },
+        {
+          "info": {
+            "name": "Sandbox Faucet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/faucet",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nMints 1,000 mockUSD sandbox payment tokens to the `Wallet` connected to the `Account`.\n\nThis feature is only supported in sandbox mode.\n"
+        },
+        {
+          "info": {
+            "name": "Get Brokerage Account Activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/activities/brokerage",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of entries to return in the response. Defaults to 100."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token. Set to the `id` field of the last Activity returned in the previous page to get the next page of results."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nGet a list of brokerage activities tied to the specified `Account`.\n\n**⚠️ ALPHA: This endpoint is in early development and subject to breaking changes.**\n"
+        },
+        {
+          "info": {
+            "name": "Get TokenTransfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/token_transfers",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nGet `TokenTransfer`s made from this `Account`.\n\nA `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another.\nAs such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.\n"
+        },
+        {
+          "info": {
+            "name": "Create TokenTransfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/token_transfers",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreates a `TokenTransfer` from this `Account`.\n\nA `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another.\nAs such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.\n"
+        },
+        {
+          "info": {
+            "name": "Get TokenTransfer by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/token_transfers/:transfer_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transfer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nGet a specific `TokenTransfer` made from this `Account` by its ID.\n\nA `TokenTransfer` represents a transfer of tokens through the Dinari platform from one `Account` to another.\nAs such, only `Account`s that are connected to Dinari-managed `Wallet`s can initiate `TokenTransfer`s.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

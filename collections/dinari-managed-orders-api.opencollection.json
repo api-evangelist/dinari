@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dinari Enterprise Accounts Managed Orders API",
+    "version": "v20260709-097f56a"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Managed Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Market Buy Managed Order Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/order_requests/market_buy",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreate a managed `OrderRequest` to place a market buy `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n"
+        },
+        {
+          "info": {
+            "name": "Create Market Sell Managed Order Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/order_requests/market_sell",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreate a managed `OrderRequest` to place a market sell `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n"
+        },
+        {
+          "info": {
+            "name": "Create Limit Buy Managed Order Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/order_requests/limit_buy",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreate a managed `OrderRequest` to place a limit buy `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n"
+        },
+        {
+          "info": {
+            "name": "Create Limit Sell Managed Order Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/order_requests/limit_sell",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreate a managed `OrderRequest` to place a limit sell `Order`.\n\nFees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places\n\nIf an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

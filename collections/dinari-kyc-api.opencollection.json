@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dinari Enterprise Accounts KYC API",
+    "version": "v20260709-097f56a"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "KYC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get KYC Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/kyc",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nGet most recent KYC data of the `Entity`.\n\nIf there are any completed KYC checks, data from the most recent one will be returned.\nIf there are no completed KYC checks, the most recent KYC check information, regardless of status, will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Submit KYC Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/kyc",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nSubmit KYC data directly, for partners that are provisioned to provide their own KYC data.\n\nThis feature is available for everyone in sandbox mode, and for specifically provisioned partners in production.\n"
+        },
+        {
+          "info": {
+            "name": "Get KYC Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/kyc/:kyc_id/document",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "kyc_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get uploaded documents for a KYC check"
+        },
+        {
+          "info": {
+            "name": "Upload KYC Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/kyc/:kyc_id/document",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "kyc_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of `KYCDocument` to be uploaded."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nUpload KYC-related documentation for partners that are provisioned to provide their own KYC data.\n"
+        },
+        {
+          "info": {
+            "name": "Create Managed KYC Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id/kyc/url",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreate a Dinari-managed KYC Check and get a URL for your end customer to interact with.\n\nThe URL points to a web-based KYC interface that can be presented to the end customer for KYC verification.\nOnce the customer completes this KYC flow, the KYC check will be created and available in the KYC API.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

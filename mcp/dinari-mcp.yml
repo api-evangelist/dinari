@@ -1,4 +1,3 @@
-# Dinari MCP server (candidate) — derived from OpenAPI operations
 generated: '2026-07-18'
 method: derived
 status: candidate
@@ -194,3 +193,9 @@ tools:
 - name: getAccountWithdrawal
   description: Get Withdrawal by ID
   source_operation: openapi/dinari-openapi-original.yml#getAccountWithdrawal
+deployment:
+  mode: none
+  verified: derived
+  tools: 61
+  checked: '2026-08-12'
+  source: catalog MCP census

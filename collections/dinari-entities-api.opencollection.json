@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dinari Enterprise Accounts Entities API",
+    "version": "v20260709-097f56a"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/",
+            "params": [
+              {
+                "name": "reference_id",
+                "value": "",
+                "type": "query",
+                "description": "Case sensitive unique reference ID for the `Entity`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of direct `Entities` your organization manages. These `Entities` represent individual customers of your organization."
+        },
+        {
+          "info": {
+            "name": "Create Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new `Entity` to be managed by your organization. This `Entity` represents an individual customer of your organization."
+        },
+        {
+          "info": {
+            "name": "Get Current Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/me",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the current authenticated `Entity`, which represents your organization."
+        },
+        {
+          "info": {
+            "name": "Get Entity by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific customer `Entity` of your organization by their ID."
+        },
+        {
+          "info": {
+            "name": "Update Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/entities/:entity_id",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a specific customer `Entity` of your organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

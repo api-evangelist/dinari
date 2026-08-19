@@ -1,0 +1,373 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dinari Enterprise Accounts Orders API",
+    "version": "v20260709-097f56a"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Orders for Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/orders/",
+            "params": [
+              {
+                "name": "chain_id",
+                "value": "",
+                "type": "query",
+                "description": "CAIP-2 formatted chain ID of the blockchain the `Order` was made on."
+              },
+              {
+                "name": "order_transaction_hash",
+                "value": "",
+                "type": "query",
+                "description": "Transaction hash of the `Order`."
+              },
+              {
+                "name": "order_fulfillment_transaction_hash",
+                "value": "",
+                "type": "query",
+                "description": "Fulfillment transaction hash of the `Order`."
+              },
+              {
+                "name": "order_request_id",
+                "value": "",
+                "type": "query",
+                "description": "Order Request ID for the `Order`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all `Orders` under the `Entity`.<br>Optionally `Orders` can be transaction hash or fulfillment transaction hash."
+        },
+        {
+          "info": {
+            "name": "Get Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/orders",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "chain_id",
+                "value": "",
+                "type": "query",
+                "description": "CAIP-2 formatted chain ID of the blockchain the `Order` was made on."
+              },
+              {
+                "name": "order_transaction_hash",
+                "value": "",
+                "type": "query",
+                "description": "Transaction hash of the `Order`."
+              },
+              {
+                "name": "client_order_id",
+                "value": "",
+                "type": "query",
+                "description": "Customer-supplied identifier to search for `Order`s."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all `Orders` under the `Account`.<br>Optionally `Orders` can be filtered by chain ID, transaction hash, or client order ID."
+        },
+        {
+          "info": {
+            "name": "Get Order by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/orders/:order_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific `Order` by its ID."
+        },
+        {
+          "info": {
+            "name": "Cancel Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/orders/:order_id/cancel",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCancel an `Order` by its ID. Note that this requires the `Order` ID, not the `OrderRequest` ID.\nOnce you submit a cancellation request, it cannot be undone. Be advised that orders with a\nstatus of PENDING_FILL, PENDING_ESCROW, FILLED, REJECTED, or CANCELLED cannot be cancelled.\n\n`Order` cancellation is not guaranteed nor is it immediate. The `Order` may still be executed\nif the cancellation request is not received in time.\n\nCheck the status using the \"Get Order by ID\" endpoint to confirm whethe"
+        },
+        {
+          "info": {
+            "name": "Cancel Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/orders/cancel",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCancel multiple `Orders` by their IDs in a single request. Note that this requires the `Order` IDs, not the `OrderRequest` IDs.\nOnce you submit a cancellation request, it cannot be undone. Be advised that orders with a\nstatus of PENDING_FILL, PENDING_ESCROW, FILLED, REJECTED, or CANCELLED cannot be cancelled.\n\n`Order` cancellation is not guaranteed nor is it immediate. The `Orders` may still be executed\nif the cancellation request is not received in time.\n\nThe response will indicate which order"
+        },
+        {
+          "info": {
+            "name": "Query Order Fulfillments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/order_fulfillments",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of `Order` IDs to query `AccountOrderFulfillment` for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Query `OrderFulfillments` under the `Account`."
+        },
+        {
+          "info": {
+            "name": "Get Order Fulfillments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/orders/:order_id/fulfillments",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for next page"
+              },
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for previous page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get `OrderFulfillments` for a specific `Order`."
+        },
+        {
+          "info": {
+            "name": "Get Order Fulfillment by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-enterprise.sbt.dinari.com/api/v2/accounts/:account_id/order_fulfillments/:order_fulfillment_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_fulfillment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key-Id",
+              "value": "{{X-API-Key-Id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific `OrderFulfillment` by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
