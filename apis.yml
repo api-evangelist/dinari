@@ -42,6 +42,19 @@ tags:
 - Brokerage
 - Market Data
 - Blockchain
+- Stablecoins
+- Fintech
+- KYC
+- Order
+- Wallets
+tags_raw:
+- Company
+- Tokenized Securities
+- Stocks
+- ETFs
+- Brokerage
+- Market Data
+- Blockchain
 - Stablecoin
 - Fintech
 - KYC
@@ -63,6 +76,8 @@ apis:
   humanURL: https://docs.dinari.com
   baseURL: https://api-enterprise.sbt.dinari.com/api/v2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -245,6 +260,8 @@ apis:
   humanURL: https://docs.dinari.com
   baseURL: https://api-enterprise.sbt.dinari.com/api/v2
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
