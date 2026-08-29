@@ -4,57 +4,72 @@ info:
   version: 1.0.0
   summary: Create an entity, run KYC, open an account, find a stock, and place a managed market buy.
 sourceDescriptions:
-  - name: dinari
-    url: ../openapi/dinari-openapi-original.yml
-    type: openapi
+- name: accountsApi
+  url: ../openapi/dinari-accounts-api-openapi.yml
+  type: openapi
+- name: entitiesApi
+  url: ../openapi/dinari-entities-api-openapi.yml
+  type: openapi
+- name: kycApi
+  url: ../openapi/dinari-kyc-api-openapi.yml
+  type: openapi
+- name: managedOrdersApi
+  url: ../openapi/dinari-managed-orders-api-openapi.yml
+  type: openapi
+- name: marketDataApi
+  url: ../openapi/dinari-market-data-api-openapi.yml
+  type: openapi
+- name: orderRequestsApi
+  url: ../openapi/dinari-order-requests-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: onboardAndTrade
-    summary: Full path from new customer to first managed dShare order.
-    inputs:
-      type: object
-      properties:
-        stock_symbol: {type: string, default: AAPL}
-        amount: {type: number, default: 10}
-    steps:
-      - stepId: createEntity
-        operationId: createEntities
-        outputs:
-          entity_id: $response.body#/id
-      - stepId: submitKyc
-        operationId: createEntityKyc
-        parameters:
-          - name: entity_id
-            in: path
-            value: $steps.createEntity.outputs.entity_id
-      - stepId: openAccount
-        operationId: createEntityAccounts
-        parameters:
-          - name: entity_id
-            in: path
-            value: $steps.createEntity.outputs.entity_id
-        outputs:
-          account_id: $response.body#/id
-      - stepId: findStock
-        operationId: getStocks
-        outputs:
-          stock_id: $response.body#/0/id
-      - stepId: placeOrder
-        operationId: createMarketBuyManagedOrderRequest
-        parameters:
-          - name: account_id
-            in: path
-            value: $steps.openAccount.outputs.account_id
-        outputs:
-          order_request_id: $response.body#/id
-      - stepId: checkOrder
-        operationId: getOrderRequestById
-        parameters:
-          - name: account_id
-            in: path
-            value: $steps.openAccount.outputs.account_id
-          - name: order_request_id
-            in: path
-            value: $steps.placeOrder.outputs.order_request_id
+- workflowId: onboardAndTrade
+  summary: Full path from new customer to first managed dShare order.
+  inputs:
+    type: object
+    properties:
+      stock_symbol: {type: string, default: AAPL}
+      amount: {type: number, default: 10}
+  steps:
+  - stepId: createEntity
+    operationId: createEntities
     outputs:
-      account_id: $steps.openAccount.outputs.account_id
-      order_request_id: $steps.placeOrder.outputs.order_request_id
+      entity_id: $response.body#/id
+  - stepId: submitKyc
+    operationId: createEntityKyc
+    parameters:
+    - name: entity_id
+      in: path
+      value: $steps.createEntity.outputs.entity_id
+  - stepId: openAccount
+    operationId: createEntityAccounts
+    parameters:
+    - name: entity_id
+      in: path
+      value: $steps.createEntity.outputs.entity_id
+    outputs:
+      account_id: $response.body#/id
+  - stepId: findStock
+    operationId: getStocks
+    outputs:
+      stock_id: $response.body#/0/id
+  - stepId: placeOrder
+    operationId: createMarketBuyManagedOrderRequest
+    parameters:
+    - name: account_id
+      in: path
+      value: $steps.openAccount.outputs.account_id
+    outputs:
+      order_request_id: $response.body#/id
+  - stepId: checkOrder
+    operationId: getOrderRequestById
+    parameters:
+    - name: account_id
+      in: path
+      value: $steps.openAccount.outputs.account_id
+    - name: order_request_id
+      in: path
+      value: $steps.placeOrder.outputs.order_request_id
+  outputs:
+    account_id: $steps.openAccount.outputs.account_id
+    order_request_id: $steps.placeOrder.outputs.order_request_id
