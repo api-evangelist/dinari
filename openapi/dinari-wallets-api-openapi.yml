@@ -1,19 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   description: '**Dinari API for enterprise usage.**
 
 
     Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
 
-    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
-
-    '
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.'
   contact:
     email: hello@dinari.com
   license:
     name: Contact us
   termsOfService: https://dinari.com/terms
-  title: Dinari Enterprise Accounts Wallets API
+  title: Dinari Enterprise Wallets API
   version: v20260709-097f56a
 servers:
 - url: https://api-enterprise.sbt.dinari.com
@@ -27,7 +25,7 @@ tags:
 
     Individual `Entities` can connect their self-custodied `Wallets` by proving ownership of the `Wallet` address.
 
-    For Dinari Partners, a Dinari-managed `Wallet` can be created for the Partner `Entity` in the [Dinari Partners Portal](https://Partners.dinari.com/). This may be used in omnibus accounting for self-managing customers'' assets.'
+    For Dinari Partners, a Dinari-managed `Wallet` can be created for the Partner `Entity` in the Dinari Partners Portal. This may be used in omnibus accounting for self-managing customers'' assets.'
 paths:
   /api/v2/accounts/{account_id}/wallet:
     parameters:
@@ -177,6 +175,45 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
+    WalletChainId:
+      type: string
+      enum:
+      - eip155:0
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
     BaseOpenApi422Error:
       type: object
       properties:
@@ -200,19 +237,35 @@ components:
       - error
       - error_id
       additionalProperties: false
-    BaseOpenApiFieldError:
+    CreateAccountWalletInternalConnectionInput:
       type: object
       properties:
-        field_name:
+        wallet_address:
           type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
+          format: eth_address
+          description: Address of the `Wallet`.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+        is_shared:
+          type:
+          - boolean
+          - 'null'
+          description: Is the linked Wallet shared or not
       required:
-      - field_error
-      - field_name
-      additionalProperties: false
+      - chain_id
+      - wallet_address
+      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
     AccountWalletConnectionMessage:
       type: object
       properties:
@@ -226,37 +279,38 @@ components:
       - message
       - nonce
       description: Connection message to sign to prove ownership of the `Wallet`.
-    Wallet:
+    BaseOpenApiError:
       type: object
       properties:
-        address:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
           type: string
-          description: Address of the `Wallet`.
-        is_managed_wallet:
-          type: boolean
-          description: Indicates whether the `Wallet` is a Dinari-managed wallet.
-        is_aml_flagged:
-          type: boolean
-          description: Indicates whether the `Wallet` is flagged for AML violation.
-        chain_id:
-          enum:
-          - eip155:1
-          - eip155:42161
-          - eip155:8453
-          - eip155:81457
-          - eip155:98866
-          - eip155:999
-          - eip155:43114
-          - eip155:202110
-          - eip155:0
-          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets
-          $ref: '#/components/schemas/WalletChainId'
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
       required:
-      - address
-      - chain_id
-      - is_aml_flagged
-      - is_managed_wallet
-      description: Information about a blockchain `Wallet`.
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
     CreateAccountWalletConnectionInput:
       type: object
       properties:
@@ -292,13 +346,18 @@ components:
       - signature
       - wallet_address
       description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
-    CreateAccountWalletInternalConnectionInput:
+    Wallet:
       type: object
       properties:
-        wallet_address:
+        address:
           type: string
-          format: eth_address
           description: Address of the `Wallet`.
+        is_managed_wallet:
+          type: boolean
+          description: Indicates whether the `Wallet` is a Dinari-managed wallet.
+        is_aml_flagged:
+          type: boolean
+          description: Indicates whether the `Wallet` is flagged for AML violation.
         chain_id:
           enum:
           - eip155:1
@@ -310,75 +369,14 @@ components:
           - eip155:43114
           - eip155:202110
           - eip155:0
-          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets
           $ref: '#/components/schemas/WalletChainId'
-        is_shared:
-          type:
-          - boolean
-          - 'null'
-          description: Is the linked Wallet shared or not
       required:
+      - address
       - chain_id
-      - wallet_address
-      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
-      required:
-      - field_errors
-      additionalProperties: false
-    WalletChainId:
-      type: string
-      enum:
-      - eip155:0
-      - eip155:1
-      - eip155:42161
-      - eip155:8453
-      - eip155:81457
-      - eip155:98866
-      - eip155:999
-      - eip155:43114
-      - eip155:11155111
-      - eip155:421614
-      - eip155:84532
-      - eip155:168587773
-      - eip155:98867
-      - eip155:998
-      - eip155:43113
-      - eip155:202110
-      - eip155:179205
-      - eip155:179202
-      - eip155:98865
-      - eip155:7887
+      - is_aml_flagged
+      - is_managed_wallet
+      description: Information about a blockchain `Wallet`.
   responses:
     DEFAULT_ERROR:
       description: Default error response

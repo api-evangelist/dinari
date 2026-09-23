@@ -1,16 +1,7 @@
 {
   "provider": "dinari",
   "sources": [
-    "dinari-accounts-api-openapi.yml",
-    "dinari-corporate-actions-api-openapi.yml",
-    "dinari-entities-api-openapi.yml",
-    "dinari-kyc-api-openapi.yml",
-    "dinari-managed-orders-api-openapi.yml",
-    "dinari-market-data-api-openapi.yml",
-    "dinari-order-requests-api-openapi.yml",
-    "dinari-orders-api-openapi.yml",
-    "dinari-wallets-api-openapi.yml",
-    "dinari-withdrawals-api-openapi.yml"
+    "_original/dinari-openapi-original.yml"
   ],
   "outputs": [
     "dinari-accounts-api-openapi.yml",
@@ -27,6 +18,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dinari-openapi-original.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "dinari-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-corporate-actions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-entities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-kyc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-managed-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-market-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-order-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-wallets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dinari-withdrawals-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

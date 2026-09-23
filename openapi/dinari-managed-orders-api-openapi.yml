@@ -1,19 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   description: '**Dinari API for enterprise usage.**
 
 
     Dinari''s dShares let businesses offer tokenized access to stocks to their customers through an easy-to-use API.
 
-    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.
-
-    '
+    Integrate Dinari''s API and offer over a hundred stocks and ETFs to your customers.'
   contact:
     email: hello@dinari.com
   license:
     name: Contact us
   termsOfService: https://dinari.com/terms
-  title: Dinari Enterprise Accounts Managed Orders API
+  title: Dinari Enterprise Managed Orders API
   version: v20260709-097f56a
 servers:
 - url: https://api-enterprise.sbt.dinari.com
@@ -22,16 +20,7 @@ tags:
   description: '**Managed `Orders` represent the buying and selling of assets using a Dinari-managed `Wallet`.**
 
 
-    Similar to Proxied `Orders`, placing a managed `Order` creates an `OrderRequest` which is then submitted on chain by Dinari. Once the request is submitted on chain, the corresponding `Order` is created.
-
-    Unlike Proxied `Orders`, managed `Orders` are available only for `Accounts` using Dinari-managed `Wallets`.
-
-
-    Note that **fees are not included** in the `Order` amount. For buy orders, a fee will be added when placing the order. For sell orders, the fee will be deducted from the proceeds of the sale.
-
-    Call the *Get Order Request Fee Quote* route for an estimate of the fee amount.
-
-    '
+    Similar to Proxied `Orders`, placing a managed `Order` creates an `OrderRequest` which is then submitted on chain by Dinari.'
 paths:
   /api/v2/accounts/{account_id}/order_requests/market_buy:
     parameters:
@@ -68,17 +57,13 @@ paths:
       tags:
       - Managed Orders
       summary: Create Market Buy Managed Order Request
-      description: '
-
-        Create a managed `OrderRequest` to place a market buy `Order`.
+      description: 'Create a managed `OrderRequest` to place a market buy `Order`.
 
 
         Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places
 
 
-        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
-
-        '
+        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.'
       operationId: createMarketBuyManagedOrderRequest
       security:
       - ApiKeyId: []
@@ -118,17 +103,13 @@ paths:
       tags:
       - Managed Orders
       summary: Create Market Sell Managed Order Request
-      description: '
-
-        Create a managed `OrderRequest` to place a market sell `Order`.
+      description: 'Create a managed `OrderRequest` to place a market sell `Order`.
 
 
         Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places
 
 
-        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
-
-        '
+        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.'
       operationId: createMarketSellManagedOrderRequest
       security:
       - ApiKeyId: []
@@ -168,17 +149,13 @@ paths:
       tags:
       - Managed Orders
       summary: Create Limit Buy Managed Order Request
-      description: '
-
-        Create a managed `OrderRequest` to place a limit buy `Order`.
+      description: 'Create a managed `OrderRequest` to place a limit buy `Order`.
 
 
         Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places
 
 
-        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
-
-        '
+        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.'
       operationId: createLimitBuyManagedOrderRequest
       security:
       - ApiKeyId: []
@@ -218,23 +195,90 @@ paths:
       tags:
       - Managed Orders
       summary: Create Limit Sell Managed Order Request
-      description: '
-
-        Create a managed `OrderRequest` to place a limit sell `Order`.
+      description: 'Create a managed `OrderRequest` to place a limit sell `Order`.
 
 
         Fees for the `Order` can optionally be specified in the `OrderRequest` for DFN orders in USD, supporting up to 6 decimal places
 
 
-        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.
-
-        '
+        If an `OrderRequest` with the same `client_order_id` already exists for the given account, the creation call will fail.'
       operationId: createLimitSellManagedOrderRequest
       security:
       - ApiKeyId: []
         ApiSecretKey: []
 components:
   schemas:
+    CreateLimitOrderBuyRequestInput:
+      type: object
+      properties:
+        asset_quantity:
+          type: number
+          minimum: '0'
+          description: Amount of dShare asset involved. Required for limit `Order Requests` and market sell `Order Requests`. Must be a positive number with a precision of up to 4 decimal places.
+        limit_price:
+          type: number
+          minimum: '0'
+          description: Price at which to execute the order. Must be a positive number with a precision of up to 2 decimal places.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Stock`.
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Alloy`.
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Account` to receive the `Order`.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
+        payment_token_address:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
+        fee:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
+      required:
+      - asset_quantity
+      - limit_price
+      description: Input parameters for creating a limit buy `OrderRequest`.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    OrderSide:
+      type: string
+      enum:
+      - BUY
+      - SELL
     BaseOpenApi422Error:
       type: object
       properties:
@@ -257,6 +301,87 @@ components:
       required:
       - error
       - error_id
+      additionalProperties: false
+    CreateMarketBuyOrderRequestInput:
+      type: object
+      properties:
+        payment_amount:
+          type: number
+          minimum: '0'
+          description: '
+
+            Amount of currency (USD for US equities and ETFs) to pay for the order.
+
+            Must be a positive number with a precision of up to 2 decimal places.
+
+            '
+        payment_token_address:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Stock`.
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Alloy`.
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Account` to receive the `Order`.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
+        fee:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
+      required:
+      - payment_amount
+      description: Input parameters for creating a market buy `OrderRequest`.
+    OrderRequestStatus:
+      type: string
+      enum:
+      - QUOTED
+      - PENDING
+      - PENDING_BRIDGE
+      - SUBMITTED
+      - ERROR
+      - CANCELLED
+      - EXPIRED
+      - REJECTED
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
       additionalProperties: false
     OrderRequest:
       type: object
@@ -337,19 +462,6 @@ components:
       - order_type
       - status
       description: "\nA request to create an `Order`.\n\nAn `OrderRequest` is created when a user places an order through the Dinari API.\nThe `OrderRequest` is then fulfilled by creating an `Order` on-chain.\n\nThe `OrderRequest` is a record of the user's intent to place an order, while the `Order` is the actual transaction that occurs on the blockchain.\n    "
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
     CreateLimitOrderSellRequestInput:
       type: object
       properties:
@@ -400,11 +512,26 @@ components:
       - asset_quantity
       - limit_price
       description: Input parameters for creating a limit sell `OrderRequest`.
-    OrderType:
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    OrderTif:
       type: string
       enum:
-      - MARKET
-      - LIMIT
+      - DAY
+      - GTC
+      - IOC
+      - FOK
     CreateMarketSellOrderRequestInput:
       type: object
       properties:
@@ -450,165 +577,11 @@ components:
       required:
       - asset_quantity
       description: Input parameters for creating a market sell `OrderRequest`.
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
-    CreateLimitOrderBuyRequestInput:
-      type: object
-      properties:
-        asset_quantity:
-          type: number
-          minimum: '0'
-          description: Amount of dShare asset involved. Required for limit `Order Requests` and market sell `Order Requests`. Must be a positive number with a precision of up to 4 decimal places.
-        limit_price:
-          type: number
-          minimum: '0'
-          description: Price at which to execute the order. Must be a positive number with a precision of up to 2 decimal places.
-        stock_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Stock`.
-        alloy_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Alloy`.
-        recipient_account_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Account` to receive the `Order`.
-        client_order_id:
-          type:
-          - string
-          - 'null'
-          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
-        payment_token_address:
-          type:
-          - string
-          - 'null'
-          format: eth_address
-          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
-        fee:
-          type:
-          - number
-          - 'null'
-          minimum: '0'
-          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
-      required:
-      - asset_quantity
-      - limit_price
-      description: Input parameters for creating a limit buy `OrderRequest`.
-    OrderSide:
+    OrderType:
       type: string
       enum:
-      - BUY
-      - SELL
-    CreateMarketBuyOrderRequestInput:
-      type: object
-      properties:
-        payment_amount:
-          type: number
-          minimum: '0'
-          description: '
-
-            Amount of currency (USD for US equities and ETFs) to pay for the order.
-
-            Must be a positive number with a precision of up to 2 decimal places.
-
-            '
-        payment_token_address:
-          type:
-          - string
-          - 'null'
-          format: eth_address
-          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
-        stock_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Stock`.
-        alloy_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Alloy`.
-        recipient_account_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Account` to receive the `Order`.
-        client_order_id:
-          type:
-          - string
-          - 'null'
-          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
-        fee:
-          type:
-          - number
-          - 'null'
-          minimum: '0'
-          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
-      required:
-      - payment_amount
-      description: Input parameters for creating a market buy `OrderRequest`.
-    OrderRequestStatus:
-      type: string
-      enum:
-      - QUOTED
-      - PENDING
-      - PENDING_BRIDGE
-      - SUBMITTED
-      - ERROR
-      - CANCELLED
-      - EXPIRED
-      - REJECTED
-    OrderTif:
-      type: string
-      enum:
-      - DAY
-      - GTC
-      - IOC
-      - FOK
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
-      required:
-      - field_errors
-      additionalProperties: false
+      - MARKET
+      - LIMIT
   responses:
     DEFAULT_ERROR:
       description: Default error response
