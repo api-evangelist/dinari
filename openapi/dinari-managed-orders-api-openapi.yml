@@ -208,7 +208,25 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
-    CreateLimitOrderBuyRequestInput:
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    OrderSide:
+      type: string
+      enum:
+      - BUY
+      - SELL
+    CreateLimitOrderSellRequestInput:
       type: object
       properties:
         asset_quantity:
@@ -237,17 +255,17 @@ components:
           - 'null'
           format: uuid
           description: ID of `Account` to receive the `Order`.
-        client_order_id:
-          type:
-          - string
-          - 'null'
-          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
         payment_token_address:
           type:
           - string
           - 'null'
           format: eth_address
-          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
+          description: Address of the payment token to be used for the sell order. If not provided, the default payment token (USD+) will be used. Should only be specified if `recipient_account_id` for a non-managed wallet account is also provided.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
         fee:
           type:
           - number
@@ -257,132 +275,7 @@ components:
       required:
       - asset_quantity
       - limit_price
-      description: Input parameters for creating a limit buy `OrderRequest`.
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
-      required:
-      - field_errors
-      additionalProperties: false
-    OrderSide:
-      type: string
-      enum:
-      - BUY
-      - SELL
-    BaseOpenApi422Error:
-      type: object
-      properties:
-        status:
-          default: 422
-          enum:
-          - 422
-          description: HTTP status code
-        message:
-          default: Unprocessable Entity
-          enum:
-          - Unprocessable Entity
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-          $ref: '#/components/schemas/BaseOpenApiBodyError'
-      required:
-      - error
-      - error_id
-      additionalProperties: false
-    CreateMarketBuyOrderRequestInput:
-      type: object
-      properties:
-        payment_amount:
-          type: number
-          minimum: '0'
-          description: '
-
-            Amount of currency (USD for US equities and ETFs) to pay for the order.
-
-            Must be a positive number with a precision of up to 2 decimal places.
-
-            '
-        payment_token_address:
-          type:
-          - string
-          - 'null'
-          format: eth_address
-          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
-        stock_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Stock`.
-        alloy_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Alloy`.
-        recipient_account_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Account` to receive the `Order`.
-        client_order_id:
-          type:
-          - string
-          - 'null'
-          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
-        fee:
-          type:
-          - number
-          - 'null'
-          minimum: '0'
-          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
-      required:
-      - payment_amount
-      description: Input parameters for creating a market buy `OrderRequest`.
-    OrderRequestStatus:
-      type: string
-      enum:
-      - QUOTED
-      - PENDING
-      - PENDING_BRIDGE
-      - SUBMITTED
-      - ERROR
-      - CANCELLED
-      - EXPIRED
-      - REJECTED
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
+      description: Input parameters for creating a limit sell `OrderRequest`.
     OrderRequest:
       type: object
       properties:
@@ -462,69 +355,6 @@ components:
       - order_type
       - status
       description: "\nA request to create an `Order`.\n\nAn `OrderRequest` is created when a user places an order through the Dinari API.\nThe `OrderRequest` is then fulfilled by creating an `Order` on-chain.\n\nThe `OrderRequest` is a record of the user's intent to place an order, while the `Order` is the actual transaction that occurs on the blockchain.\n    "
-    CreateLimitOrderSellRequestInput:
-      type: object
-      properties:
-        asset_quantity:
-          type: number
-          minimum: '0'
-          description: Amount of dShare asset involved. Required for limit `Order Requests` and market sell `Order Requests`. Must be a positive number with a precision of up to 4 decimal places.
-        limit_price:
-          type: number
-          minimum: '0'
-          description: Price at which to execute the order. Must be a positive number with a precision of up to 2 decimal places.
-        stock_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Stock`.
-        alloy_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Alloy`.
-        recipient_account_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of `Account` to receive the `Order`.
-        payment_token_address:
-          type:
-          - string
-          - 'null'
-          format: eth_address
-          description: Address of the payment token to be used for the sell order. If not provided, the default payment token (USD+) will be used. Should only be specified if `recipient_account_id` for a non-managed wallet account is also provided.
-        client_order_id:
-          type:
-          - string
-          - 'null'
-          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
-        fee:
-          type:
-          - number
-          - 'null'
-          minimum: '0'
-          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
-      required:
-      - asset_quantity
-      - limit_price
-      description: Input parameters for creating a limit sell `OrderRequest`.
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
     OrderTif:
       type: string
       enum:
@@ -532,6 +362,29 @@ components:
       - GTC
       - IOC
       - FOK
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
     CreateMarketSellOrderRequestInput:
       type: object
       properties:
@@ -577,11 +430,158 @@ components:
       required:
       - asset_quantity
       description: Input parameters for creating a market sell `OrderRequest`.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    CreateMarketBuyOrderRequestInput:
+      type: object
+      properties:
+        payment_amount:
+          type: number
+          minimum: '0'
+          description: '
+
+            Amount of currency (USD for US equities and ETFs) to pay for the order.
+
+            Must be a positive number with a precision of up to 2 decimal places.
+
+            '
+        payment_token_address:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Stock`.
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Alloy`.
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Account` to receive the `Order`.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
+        fee:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
+      required:
+      - payment_amount
+      description: Input parameters for creating a market buy `OrderRequest`.
+    CreateLimitOrderBuyRequestInput:
+      type: object
+      properties:
+        asset_quantity:
+          type: number
+          minimum: '0'
+          description: Amount of dShare asset involved. Required for limit `Order Requests` and market sell `Order Requests`. Must be a positive number with a precision of up to 4 decimal places.
+        limit_price:
+          type: number
+          minimum: '0'
+          description: Price at which to execute the order. Must be a positive number with a precision of up to 2 decimal places.
+        stock_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Stock`.
+        alloy_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Alloy`.
+        recipient_account_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of `Account` to receive the `Order`.
+        client_order_id:
+          type:
+          - string
+          - 'null'
+          description: Customer-supplied ID to map this order to an order in their own systems. Must be unique within the entity.
+        payment_token_address:
+          type:
+          - string
+          - 'null'
+          format: eth_address
+          description: Address of the payment token to be used for the payment of the order. If not provided, the default payment token (USD+) will be used.
+        fee:
+          type:
+          - number
+          - 'null'
+          minimum: '0'
+          description: Optional fee amount associated with `Order` in USD for DFN orders. Must be a positive number with a precision of up to 6 decimal places.
+      required:
+      - asset_quantity
+      - limit_price
+      description: Input parameters for creating a limit buy `OrderRequest`.
     OrderType:
       type: string
       enum:
       - MARKET
       - LIMIT
+    OrderRequestStatus:
+      type: string
+      enum:
+      - QUOTED
+      - PENDING
+      - PENDING_BRIDGE
+      - SUBMITTED
+      - ERROR
+      - CANCELLED
+      - EXPIRED
+      - REJECTED
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
   responses:
     DEFAULT_ERROR:
       description: Default error response

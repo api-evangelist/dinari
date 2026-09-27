@@ -626,90 +626,11 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
-    FaucetInput:
-      type: object
-      properties:
-        chain_id:
-          enum:
-          - eip155:421614
-          - eip155:11155111
-          - eip155:84532
-          - eip155:168587773
-          - eip155:98867
-          - null
-          description: CAIP-2 chain ID of blockchain in which to mint the sandbox payment tokens. If none specified, defaults to eip155:421614. If the `Account` is linked to a Dinari-managed `Wallet`, only eip155:42161 is allowed.
-          $ref: '#/components/schemas/ChainId'
-      description: Input parameters for minting sandbox payment tokens.
-    Account:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique ID for the `Account`.
-        entity_id:
-          type: string
-          format: uuid
-          description: ID for the `Entity` that owns the `Account`.
-        is_active:
-          type: boolean
-          description: Indicates whether the `Account` is active.
-        created_dt:
-          type: string
-          format: date-time
-          description: Datetime when the `Account` was created. ISO 8601 timestamp.
-        jurisdiction:
-          description: Jurisdiction of the `Account`.
-          $ref: '#/components/schemas/Jurisdiction1'
-        brokerage_account_id:
-          type:
-          - string
-          - 'null'
-          description: ID of the brokerage account associated with the `Account`.
-      required:
-      - created_dt
-      - entity_id
-      - id
-      - is_active
-      - jurisdiction
-      description: Information about an `Account` owned by an `Entity`.
-    InterestPayment:
-      type: object
-      properties:
-        payment_date:
-          type: string
-          format: date
-          description: Date of interest payment in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.
-        amount:
-          type: number
-          description: Amount of interest paid.
-        currency:
-          type: string
-          description: Currency in which the interest was paid (e.g. USD).
-      required:
-      - amount
-      - currency
-      - payment_date
-      description: An object representing an interest payment from stablecoin holdings.
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
+    Jurisdiction:
+      type: string
+      enum:
+      - BASELINE
+      - US
     PaginatedInterestPaymentResponse:
       type: object
       properties:
@@ -730,49 +651,25 @@ components:
       - data
       - pagination_metadata
       additionalProperties: false
-    PaymentTokenBalance:
+    PaginatedTokenTransferResponse:
       type: object
       properties:
-        chain_id:
+        _sv:
+          default: PaginatedTokenTransferResponse:v1
           enum:
-          - eip155:1
-          - eip155:42161
-          - eip155:8453
-          - eip155:81457
-          - eip155:98866
-          - eip155:999
-          - eip155:43114
-          - eip155:202110
-          description: CAIP-2 chain ID of the payment token.
-          $ref: '#/components/schemas/ChainId'
-        token_address:
-          type: string
-          format: eth_address
-          description: Address of the payment token.
-        amount:
-          type: number
-          description: Total amount of the payment token in the `Account`.
-        symbol:
-          type: string
-          description: Symbol of the payment token.
+          - PaginatedTokenTransferResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of TokenTransfer
+          items:
+            $ref: '#/components/schemas/TokenTransfer'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
       required:
-      - amount
-      - chain_id
-      - symbol
-      - token_address
-      description: Balance of a payment token in an `Account`.
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
+      - data
+      - pagination_metadata
       additionalProperties: false
     CreateManagedTokenTransferInput:
       type: object
@@ -794,6 +691,44 @@ components:
       - recipient_account_id
       - token_address
       description: Input parameters for creating a token transfer from a managed account.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    ChainId:
+      type: string
+      enum:
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
     DshareBalance:
       type: object
       properties:
@@ -830,152 +765,18 @@ components:
       - symbol
       - token_address
       description: Balance of a dShare in an `Account`.
-    BaseOpenApiPaginationMetadata:
+    Portfolio:
       type: object
       properties:
-        previous:
-          type: string
-          description: Cursor for previous page
-        next:
-          type: string
-          description: Cursor for next page
-      additionalProperties: false
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
+        assets:
           type: array
-          description: Contains list of field-specific errors
+          description: Balance details for all owned `Stocks`.
           items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
+            $ref: '#/components/schemas/DshareBalance'
       required:
-      - field_errors
-      additionalProperties: false
-    PaginatedAccountResponse:
-      type: object
-      properties:
-        _sv:
-          default: PaginatedAccountResponse:v1
-          enum:
-          - PaginatedAccountResponse:v1
-          description: Version
-        data:
-          type: array
-          description: List of Account
-          items:
-            $ref: '#/components/schemas/Account'
-        pagination_metadata:
-          description: Pagination metadata
-          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
-      additionalProperties: false
-    Jurisdiction1:
-      type: string
-      enum:
-      - BASELINE
-      - US
-    BaseOpenApi422Error:
-      type: object
-      properties:
-        status:
-          default: 422
-          enum:
-          - 422
-          description: HTTP status code
-        message:
-          default: Unprocessable Entity
-          enum:
-          - Unprocessable Entity
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-          $ref: '#/components/schemas/BaseOpenApiBodyError'
-      required:
-      - error
-      - error_id
-      additionalProperties: false
-    DividendPayment:
-      type: object
-      properties:
-        stock_id:
-          type: string
-          format: uuid
-          description: ID of the `Stock` for which the dividend was paid.
-        payment_date:
-          type: string
-          format: date
-          description: Date the dividend was distributed to the account. ISO 8601 format, YYYY-MM-DD.
-        amount:
-          type: number
-          description: Amount of the dividend paid.
-        currency:
-          type: string
-          description: Currency in which the dividend was paid. (e.g. USD)
-      required:
-      - amount
-      - currency
-      - payment_date
-      - stock_id
-      description: Represents a dividend payment event for an `Account`.
-    CreateAccountInput:
-      type: object
-      properties:
-        jurisdiction:
-          default: BASELINE
-          description: Jurisdiction of the `Account`.
-          $ref: '#/components/schemas/Jurisdiction'
-      description: Input parameters for creating an `Account`.
-    PaginatedTokenTransferResponse:
-      type: object
-      properties:
-        _sv:
-          default: PaginatedTokenTransferResponse:v1
-          enum:
-          - PaginatedTokenTransferResponse:v1
-          description: Version
-        data:
-          type: array
-          description: List of TokenTransfer
-          items:
-            $ref: '#/components/schemas/TokenTransfer'
-        pagination_metadata:
-          description: Pagination metadata
-          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
-      additionalProperties: false
-    PaginatedDividendPaymentResponse:
-      type: object
-      properties:
-        _sv:
-          default: PaginatedDividendPaymentResponse:v1
-          enum:
-          - PaginatedDividendPaymentResponse:v1
-          description: Version
-        data:
-          type: array
-          description: List of DividendPayment
-          items:
-            $ref: '#/components/schemas/DividendPayment'
-        pagination_metadata:
-          description: Pagination metadata
-          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
-      additionalProperties: false
-    Account1:
+      - assets
+      description: Balance information of `Stock` assets in your `Account`.
+    Account:
       type: object
       properties:
         id:
@@ -995,7 +796,7 @@ components:
           description: Datetime when the `Account` was created. ISO 8601 timestamp.
         jurisdiction:
           description: Jurisdiction of the `Account`.
-          $ref: '#/components/schemas/Jurisdiction'
+          $ref: '#/components/schemas/Jurisdiction1'
         brokerage_account_id:
           type:
           - string
@@ -1008,28 +809,6 @@ components:
       - is_active
       - jurisdiction
       description: Information about an `Account` owned by an `Entity`.
-    ChainId:
-      type: string
-      enum:
-      - eip155:1
-      - eip155:42161
-      - eip155:8453
-      - eip155:81457
-      - eip155:98866
-      - eip155:999
-      - eip155:43114
-      - eip155:11155111
-      - eip155:421614
-      - eip155:84532
-      - eip155:168587773
-      - eip155:98867
-      - eip155:998
-      - eip155:43113
-      - eip155:202110
-      - eip155:179205
-      - eip155:179202
-      - eip155:98865
-      - eip155:7887
     TokenTransfer:
       type: object
       properties:
@@ -1109,35 +888,256 @@ components:
       - token_address
       - updated_dt
       description: Information about a token transfer between accounts.
-    Jurisdiction:
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    InterestPayment:
+      type: object
+      properties:
+        payment_date:
+          type: string
+          format: date
+          description: Date of interest payment in US Eastern time zone. ISO 8601 format, YYYY-MM-DD.
+        amount:
+          type: number
+          description: Amount of interest paid.
+        currency:
+          type: string
+          description: Currency in which the interest was paid (e.g. USD).
+      required:
+      - amount
+      - currency
+      - payment_date
+      description: An object representing an interest payment from stablecoin holdings.
+    PaginatedDividendPaymentResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedDividendPaymentResponse:v1
+          enum:
+          - PaginatedDividendPaymentResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of DividendPayment
+          items:
+            $ref: '#/components/schemas/DividendPayment'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    PaymentTokenBalance:
+      type: object
+      properties:
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          description: CAIP-2 chain ID of the payment token.
+          $ref: '#/components/schemas/ChainId'
+        token_address:
+          type: string
+          format: eth_address
+          description: Address of the payment token.
+        amount:
+          type: number
+          description: Total amount of the payment token in the `Account`.
+        symbol:
+          type: string
+          description: Symbol of the payment token.
+      required:
+      - amount
+      - chain_id
+      - symbol
+      - token_address
+      description: Balance of a payment token in an `Account`.
+    PaginatedAccountResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedAccountResponse:v1
+          enum:
+          - PaginatedAccountResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of Account
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    Jurisdiction1:
       type: string
       enum:
       - BASELINE
       - US
-    Portfolio:
+    CreateAccountInput:
       type: object
       properties:
-        assets:
-          type: array
-          description: Balance details for all owned `Stocks`.
-          items:
-            $ref: '#/components/schemas/DshareBalance'
+        jurisdiction:
+          default: BASELINE
+          description: Jurisdiction of the `Account`.
+          $ref: '#/components/schemas/Jurisdiction'
+      description: Input parameters for creating an `Account`.
+    DividendPayment:
+      type: object
+      properties:
+        stock_id:
+          type: string
+          format: uuid
+          description: ID of the `Stock` for which the dividend was paid.
+        payment_date:
+          type: string
+          format: date
+          description: Date the dividend was distributed to the account. ISO 8601 format, YYYY-MM-DD.
+        amount:
+          type: number
+          description: Amount of the dividend paid.
+        currency:
+          type: string
+          description: Currency in which the dividend was paid. (e.g. USD)
       required:
-      - assets
-      description: Balance information of `Stock` assets in your `Account`.
+      - amount
+      - currency
+      - payment_date
+      - stock_id
+      description: Represents a dividend payment event for an `Account`.
+    Account1:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique ID for the `Account`.
+        entity_id:
+          type: string
+          format: uuid
+          description: ID for the `Entity` that owns the `Account`.
+        is_active:
+          type: boolean
+          description: Indicates whether the `Account` is active.
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime when the `Account` was created. ISO 8601 timestamp.
+        jurisdiction:
+          description: Jurisdiction of the `Account`.
+          $ref: '#/components/schemas/Jurisdiction'
+        brokerage_account_id:
+          type:
+          - string
+          - 'null'
+          description: ID of the brokerage account associated with the `Account`.
+      required:
+      - created_dt
+      - entity_id
+      - id
+      - is_active
+      - jurisdiction
+      description: Information about an `Account` owned by an `Entity`.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    FaucetInput:
+      type: object
+      properties:
+        chain_id:
+          enum:
+          - eip155:421614
+          - eip155:11155111
+          - eip155:84532
+          - eip155:168587773
+          - eip155:98867
+          - null
+          description: CAIP-2 chain ID of blockchain in which to mint the sandbox payment tokens. If none specified, defaults to eip155:421614. If the `Account` is linked to a Dinari-managed `Wallet`, only eip155:42161 is allowed.
+          $ref: '#/components/schemas/ChainId'
+      description: Input parameters for minting sandbox payment tokens.
   responses:
-    UNPROCESSABLE_ENTITY:
-      description: Unprocessable Entity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BaseOpenApi422Error'
     DEFAULT_ERROR:
       description: Default error response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/BaseOpenApiError'
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
   securitySchemes:
     ApiKeyId:
       type: apiKey
