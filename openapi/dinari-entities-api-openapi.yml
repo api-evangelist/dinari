@@ -189,116 +189,20 @@ paths:
       - ApiKeyId: []
         ApiSecretKey: []
 components:
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
   schemas:
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
-    EntityType:
-      type: string
-      enum:
-      - INDIVIDUAL
-      - ORGANIZATION
-    BaseOpenApi422Error:
-      type: object
-      properties:
-        status:
-          default: 422
-          enum:
-          - 422
-          description: HTTP status code
-        message:
-          default: Unprocessable Entity
-          enum:
-          - Unprocessable Entity
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-          $ref: '#/components/schemas/BaseOpenApiBodyError'
-      required:
-      - error
-      - error_id
-      additionalProperties: false
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
-    PatchEntityInput:
-      type: object
-      properties:
-        reference_id:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 100
-          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
-      description: Input parameters for updating an `Entity`.
-    CreateEntityInput:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 150
-          description: Name of the `Entity`.
-        reference_id:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 100
-          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
-      required:
-      - name
-      description: Input parameters for creating an `Entity`.
-    PaginatedEntityResponse:
-      type: object
-      properties:
-        _sv:
-          default: PaginatedEntityResponse:v1
-          enum:
-          - PaginatedEntityResponse:v1
-          description: Version
-        data:
-          type: array
-          description: List of Entity
-          items:
-            $ref: '#/components/schemas/Entity'
-        pagination_metadata:
-          description: Pagination metadata
-          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
-      additionalProperties: false
     Entity1:
       type: object
       properties:
@@ -337,6 +241,36 @@ components:
       - id
       - is_kyc_complete
       description: Information about an `Entity`, which can be either an individual or an organization.
+    PaginatedEntityResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedEntityResponse:v1
+          enum:
+          - PaginatedEntityResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of Entity
+          items:
+            $ref: '#/components/schemas/Entity'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    EntityType:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
+    EntityType1:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
     Entity:
       type: object
       properties:
@@ -382,6 +316,19 @@ components:
           type: string
           description: Cursor for next page
       additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
     BaseOpenApiBodyError:
       type: object
       properties:
@@ -398,24 +345,77 @@ components:
       required:
       - field_errors
       additionalProperties: false
-    EntityType1:
-      type: string
-      enum:
-      - INDIVIDUAL
-      - ORGANIZATION
-  responses:
-    UNPROCESSABLE_ENTITY:
-      description: Unprocessable Entity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BaseOpenApi422Error'
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BaseOpenApiError'
+    CreateEntityInput:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+          description: Name of the `Entity`.
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      required:
+      - name
+      description: Input parameters for creating an `Entity`.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
+      additionalProperties: false
+    PatchEntityInput:
+      type: object
+      properties:
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      description: Input parameters for updating an `Entity`.
   securitySchemes:
     ApiKeyId:
       type: apiKey
