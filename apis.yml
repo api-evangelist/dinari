@@ -65,6 +65,7 @@ tags:
 - Order
 - Wallets
 - Real-Time
+- Financial Services
 tags_raw:
 - Company
 - Tokenized Securities
@@ -79,6 +80,7 @@ tags_raw:
 - Orders
 - Wallets
 - Real-Time
+- Financial Services
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -355,6 +357,9 @@ apis:
   - type: AsyncAPI
     url: asyncapi/dinari-streaming-asyncapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/dinari-capability-edges.yml
+  name: Dinari Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/dinari/overview
 - type: Website
