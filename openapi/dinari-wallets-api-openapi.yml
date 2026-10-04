@@ -175,127 +175,6 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
-    CreateAccountWalletInternalConnectionInput:
-      type: object
-      properties:
-        wallet_address:
-          type: string
-          format: eth_address
-          description: Address of the `Wallet`.
-        chain_id:
-          enum:
-          - eip155:1
-          - eip155:42161
-          - eip155:8453
-          - eip155:81457
-          - eip155:98866
-          - eip155:999
-          - eip155:43114
-          - eip155:202110
-          - eip155:0
-          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
-          $ref: '#/components/schemas/WalletChainId'
-        is_shared:
-          type:
-          - boolean
-          - 'null'
-          description: Is the linked Wallet shared or not
-      required:
-      - chain_id
-      - wallet_address
-      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
-    CreateAccountWalletConnectionInput:
-      type: object
-      properties:
-        signature:
-          type: string
-          format: hex_string
-          pattern: 0x[a-fA-F0-9]+
-          description: Signature payload from signing the connection message with the `Wallet`.
-        nonce:
-          type: string
-          format: uuid
-          description: Nonce contained within the connection message.
-        wallet_address:
-          type: string
-          format: eth_address
-          description: Address of the `Wallet`.
-        chain_id:
-          enum:
-          - eip155:1
-          - eip155:42161
-          - eip155:8453
-          - eip155:81457
-          - eip155:98866
-          - eip155:999
-          - eip155:43114
-          - eip155:202110
-          - eip155:0
-          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
-          $ref: '#/components/schemas/WalletChainId'
-      required:
-      - chain_id
-      - nonce
-      - signature
-      - wallet_address
-      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
-    AccountWalletConnectionMessage:
-      type: object
-      properties:
-        nonce:
-          type: string
-          description: Single-use identifier
-        message:
-          type: string
-          description: Message to be signed by the `Wallet`
-      required:
-      - message
-      - nonce
-      description: Connection message to sign to prove ownership of the `Wallet`.
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
-    Wallet:
-      type: object
-      properties:
-        address:
-          type: string
-          description: Address of the `Wallet`.
-        is_managed_wallet:
-          type: boolean
-          description: Indicates whether the `Wallet` is a Dinari-managed wallet.
-        is_aml_flagged:
-          type: boolean
-          description: Indicates whether the `Wallet` is flagged for AML violation.
-        chain_id:
-          enum:
-          - eip155:1
-          - eip155:42161
-          - eip155:8453
-          - eip155:81457
-          - eip155:98866
-          - eip155:999
-          - eip155:43114
-          - eip155:202110
-          - eip155:0
-          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets
-          $ref: '#/components/schemas/WalletChainId'
-      required:
-      - address
-      - chain_id
-      - is_aml_flagged
-      - is_managed_wallet
-      description: Information about a blockchain `Wallet`.
     BaseOpenApiBodyError:
       type: object
       properties:
@@ -377,6 +256,127 @@ components:
       - eip155:179202
       - eip155:98865
       - eip155:7887
+    CreateAccountWalletConnectionInput:
+      type: object
+      properties:
+        signature:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Signature payload from signing the connection message with the `Wallet`.
+        nonce:
+          type: string
+          format: uuid
+          description: Nonce contained within the connection message.
+        wallet_address:
+          type: string
+          format: eth_address
+          description: Address of the `Wallet`.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+      required:
+      - chain_id
+      - nonce
+      - signature
+      - wallet_address
+      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    CreateAccountWalletInternalConnectionInput:
+      type: object
+      properties:
+        wallet_address:
+          type: string
+          format: eth_address
+          description: Address of the `Wallet`.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+        is_shared:
+          type:
+          - boolean
+          - 'null'
+          description: Is the linked Wallet shared or not
+      required:
+      - chain_id
+      - wallet_address
+      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
+    Wallet:
+      type: object
+      properties:
+        address:
+          type: string
+          description: Address of the `Wallet`.
+        is_managed_wallet:
+          type: boolean
+          description: Indicates whether the `Wallet` is a Dinari-managed wallet.
+        is_aml_flagged:
+          type: boolean
+          description: Indicates whether the `Wallet` is flagged for AML violation.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+      required:
+      - address
+      - chain_id
+      - is_aml_flagged
+      - is_managed_wallet
+      description: Information about a blockchain `Wallet`.
+    AccountWalletConnectionMessage:
+      type: object
+      properties:
+        nonce:
+          type: string
+          description: Single-use identifier
+        message:
+          type: string
+          description: Message to be signed by the `Wallet`
+      required:
+      - message
+      - nonce
+      description: Connection message to sign to prove ownership of the `Wallet`.
   responses:
     DEFAULT_ERROR:
       description: Default error response

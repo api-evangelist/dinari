@@ -189,19 +189,6 @@ paths:
       - ApiKeyId: []
         ApiSecretKey: []
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BaseOpenApiError'
-    UNPROCESSABLE_ENTITY:
-      description: Unprocessable Entity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BaseOpenApi422Error'
   schemas:
     Entity1:
       type: object
@@ -219,6 +206,97 @@ components:
           - ORGANIZATION
           description: Type of `Entity`. `ORGANIZATION` for Dinari Partners and `INDIVIDUAL` for their individual customers.
           $ref: '#/components/schemas/EntityType'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of `Entity`.
+        nationality:
+          type:
+          - string
+          - 'null'
+          description: Nationality or home country of the `Entity`.
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID that you can set for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      required:
+      - entity_type
+      - id
+      - is_kyc_complete
+      description: Information about an `Entity`, which can be either an individual or an organization.
+    PatchEntityInput:
+      type: object
+      properties:
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      description: Input parameters for updating an `Entity`.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique ID of the `Entity`.
+        is_kyc_complete:
+          type: boolean
+          description: Indicates if `Entity` completed KYC.
+        entity_type:
+          description: Type of `Entity`. `ORGANIZATION` for Dinari Partners and `INDIVIDUAL` for their individual customers.
+          $ref: '#/components/schemas/EntityType1'
         name:
           type:
           - string
@@ -261,90 +339,11 @@ components:
       - data
       - pagination_metadata
       additionalProperties: false
-    EntityType:
-      type: string
-      enum:
-      - INDIVIDUAL
-      - ORGANIZATION
     EntityType1:
       type: string
       enum:
       - INDIVIDUAL
       - ORGANIZATION
-    Entity:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique ID of the `Entity`.
-        is_kyc_complete:
-          type: boolean
-          description: Indicates if `Entity` completed KYC.
-        entity_type:
-          description: Type of `Entity`. `ORGANIZATION` for Dinari Partners and `INDIVIDUAL` for their individual customers.
-          $ref: '#/components/schemas/EntityType1'
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of `Entity`.
-        nationality:
-          type:
-          - string
-          - 'null'
-          description: Nationality or home country of the `Entity`.
-        reference_id:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 100
-          description: Case sensitive unique reference ID that you can set for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
-      required:
-      - entity_type
-      - id
-      - is_kyc_complete
-      description: Information about an `Entity`, which can be either an individual or an organization.
-    BaseOpenApiPaginationMetadata:
-      type: object
-      properties:
-        previous:
-          type: string
-          description: Cursor for previous page
-        next:
-          type: string
-          description: Cursor for next page
-      additionalProperties: false
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
-      required:
-      - field_errors
-      additionalProperties: false
     CreateEntityInput:
       type: object
       properties:
@@ -363,25 +362,6 @@ components:
       required:
       - name
       description: Input parameters for creating an `Entity`.
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
     BaseOpenApi422Error:
       type: object
       properties:
@@ -405,17 +385,37 @@ components:
       - error
       - error_id
       additionalProperties: false
-    PatchEntityInput:
+    BaseOpenApiFieldError:
       type: object
       properties:
-        reference_id:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 100
-          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
-      description: Input parameters for updating an `Entity`.
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    EntityType:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
+    UNPROCESSABLE_ENTITY:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApi422Error'
   securitySchemes:
     ApiKeyId:
       type: apiKey

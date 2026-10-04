@@ -254,132 +254,26 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
-    BrokerageOrderStatus1:
-      type: string
-      enum:
-      - PENDING_SUBMIT
-      - PENDING_CANCEL
-      - PENDING_ESCROW
-      - PENDING_FILL
-      - ESCROWED
-      - SUBMITTED
-      - CANCELLED
-      - PARTIALLY_FILLED
-      - FILLED
-      - REJECTED
-      - REQUIRING_CONTACT
-      - ERROR
-    WithdrawalRequest1:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: ID of the `WithdrawalRequest`.
-        account_id:
-          type: string
-          format: uuid
-          description: ID of the `Account` of the `WithdrawalRequest`.
-        recipient_account_id:
-          type: string
-          format: uuid
-          description: ID of the `Account` that will receive USDC payment tokens from the `Withdrawal`. This `Account` must be connected to a non-managed `Wallet` and belong to the same `Entity`.
-        payment_token_amount:
-          type: number
-          description: Amount of USD+ payment tokens submitted for withdrawal.
-        status:
-          description: Status of the `WithdrawalRequest`
-          $ref: '#/components/schemas/ProxiedTransactionStatus'
-        created_dt:
-          type: string
-          format: date-time
-          description: Datetime at which the `WithdrawalRequest` was created. ISO 8601 timestamp.
-        updated_dt:
-          type: string
-          format: date-time
-          description: Datetime at which the `WithdrawalRequest` was updated. ISO 8601 timestamp.
-      required:
-      - account_id
-      - created_dt
-      - id
-      - payment_token_amount
-      - recipient_account_id
-      - status
-      - updated_dt
-      description: Information for a withdrawal request of payment tokens from an `Account` backed by a Dinari-managed `Wallet`.
-    ProxiedTransactionStatus:
+    ProxiedTransactionStatus1:
       type: string
       enum:
       - PENDING
       - SUBMITTED
       - ERROR
       - CANCELLED
-    Withdrawal:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: ID of the `Withdrawal`.
-        chain_id:
-          type: string
-          description: CAIP-2 chain ID of the blockchain where the `Withdrawal` is made.
-        account_id:
-          type: string
-          format: uuid
-          description: ID of the `Account` from which the `Withdrawal` is made.
-        recipient_account_id:
-          type: string
-          format: uuid
-          description: ID of the `Account` that will receive payment tokens from the `Withdrawal`. This `Account` must be connected to a non-managed `Wallet` and belong to the same `Entity`.
-        payment_token_amount:
-          type: number
-          description: Amount of USDC payment tokens to be withdrawn.
-        payment_token_address:
-          type: string
-          format: eth_address
-          description: Address of USDC payment token that the `Withdrawal` will be received in.
-        withdrawal_request_id:
-          type: string
-          format: uuid
-          description: ID of the `WithdrawalRequest` associated with this `Withdrawal`.
-        status:
-          description: Status of the `Withdrawal`.
-          $ref: '#/components/schemas/BrokerageOrderStatus1'
-        transaction_hash:
-          type: string
-          format: hex_string
-          pattern: 0x[a-fA-F0-9]+
-          description: Hash of the transaction for the `Withdrawal`.
-        transaction_dt:
-          type: string
-          format: date-time
-          description: Datetime at which the `Withdrawal` was transacted. ISO 8601 timestamp.
-      required:
-      - account_id
-      - chain_id
-      - id
-      - payment_token_address
-      - payment_token_amount
-      - recipient_account_id
-      - status
-      - transaction_dt
-      - transaction_hash
-      - withdrawal_request_id
-      description: Information for a withdrawal of payment tokens from an `Account` backed by a Dinari-managed `Wallet`.
-    PaginatedWithdrawalRequestResponse:
+    PaginatedWithdrawalResponse:
       type: object
       properties:
         _sv:
-          default: PaginatedWithdrawalRequestResponse:v1
+          default: PaginatedWithdrawalResponse:v1
           enum:
-          - PaginatedWithdrawalRequestResponse:v1
+          - PaginatedWithdrawalResponse:v1
           description: Version
         data:
           type: array
-          description: List of WithdrawalRequest
+          description: List of Withdrawal
           items:
-            $ref: '#/components/schemas/WithdrawalRequest'
+            $ref: '#/components/schemas/Withdrawal'
         pagination_metadata:
           description: Pagination metadata
           $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
@@ -387,28 +281,22 @@ components:
       - data
       - pagination_metadata
       additionalProperties: false
-    ChainId:
-      type: string
-      enum:
-      - eip155:1
-      - eip155:42161
-      - eip155:8453
-      - eip155:81457
-      - eip155:98866
-      - eip155:999
-      - eip155:43114
-      - eip155:11155111
-      - eip155:421614
-      - eip155:84532
-      - eip155:168587773
-      - eip155:98867
-      - eip155:998
-      - eip155:43113
-      - eip155:202110
-      - eip155:179205
-      - eip155:179202
-      - eip155:98865
-      - eip155:7887
+    CreateWithdrawalRequestInput:
+      type: object
+      properties:
+        recipient_account_id:
+          type: string
+          format: uuid
+          description: ID of the `Account` that will receive payment tokens from the `Withdrawal`.
+        payment_token_quantity:
+          type: number
+          minimum: '0'
+          description: Amount of USD+ payment tokens to be withdrawn. Must be greater than 0 and have at most 6 decimal places.
+          example: '100.05'
+      required:
+      - payment_token_quantity
+      - recipient_account_id
+      description: Input for withdrawing USD+ payment tokens from an `Account` connected to a Dinari-managed `Wallet`.
     BaseOpenApiBodyError:
       type: object
       properties:
@@ -424,6 +312,39 @@ components:
           description: Description of body-specific error (ex. JSON issues)
       required:
       - field_errors
+      additionalProperties: false
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
       additionalProperties: false
     Withdrawal1:
       type: object
@@ -487,26 +408,6 @@ components:
       - transaction_hash
       - withdrawal_request_id
       description: Information for a withdrawal of payment tokens from an `Account` backed by a Dinari-managed `Wallet`.
-    PaginatedWithdrawalResponse:
-      type: object
-      properties:
-        _sv:
-          default: PaginatedWithdrawalResponse:v1
-          enum:
-          - PaginatedWithdrawalResponse:v1
-          description: Version
-        data:
-          type: array
-          description: List of Withdrawal
-          items:
-            $ref: '#/components/schemas/Withdrawal'
-        pagination_metadata:
-          description: Pagination metadata
-          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
-      additionalProperties: false
     BaseOpenApiFieldError:
       type: object
       properties:
@@ -520,89 +421,28 @@ components:
       - field_error
       - field_name
       additionalProperties: false
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
-    BrokerageOrderStatus:
+    ChainId:
       type: string
       enum:
-      - PENDING_SUBMIT
-      - PENDING_CANCEL
-      - PENDING_ESCROW
-      - PENDING_FILL
-      - ESCROWED
-      - SUBMITTED
-      - CANCELLED
-      - PARTIALLY_FILLED
-      - FILLED
-      - REJECTED
-      - REQUIRING_CONTACT
-      - ERROR
-    CreateWithdrawalRequestInput:
-      type: object
-      properties:
-        recipient_account_id:
-          type: string
-          format: uuid
-          description: ID of the `Account` that will receive payment tokens from the `Withdrawal`.
-        payment_token_quantity:
-          type: number
-          minimum: '0'
-          description: Amount of USD+ payment tokens to be withdrawn. Must be greater than 0 and have at most 6 decimal places.
-          example: '100.05'
-      required:
-      - payment_token_quantity
-      - recipient_account_id
-      description: Input for withdrawing USD+ payment tokens from an `Account` connected to a Dinari-managed `Wallet`.
-    BaseOpenApiPaginationMetadata:
-      type: object
-      properties:
-        previous:
-          type: string
-          description: Cursor for previous page
-        next:
-          type: string
-          description: Cursor for next page
-      additionalProperties: false
-    BaseOpenApi422Error:
-      type: object
-      properties:
-        status:
-          default: 422
-          enum:
-          - 422
-          description: HTTP status code
-        message:
-          default: Unprocessable Entity
-          enum:
-          - Unprocessable Entity
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-          $ref: '#/components/schemas/BaseOpenApiBodyError'
-      required:
-      - error
-      - error_id
-      additionalProperties: false
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
     WithdrawalRequest:
       type: object
       properties:
@@ -641,26 +481,186 @@ components:
       - status
       - updated_dt
       description: Information for a withdrawal request of payment tokens from an `Account` backed by a Dinari-managed `Wallet`.
-    ProxiedTransactionStatus1:
+    BrokerageOrderStatus1:
+      type: string
+      enum:
+      - PENDING_SUBMIT
+      - PENDING_CANCEL
+      - PENDING_ESCROW
+      - PENDING_FILL
+      - ESCROWED
+      - SUBMITTED
+      - CANCELLED
+      - PARTIALLY_FILLED
+      - FILLED
+      - REJECTED
+      - REQUIRING_CONTACT
+      - ERROR
+    Withdrawal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `Withdrawal`.
+        chain_id:
+          type: string
+          description: CAIP-2 chain ID of the blockchain where the `Withdrawal` is made.
+        account_id:
+          type: string
+          format: uuid
+          description: ID of the `Account` from which the `Withdrawal` is made.
+        recipient_account_id:
+          type: string
+          format: uuid
+          description: ID of the `Account` that will receive payment tokens from the `Withdrawal`. This `Account` must be connected to a non-managed `Wallet` and belong to the same `Entity`.
+        payment_token_amount:
+          type: number
+          description: Amount of USDC payment tokens to be withdrawn.
+        payment_token_address:
+          type: string
+          format: eth_address
+          description: Address of USDC payment token that the `Withdrawal` will be received in.
+        withdrawal_request_id:
+          type: string
+          format: uuid
+          description: ID of the `WithdrawalRequest` associated with this `Withdrawal`.
+        status:
+          description: Status of the `Withdrawal`.
+          $ref: '#/components/schemas/BrokerageOrderStatus1'
+        transaction_hash:
+          type: string
+          format: hex_string
+          pattern: 0x[a-fA-F0-9]+
+          description: Hash of the transaction for the `Withdrawal`.
+        transaction_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `Withdrawal` was transacted. ISO 8601 timestamp.
+      required:
+      - account_id
+      - chain_id
+      - id
+      - payment_token_address
+      - payment_token_amount
+      - recipient_account_id
+      - status
+      - transaction_dt
+      - transaction_hash
+      - withdrawal_request_id
+      description: Information for a withdrawal of payment tokens from an `Account` backed by a Dinari-managed `Wallet`.
+    ProxiedTransactionStatus:
       type: string
       enum:
       - PENDING
       - SUBMITTED
       - ERROR
       - CANCELLED
+    PaginatedWithdrawalRequestResponse:
+      type: object
+      properties:
+        _sv:
+          default: PaginatedWithdrawalRequestResponse:v1
+          enum:
+          - PaginatedWithdrawalRequestResponse:v1
+          description: Version
+        data:
+          type: array
+          description: List of WithdrawalRequest
+          items:
+            $ref: '#/components/schemas/WithdrawalRequest'
+        pagination_metadata:
+          description: Pagination metadata
+          $ref: '#/components/schemas/BaseOpenApiPaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+      additionalProperties: false
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BrokerageOrderStatus:
+      type: string
+      enum:
+      - PENDING_SUBMIT
+      - PENDING_CANCEL
+      - PENDING_ESCROW
+      - PENDING_FILL
+      - ESCROWED
+      - SUBMITTED
+      - CANCELLED
+      - PARTIALLY_FILLED
+      - FILLED
+      - REJECTED
+      - REQUIRING_CONTACT
+      - ERROR
+    WithdrawalRequest1:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the `WithdrawalRequest`.
+        account_id:
+          type: string
+          format: uuid
+          description: ID of the `Account` of the `WithdrawalRequest`.
+        recipient_account_id:
+          type: string
+          format: uuid
+          description: ID of the `Account` that will receive USDC payment tokens from the `Withdrawal`. This `Account` must be connected to a non-managed `Wallet` and belong to the same `Entity`.
+        payment_token_amount:
+          type: number
+          description: Amount of USD+ payment tokens submitted for withdrawal.
+        status:
+          description: Status of the `WithdrawalRequest`
+          $ref: '#/components/schemas/ProxiedTransactionStatus'
+        created_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `WithdrawalRequest` was created. ISO 8601 timestamp.
+        updated_dt:
+          type: string
+          format: date-time
+          description: Datetime at which the `WithdrawalRequest` was updated. ISO 8601 timestamp.
+      required:
+      - account_id
+      - created_dt
+      - id
+      - payment_token_amount
+      - recipient_account_id
+      - status
+      - updated_dt
+      description: Information for a withdrawal request of payment tokens from an `Account` backed by a Dinari-managed `Wallet`.
   responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/BaseOpenApiError'
     UNPROCESSABLE_ENTITY:
       description: Unprocessable Entity
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/BaseOpenApi422Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseOpenApiError'
   securitySchemes:
     ApiKeyId:
       type: apiKey
