@@ -198,12 +198,6 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
-    StockSplitStatus1:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - COMPLETE
     BaseOpenApiPaginationMetadata:
       type: object
       properties:
@@ -214,127 +208,12 @@ components:
           type: string
           description: Cursor for next page
       additionalProperties: false
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
-      required:
-      - field_errors
-      additionalProperties: false
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
-    StockDividendAnnouncementDetail:
-      type: object
-      properties:
-        cash_amount:
-          type:
-          - number
-          - 'null'
-          description: Cash amount of the dividend per share owned.
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Currency in which the dividend is paid.
-        dividend_type:
-          type:
-          - string
-          - 'null'
-          description: "\nType of dividend. Dividends that have been paid and/or are expected to be paid \non consistent schedules are denoted as `CD`. Special Cash dividends that have been paid that are \ninfrequent or unusual, and/or can not be expected to occur in the future are denoted as `SC`.\n"
-        ex_dividend_date:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: '
-
-            Date on or after which a `Stock` is traded without the right to receive the next dividend payment.
-
-            If you purchase a `Stock` on or after the ex-dividend date, you will not receive the upcoming dividend.
-
-            In ISO 8601 format, YYYY-MM-DD.
-
-            '
-        pay_date:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Date on which the dividend is paid out. In ISO 8601 format, YYYY-MM-DD.
-        record_date:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Date that the shares must be held to receive the dividend; set by the company. In ISO 8601 format, YYYY-MM-DD.
-        ticker:
-          type:
-          - string
-          - 'null'
-          description: Ticker symbol of the `Stock`.
-      description: Information about a dividend announcement for a `Stock`.
-    BaseOpenApi422Error:
-      type: object
-      properties:
-        status:
-          default: 422
-          enum:
-          - 422
-          description: HTTP status code
-        message:
-          default: Unprocessable Entity
-          enum:
-          - Unprocessable Entity
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-          $ref: '#/components/schemas/BaseOpenApiBodyError'
-      required:
-      - error
-      - error_id
-      additionalProperties: false
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
+    StockSplitStatus1:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - COMPLETE
     StockSplit:
       type: object
       properties:
@@ -403,6 +282,127 @@ components:
       required:
       - data
       - pagination_metadata
+      additionalProperties: false
+    StockDividendAnnouncementDetail:
+      type: object
+      properties:
+        cash_amount:
+          type:
+          - number
+          - 'null'
+          description: Cash amount of the dividend per share owned.
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency in which the dividend is paid.
+        dividend_type:
+          type:
+          - string
+          - 'null'
+          description: "\nType of dividend. Dividends that have been paid and/or are expected to be paid \non consistent schedules are denoted as `CD`. Special Cash dividends that have been paid that are \ninfrequent or unusual, and/or can not be expected to occur in the future are denoted as `SC`.\n"
+        ex_dividend_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: '
+
+            Date on or after which a `Stock` is traded without the right to receive the next dividend payment.
+
+            If you purchase a `Stock` on or after the ex-dividend date, you will not receive the upcoming dividend.
+
+            In ISO 8601 format, YYYY-MM-DD.
+
+            '
+        pay_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date on which the dividend is paid out. In ISO 8601 format, YYYY-MM-DD.
+        record_date:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date that the shares must be held to receive the dividend; set by the company. In ISO 8601 format, YYYY-MM-DD.
+        ticker:
+          type:
+          - string
+          - 'null'
+          description: Ticker symbol of the `Stock`.
+      description: Information about a dividend announcement for a `Stock`.
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
+    BaseOpenApi422Error:
+      type: object
+      properties:
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
+        message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
+      required:
+      - error
+      - error_id
       additionalProperties: false
   responses:
     DEFAULT_ERROR:

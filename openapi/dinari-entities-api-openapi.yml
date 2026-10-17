@@ -190,6 +190,27 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
+    BaseOpenApiPaginationMetadata:
+      type: object
+      properties:
+        previous:
+          type: string
+          description: Cursor for previous page
+        next:
+          type: string
+          description: Cursor for next page
+      additionalProperties: false
+    PatchEntityInput:
+      type: object
+      properties:
+        reference_id:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
+      description: Input parameters for updating an `Entity`.
     Entity1:
       type: object
       properties:
@@ -228,43 +249,16 @@ components:
       - id
       - is_kyc_complete
       description: Information about an `Entity`, which can be either an individual or an organization.
-    PatchEntityInput:
-      type: object
-      properties:
-        reference_id:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 100
-          description: Case sensitive unique reference ID for the `Entity`. We recommend setting this to the unique ID of the `Entity` in your system.
-      description: Input parameters for updating an `Entity`.
-    BaseOpenApiBodyError:
-      type: object
-      properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
-          type:
-          - string
-          - 'null'
-          description: Description of body-specific error (ex. JSON issues)
-      required:
-      - field_errors
-      additionalProperties: false
-    BaseOpenApiPaginationMetadata:
-      type: object
-      properties:
-        previous:
-          type: string
-          description: Cursor for previous page
-        next:
-          type: string
-          description: Cursor for next page
-      additionalProperties: false
+    EntityType:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
+    EntityType1:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ORGANIZATION
     BaseOpenApiError:
       type: object
       properties:
@@ -319,6 +313,35 @@ components:
       - id
       - is_kyc_complete
       description: Information about an `Entity`, which can be either an individual or an organization.
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
+    BaseOpenApiFieldError:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: Name of field with error
+        field_error:
+          type: string
+          description: Description of error
+      required:
+      - field_error
+      - field_name
+      additionalProperties: false
     PaginatedEntityResponse:
       type: object
       properties:
@@ -339,11 +362,6 @@ components:
       - data
       - pagination_metadata
       additionalProperties: false
-    EntityType1:
-      type: string
-      enum:
-      - INDIVIDUAL
-      - ORGANIZATION
     CreateEntityInput:
       type: object
       properties:
@@ -385,24 +403,6 @@ components:
       - error
       - error_id
       additionalProperties: false
-    BaseOpenApiFieldError:
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: Name of field with error
-        field_error:
-          type: string
-          description: Description of error
-      required:
-      - field_error
-      - field_name
-      additionalProperties: false
-    EntityType:
-      type: string
-      enum:
-      - INDIVIDUAL
-      - ORGANIZATION
   responses:
     DEFAULT_ERROR:
       description: Default error response

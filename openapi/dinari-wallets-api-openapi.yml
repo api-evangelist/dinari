@@ -175,87 +175,35 @@ paths:
         ApiSecretKey: []
 components:
   schemas:
-    BaseOpenApiBodyError:
+    CreateAccountWalletInternalConnectionInput:
       type: object
       properties:
-        field_errors:
-          type: array
-          description: Contains list of field-specific errors
-          items:
-            $ref: '#/components/schemas/BaseOpenApiFieldError'
-        body_error:
+        wallet_address:
+          type: string
+          format: eth_address
+          description: Address of the `Wallet`.
+        chain_id:
+          enum:
+          - eip155:1
+          - eip155:42161
+          - eip155:8453
+          - eip155:81457
+          - eip155:98866
+          - eip155:999
+          - eip155:43114
+          - eip155:202110
+          - eip155:0
+          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
+          $ref: '#/components/schemas/WalletChainId'
+        is_shared:
           type:
-          - string
+          - boolean
           - 'null'
-          description: Description of body-specific error (ex. JSON issues)
+          description: Is the linked Wallet shared or not
       required:
-      - field_errors
-      additionalProperties: false
-    BaseOpenApiError:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        message:
-          type: string
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-      required:
-      - error_id
-      - message
-      - status
-      additionalProperties: false
-    BaseOpenApi422Error:
-      type: object
-      properties:
-        status:
-          default: 422
-          enum:
-          - 422
-          description: HTTP status code
-        message:
-          default: Unprocessable Entity
-          enum:
-          - Unprocessable Entity
-          description: Human-readable message
-        error_id:
-          type: string
-          description: Reference Id for Dinari support
-        error:
-          description: Additional context and information
-          $ref: '#/components/schemas/BaseOpenApiBodyError'
-      required:
-      - error
-      - error_id
-      additionalProperties: false
-    WalletChainId:
-      type: string
-      enum:
-      - eip155:0
-      - eip155:1
-      - eip155:42161
-      - eip155:8453
-      - eip155:81457
-      - eip155:98866
-      - eip155:999
-      - eip155:43114
-      - eip155:11155111
-      - eip155:421614
-      - eip155:84532
-      - eip155:168587773
-      - eip155:98867
-      - eip155:998
-      - eip155:43113
-      - eip155:202110
-      - eip155:179205
-      - eip155:179202
-      - eip155:98865
-      - eip155:7887
+      - chain_id
+      - wallet_address
+      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
     CreateAccountWalletConnectionInput:
       type: object
       properties:
@@ -291,6 +239,77 @@ components:
       - signature
       - wallet_address
       description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
+    AccountWalletConnectionMessage:
+      type: object
+      properties:
+        nonce:
+          type: string
+          description: Single-use identifier
+        message:
+          type: string
+          description: Message to be signed by the `Wallet`
+      required:
+      - message
+      - nonce
+      description: Connection message to sign to prove ownership of the `Wallet`.
+    WalletChainId:
+      type: string
+      enum:
+      - eip155:0
+      - eip155:1
+      - eip155:42161
+      - eip155:8453
+      - eip155:81457
+      - eip155:98866
+      - eip155:999
+      - eip155:43114
+      - eip155:11155111
+      - eip155:421614
+      - eip155:84532
+      - eip155:168587773
+      - eip155:98867
+      - eip155:998
+      - eip155:43113
+      - eip155:202110
+      - eip155:179205
+      - eip155:179202
+      - eip155:98865
+      - eip155:7887
+    BaseOpenApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable message
+        error_id:
+          type: string
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+      required:
+      - error_id
+      - message
+      - status
+      additionalProperties: false
+    BaseOpenApiBodyError:
+      type: object
+      properties:
+        field_errors:
+          type: array
+          description: Contains list of field-specific errors
+          items:
+            $ref: '#/components/schemas/BaseOpenApiFieldError'
+        body_error:
+          type:
+          - string
+          - 'null'
+          description: Description of body-specific error (ex. JSON issues)
+      required:
+      - field_errors
+      additionalProperties: false
     BaseOpenApiFieldError:
       type: object
       properties:
@@ -304,35 +323,6 @@ components:
       - field_error
       - field_name
       additionalProperties: false
-    CreateAccountWalletInternalConnectionInput:
-      type: object
-      properties:
-        wallet_address:
-          type: string
-          format: eth_address
-          description: Address of the `Wallet`.
-        chain_id:
-          enum:
-          - eip155:1
-          - eip155:42161
-          - eip155:8453
-          - eip155:81457
-          - eip155:98866
-          - eip155:999
-          - eip155:43114
-          - eip155:202110
-          - eip155:0
-          description: CAIP-2 formatted chain ID of the blockchain the `Wallet` to link is on. eip155:0 is used for EOA wallets
-          $ref: '#/components/schemas/WalletChainId'
-        is_shared:
-          type:
-          - boolean
-          - 'null'
-          description: Is the linked Wallet shared or not
-      required:
-      - chain_id
-      - wallet_address
-      description: Input parameters for connecting an `Account` to a `Wallet` owned by the `Entity`.
     Wallet:
       type: object
       properties:
@@ -364,19 +354,29 @@ components:
       - is_aml_flagged
       - is_managed_wallet
       description: Information about a blockchain `Wallet`.
-    AccountWalletConnectionMessage:
+    BaseOpenApi422Error:
       type: object
       properties:
-        nonce:
-          type: string
-          description: Single-use identifier
+        status:
+          default: 422
+          enum:
+          - 422
+          description: HTTP status code
         message:
+          default: Unprocessable Entity
+          enum:
+          - Unprocessable Entity
+          description: Human-readable message
+        error_id:
           type: string
-          description: Message to be signed by the `Wallet`
+          description: Reference Id for Dinari support
+        error:
+          description: Additional context and information
+          $ref: '#/components/schemas/BaseOpenApiBodyError'
       required:
-      - message
-      - nonce
-      description: Connection message to sign to prove ownership of the `Wallet`.
+      - error
+      - error_id
+      additionalProperties: false
   responses:
     DEFAULT_ERROR:
       description: Default error response
